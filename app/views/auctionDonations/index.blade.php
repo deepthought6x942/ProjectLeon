@@ -6,7 +6,7 @@
 
 <thead>
   
-     {{link_to("monetaryDonations/create", 'Create a new Donation')}} 
+     {{link_to("auctionDonations/create", 'Create a new Donation')}} 
     
     <tr>
       <th class="text-center">Donation ID</th>
@@ -30,7 +30,7 @@
       <td>{{$entry->last}}</td>
         <td>{{$entry->first}}</td>
         <td> {{$entry->title}}</td>
-        <td> ${{$entry->status}}</td>
+        <td> {{$entry->status}}</td>
     </tr>
     
       @endforeach

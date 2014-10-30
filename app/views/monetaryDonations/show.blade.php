@@ -6,9 +6,9 @@
 
 @stop
 @section('content')
-	
+	{{var_dump($errors)}}
   <h1>Donation Information</h1>
-  {{Form::model($donation, array('method'=>'PUT',route' => array('monetaryDonations.update', $donation->id)))}}
+  {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
      <div>
       {{ Form::label('first', 'Donor First Name: ')}}
       {{ Form::text('first')}}
@@ -22,7 +22,7 @@
     <div>
       {{ Form::label('check_number', 'Check Number: ')}}
       {{ Form::text('check_number')}}
-      {{ $errors->first('start_date') }}
+      {{ $errors->first('check_number') }}
     </div>
     <div>
     {{ Form::label('project_name', 'Associated Project ')}}

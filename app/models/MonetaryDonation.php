@@ -10,7 +10,12 @@ class MonetaryDonation extends Eloquent{
 	 * @var string
 	 */
 	protected $table = 'monetary_donations';
-
+  public function project(){
+    return $this->belongsTo('Project');
+  }
+  public function user(){
+    return $this->belongsTo('User');
+  }
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -28,7 +33,9 @@ class MonetaryDonation extends Eloquent{
   public $errors;
   public function isValid(){
     $validation=Validator::make($this->attributes, static::$rules);
-    if ($validation->passes()) return true;
+    if ($validation->passes()){
+      return true;
+    }
      $this->errors =$validation->messages ();
      return false;
   }

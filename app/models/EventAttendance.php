@@ -11,6 +11,12 @@ class EventAttendance extends Eloquent{
 	 */
 	protected $table = 'event_attendance';
 
+  public function project(){
+    return $this->belongsTo('Project');
+  }
+  public function user(){
+    return $this->belongsTo('User');
+  }
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

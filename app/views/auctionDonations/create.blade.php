@@ -2,11 +2,11 @@
   
   
 @section('header')
-  <title>Create Project</title>
+  <title>Create Auction Donation</title>
 
 @stop
 @section('content')
-
+  {{var_dump($errors)}}
   <h1> Enter New Auction Donation</h1>
   {{ Form::open(['route'=>'auctionDonations.store']) }}
      <div>
@@ -15,9 +15,9 @@
       {{ $errors->first('title') }}
     </div>
     <div>
-      {{ Form::label('Category', 'Category: ')}}
-      {{ Form::text('Category')}}
-      {{ $errors->first('Category') }}
+      {{ Form::label('category', 'Category: ')}}
+      {{ Form::text('category')}}
+      {{ $errors->first('category') }}
     </div>
     <div>
       {{ Form::label('quantity', 'Quantity: ')}}
@@ -36,6 +36,7 @@
     </div>
     {{Form::hidden('uid', Auth::user()->id)}}
     {{Form::hidden('year', '2015')}}
+    {{Form::hidden('status', 'Not Delivered')}}
     <!-- Hidden fields tracking user ID from auth, and the current year.-->
 
     {{Form::submit('Submit')}}

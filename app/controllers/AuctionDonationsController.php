@@ -22,7 +22,7 @@ class AuctionDonationsController extends \BaseController {
 		$auctionDonations=AuctionDonation::all();
 		$table= DB::table('auction_donations')
             ->join('users', 'auction_donations.uid', '=', 'users.id')
-            ->select('auction_donations.id', 'users.first', 'users.last', 'auction_donations.year', 'auction_donations.title')
+            ->select('auction_donations.id', 'users.first', 'users.last', 'auction_donations.year', 'auction_donations.title','auction_donations.status')
             ->get();
 
     	return View::make('auctionDonations/index', ['table'=>$table, 'auctionDonations'=>$auctionDonations]);

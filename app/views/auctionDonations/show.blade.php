@@ -8,7 +8,7 @@
 @section('content')
   
   <h1>Donation Information</h1>
-  {{Form::model($donation, array('method=>'PUT', route' => array('auctionDonations.update', $donation->id)))}}
+  {{Form::model($donation, array('method'=>'PUT', 'route' => array('auctionDonations.update', $donation->id)))}}
      <div>
       {{ Form::label('first', 'Donor First Name: ')}}
       {{ Form::text('first')}}
