@@ -111,8 +111,8 @@ class MonetaryDonationsController extends \BaseController {
 	    if(! $this->monetaryDonation->fill($input)->isValid()){
 	      return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 	    }
-	    $monetaryDonation = $this->find($id);
-  		$monetaryDonation->save(\Input::all());
+	    $monetaryDonation = $this->find($id)->fill($input);
+  		$monetaryDonation->save();
 	    return Redirect::route('monetaryDonations.show($id)');
 	}
 

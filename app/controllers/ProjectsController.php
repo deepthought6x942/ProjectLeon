@@ -58,7 +58,7 @@ class ProjectsController extends \BaseController {
 	public function show($id)
 	{
 		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('EID','=', $project->id)->get();
+		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
     return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance]);
 	}
 
@@ -72,7 +72,7 @@ class ProjectsController extends \BaseController {
 	public function edit($id)
 	{
 		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('EID','=', $project->id)->get();
+		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
 		return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance, 'editable'=>'TRUE']);
 	}
 

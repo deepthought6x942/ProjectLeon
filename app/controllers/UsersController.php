@@ -62,7 +62,7 @@ class UsersController extends \BaseController {
 			return Redirect::to('/');
 		}
 		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('UID','=', $user->id)->get();
+		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
 		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
 		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance, 'auctionDonations'=>$auctionDonations]);
 	}
@@ -77,7 +77,7 @@ class UsersController extends \BaseController {
 	public function edit($id)
 	{
 		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('UID','=', $user->id)->get();
+		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
 		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
 		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
 	}

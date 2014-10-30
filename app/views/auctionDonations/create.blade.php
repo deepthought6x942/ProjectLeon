@@ -34,7 +34,7 @@
     {{ Form::text('approximate_value')}}
     {{ $errors->first('approximate_value') }}
     </div>
-    {{Form::hidden('id', Auth::user()->id)}}
+    {{Form::hidden('uid', Auth::user()->id)}}
     {{Form::hidden('year', '2015')}}
     <!-- Hidden fields tracking user ID from auth, and the current year.-->
 

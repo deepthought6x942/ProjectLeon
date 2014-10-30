@@ -48,12 +48,6 @@ class AuctionDonationsController extends \BaseController {
 	public function store()
 	{
     $input=Input::all();
-    $first=$input["first"];
-    $last=$input["last"];
-    $user=User::where('first','=', $first)->where('last', '=', $last)->first();
-    unset($input['first']);
-    unset ($input['last']);
-    $input['uid']=$user->id;
     if(! $this->auctionDonation->fill($input)->isValid()){
       return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
     }
@@ -106,8 +100,8 @@ class AuctionDonationsController extends \BaseController {
 	    if(! $this->auctionDonation->fill($input)->isValid()){
 	      return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 	    }
-	    $auctionDonation = $this->find($id);
-  		$auctionDonation->save(\Input::all());
+	    $auctionDonation = $this->find($id)->fill($input);
+  		$auctionDonation->save();
 	    return Redirect::route('auctionDonations.show($id)');
 	}
 
