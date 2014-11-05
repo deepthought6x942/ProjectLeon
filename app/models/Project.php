@@ -17,10 +17,10 @@ class Project extends Eloquent{
 	 * @var array
 	 */
   public function eventAttendance(){
-    return $this->hasMany('EventAttendance');
+    return $this->hasMany('EventAttendance', 'eid');
   }
   public function monetaryDonations(){
-    return $this->hasMany('MonetaryDonation');
+    return $this->hasMany('MonetaryDonation', 'eid');
   }
   public static $rules = [
     'name'=> 'required',

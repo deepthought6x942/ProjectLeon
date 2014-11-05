@@ -1,7 +1,3 @@
-
-
-
-
 @extends('layouts.admin_index')
 @section('header')
 	<title>Monetary Donations</title>
@@ -22,13 +18,13 @@
     </tr>
 </thead>
 <tbody>
-	  @foreach ($table as $entry)	
+	  @foreach ($monetaryDonations as $donation)	
     <tr class="text-center">
-    	<td>{{link_to("monetaryDonations/{$entry->id}", $entry->id) }}</td>
-    	<td>{{$entry->last}}</td>
-        <td>{{$entry->first}}</td>
-        <td> {{$entry->name}}</td>
-        <td> ${{$entry->amount}}</td>
+    	<td>{{link_to("monetaryDonations/{$donation->id}", $donation->id) }}</td>
+    	<td>{{$donation->user->last}}</td>
+        <td>{{$donation->user->first}}</td>
+        <td> {{$donation->project->name}}</td>
+        <td> ${{$donation->amount}}</td>
     </tr>
     @endforeach
      

@@ -62,9 +62,7 @@ class UsersController extends \BaseController {
 			return Redirect::to('/');
 		}
 		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
-		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
-		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance, 'auctionDonations'=>$auctionDonations]);
+		return View::make('users/show', ['user'=>$user]);
 	}
 
 
@@ -92,19 +90,13 @@ class UsersController extends \BaseController {
 	public function update($id)
 	{
 		$user = User::find($id);
-		$user->fill(Input::all());
-		$user->save();
 
-		$s= User::find($id);
-		if($user->type==$s->type)
-		{
-			return Redirect::route('users.show', $id)
-			->with('flash', 'The user was updated');
+		$user->fill(Input::all());
+		if(!$user>isValid()){
+			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
-		
+		$user->save();
 		return Redirect::route('users.show', $id)
-		->withInput()
-		->withErrors($user->errors());
 		//return Redirect::to('users/'.$id);
 	}
 
