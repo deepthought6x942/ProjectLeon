@@ -53,7 +53,7 @@
                                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                                             Don't have an account! 
                                         <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                            {{link_to("users/register", 'Sign Up Here') }}
+                                            {{link_to("register", 'Sign Up Here') }}
                                         </a>
                                         </div>
                                     </div>

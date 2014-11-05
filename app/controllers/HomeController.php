@@ -1,83 +1,97 @@
-<?php
+	<?php
 
-class HomeController extends BaseController {
+	class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+		protected $user;
+		public function __construct (User $user){
+			$this->user=$user;
+		}
 
-	public function showWelcome()
-	{
-		return View::make('hello');
-	}
+		/*
+		|--------------------------------------------------------------------------
+		| Default Home Controller
+		|--------------------------------------------------------------------------
+		|
+		| You may wish to use controllers instead of, or in addition to, Closure
+		| based routes. That's great! Here is an example controller method to
+		| get you started. To route to this controller, just add the route:
+		|
+		|	Route::get('/', 'HomeController@showWelcome');
+		|
+		*/
 
-	public function showLogin()
-	{
-		// show the form
-		return View::make('login');
-	}
+		public function showWelcome()
+		{
+			return View::make('hello');
+		}
 
-	public function doLogin()
-	{
-		// validate the info, create rules for the inputs
-		$rules = array(
-			'email'    => 'required|email', // make sure the email is an actual email
-			'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
-		);
+		public function showLogin()
+		{
+			// show the form
+			return View::make('login');
+		}
 
-		// run the validation rules on the inputs from the form
-		$validator = Validator::make(Input::all(), $rules);
+		public function doLogin()
+		{
+			// validate the info, create rules for the inputs
+			$rules = array(
+				'email'    => 'required|email', // make sure the email is an actual email
+				'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+				);
 
-		// if the validator fails, redirect back to the form
-		if ($validator->fails()) {
-			return Redirect::to('login')
-				->withErrors($validator) // send back all errors to the login form
-				->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
-		} else {
+			// run the validation rules on the inputs from the form
+			$validator = Validator::make(Input::all(), $rules);
 
-			// create our user data for the authentication
-			$userdata = array(
-				'email' 	=> Input::get('email'),
-				'password' 	=> Input::get('password')
-			);
+			// if the validator fails, redirect back to the form
+			if ($validator->fails()) {
+				return Redirect::to('login')
+					->withErrors($validator) // send back all errors to the login form
+					->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+				} else {
 
-			// attempt to do the login
-			if (Auth::attempt($userdata)) {
+				// create our user data for the authentication
+					$userdata = array(
+						'email' 	=> Input::get('email'),
+						'password' 	=> Input::get('password')
+						);
 
-				// validation successful
-				// redirect them to the secure section or the dashboard
-				// check if they are administrators or general users
-				//return Redirect::to('secure');
-				return Redirect::to('/');
-				
+				// attempt to do the login
+					if (Auth::attempt($userdata)) {
 
-			} else {	 	
+					// validation successful
+					// redirect them to the secure section or the dashboard
+					// check if they are administrators or general users
+					//return Redirect::to('secure');
+						return Redirect::to('/');
 
-				// validation not successful, send back to form	
-				//return Redirect::to('login');
-				return Redirect::to('login');
 
+					} else {	 	
+
+					// validation not successful, send back to form	
+					//return Redirect::to('login');
+						return Redirect::to('login');
+
+					}
+
+				}
 			}
 
-		}
-	}
+			public function doLogout()
+			{
+				Auth::logout(); // log the user out of our application
+				return Redirect::to('login'); // redirect the user to the login screen
+			}
 
-	public function doLogout()
-		{
-			Auth::logout(); // log the user out of our application
-			return Redirect::to('login'); // redirect the user to the login screen
+
+			public function doRegister(){
+				return View::make('register');
+			}
+
+
+
 		}
 
-	}
+
 
 
 

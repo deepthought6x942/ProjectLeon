@@ -14,12 +14,16 @@
 //Route::get('users', 'UsersController@index');
 //Route::get('users/{ID}', 'UsersController@show');
 Route::group(array('before'=>'auth'), function(){
-	Route::resource('users', 'UsersController');
+
+	
 	Route::resource('projects', 'ProjectsController');
 	Route::resource('monetaryDonations', 'MonetaryDonationsController');
 	Route::resource('auctionDonations', 'AuctionDonationsController');
+
 });
-Route::get('users/register', array( 'uses'=>'UsersController@create'));
+
+Route::resource('users', 'UsersController');  //users.store should be in here for registration page, note it is not protected
+
 Route::get('/', function()
 {
 	if(!(Auth::check())){
@@ -29,9 +33,15 @@ Route::get('/', function()
 	$currentuser = User::find($id);	
 	return View::make('hello', ['currentuser', $currentuser]);
 });
+
 // route to show the login form
 Route::get('login', array('uses' => 'HomeController@showLogin'));
 
 // route to process the form
 Route::post('login', array('uses' => 'HomeController@doLogin'));
 Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+//
+Route::get('register', array('uses' => 'HomeController@doRegister'));
+//Route::post('store', array('uses' => 'HomeController@store'));
+
