@@ -20,13 +20,13 @@ class MonetaryDonationsController extends \BaseController {
       return Redirect::to('/');
     }
 		$monetaryDonations=MonetaryDonation::all();
-		$table= DB::table('monetary_donations')
+		/*$table= DB::table('monetary_donations')
             ->join('users', 'monetary_donations.uid', '=', 'users.id')
             ->join('events', 'monetary_donations.eid', '=', 'events.id')
             ->select('monetary_donations.id', 'users.first', 'users.last', 'events.name', 'monetary_donations.amount')
             ->get();
-
-    	return View::make('monetaryDonations/index', ['table'=>$table, 'monetaryDonations'=>$monetaryDonations]);
+		*/
+    	return View::make('monetaryDonations/index', ['monetaryDonations'=>$monetaryDonations]);
     }
 
 
@@ -52,6 +52,7 @@ class MonetaryDonationsController extends \BaseController {
     $first=$raw_input["first"];
     $last=$raw_input["last"];
     $project_ident=$raw_input["project_name"];
+
     $user=User::where('first','=', $first)->where('last', '=', $last)->first();
     $project=Project::where('id','=',$project_ident)->first();
 
@@ -72,13 +73,13 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$table= DB::table('monetary_donations')
+		/*$table= DB::table('monetary_donations')
             ->join('users', 'monetary_donations.uid', '=', 'users.id')
             ->join('events', 'monetary_donations.eid', '=', 'events.id')
             ->select('monetary_donations.id as id', 'monetary_donations.uid as uid', 'monetary_donations.id as eid', 'users.first as first', 'users.last as last',
             	'monetary_donations.check_number as check_number', 'events.name as name', 'events.start_date as start_date', 'monetary_donations.date as date', 'monetary_donations.amount as amount');
-        $donation=$table->where('monetary_donations.id','=',$id)->first();
-		//$monetaryDonation=MonetaryDonation::find($id);
+        $donation=$table->where('monetary_donations.id','=',$id)->first();*/
+        $donation=MonetaryDonation::find($id);
 		//$user=User::where('id','=', $monetaryDonation->uid)->first();
 		//project=Project::where('id','=',$monetaryDonation->eid)->first();
 		return View::make('monetaryDonations.show', ['donation'=>$donation, 'editable'=>false]);
@@ -113,7 +114,6 @@ class MonetaryDonationsController extends \BaseController {
 		$project_ident=$raw_input["project_name"];
 		$user=User::where('first','=', $first)->where('last', '=', $last)->first();
 		$project=Project::where('id','=',$project_ident)->first();
-
 		$input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$project->id, 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
 
 	    if(! $this->monetaryDonation->fill($input)->isValid()){

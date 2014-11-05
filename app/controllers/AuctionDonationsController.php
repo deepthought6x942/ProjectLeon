@@ -20,12 +20,12 @@ class AuctionDonationsController extends \BaseController {
       return Redirect::to('/');
     }
 		$auctionDonations=AuctionDonation::all();
-		$table= DB::table('auction_donations')
+		/*$table= DB::table('auction_donations')
             ->join('users', 'auction_donations.uid', '=', 'users.id')
             ->select('auction_donations.id', 'users.first', 'users.last', 'auction_donations.year', 'auction_donations.title','auction_donations.status')
             ->get();
-
-    	return View::make('auctionDonations/index', ['table'=>$table, 'auctionDonations'=>$auctionDonations]);
+		*/
+    	return View::make('auctionDonations/index', ['auctionDonations'=>$auctionDonations]);
     }
 
 
@@ -62,12 +62,12 @@ class AuctionDonationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$table= DB::table('auction_donations')
+		/*$table= DB::table('auction_donations')
             ->join('users', 'auction_donations.uid', '=', 'users.id')
             ->select('auction_donations.id as id', 'auction_donations.uid as uid', 'users.first as first', 'users.last as last',
             	'auction_donations.title as title', 'events.name as name', 'events.start_date as start_date', 'auction_donations.date as date', 'auction_donations.amount as amount');
-        $donation=$table->where('auction_donations.id','=',$id)->first();
-		//$auctionDonation=AuctionDonation::find($id);
+        $donation=$table->where('auction_donations.id','=',$id)->first();*/
+		$donation=AuctionDonation::find($id);
 		//$user=User::where('id','=', $auctionDonation->uid)->first();
 		//project=Project::where('id','=',$auctionDonation->eid)->first();
 		return View::make('auctionDonations.show', ['donation'=>$donation, 'editable'=>false]);
@@ -97,12 +97,12 @@ class AuctionDonationsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-	    if(! $this->auctionDonation->fill($input)->isValid()){
-	      return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
+		$donation=$this->auctionDonation->find($id)->fill($input);
+	    if(! $donation->isValid()){
+	      return var_dump($input);//Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 	    }
-	    $auctionDonation = $this->find($id)->fill($input);
-  		$auctionDonation->save();
-	    return Redirect::route('auctionDonations.show($id)');
+  		$donation->save();
+	    return Redirect::route('auctionDonations.show',$id);
 	}
 
 

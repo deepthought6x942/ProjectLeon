@@ -17,7 +17,7 @@ class AuctionDonation extends Eloquent{
 	 * @var array
 	 */
   public function user(){
-    return $this->belongsTo('User');
+    return $this->belongsTo('User', 'uid');
   }
   public static $rules = [
     'uid'=> 'required',
