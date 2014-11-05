@@ -4,7 +4,6 @@
 @extends('layouts.admin_index')
 @section('header')
 	<title>Users</title>
-	
 @stop	
 
 @section('tablecontent')

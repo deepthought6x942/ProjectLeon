@@ -11,37 +11,18 @@
     <!-- Bootstrap CSS served from a CDN -->
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/superhero/bootstrap.min.css"
     rel="stylesheet">
+    <link rel=stylesheet href="ProjectLeon/public/css/bootstrap.css">
+    <link rel=stylesheet href="ProjectLeon/public/css/filtertable.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+   
 
     <!-- Bootstrap Core CSS -->
-    
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.css">
-
-    <!-- jQuery -->
-    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-
-    <!-- DataTables -->
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="css/plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,7 +30,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <ul class="nav nav-pills">
+        <ul class="dropdown menu left">
           @if (Auth::user()->type==='admin')
 
           <li>{{link_to("projects/", 'Project Records') }}</li>
@@ -62,71 +43,44 @@
             @endif
             <li>{{link_to("logout", 'Logout') }}</li>
         </ul>
+        
+        
+        <h1 class="page-header">@yield('header')</h1>
 
 
     </head>
 
     <body>
-
-        <div class="container">
-          <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="page-header">View Users</h1>
+   <div class="container">
+    
+    <hr>
+   
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Users</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    @yield('tablecontent')
-                                </table>
-                                
-                            </div>
-                            <!-- /.table-responsive -->
-
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @yield('tablecontent')
+                </tbody>
+            </table>
         </div>
-        <!-- /#page-wrapper -->
     </div>
 </div>
-<!-- jQuery Version 1.11.0 -->
-<script src="js/jquery-1.11.0.js"></script>
+    <!-- jQuery Version 1.11.0 -->
+<script type="text/javascript" src="ProjectLeon/public/js/bootstrap.js"></script>
+<script type="text/javascript" src="ProjectLeon/public/js/filtertable.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="js/sb-admin-2.js"></script>
-
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
-$(document).ready(function() {
-    $('#dataTables-example').dataTable();
-});
-</script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 </body>
 </html>

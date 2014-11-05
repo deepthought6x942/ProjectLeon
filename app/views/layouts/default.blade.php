@@ -11,7 +11,7 @@
     rel="stylesheet">
     
    
-    <ul class="nav nav-pills">
+    <ul class="dropdown menu left">
       @if (Auth::user()->type==='admin')
 
   	<li >{{link_to("projects/", 'Project Records') }}</li>

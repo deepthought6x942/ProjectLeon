@@ -2,10 +2,12 @@
 	
 	
 @section('header')
-  <title>Create Project</title>
+Create Project
 
 @stop
 @section('content')
+
+
 	
   <h1> Create New Event/Project</h1>
   {{ Form::open(['route'=>'projects.store']) }}
