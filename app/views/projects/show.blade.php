@@ -36,7 +36,7 @@
   </div>
   {{Form::submit('Edit Event/Project')}}
   {{Form::close ()}}
-  @if($eventAttendance->count()>0)
+  @if($project->eventAttendance->count()>0)
     <h2> Attendees </h2>
     Id: Name, Role  <br>
     @foreach ($project->eventAttendance as $ea)

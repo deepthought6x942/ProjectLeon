@@ -19,12 +19,7 @@ class AuctionDonationsController extends \BaseController {
 	if( !(Auth::user()->type==='admin')){
       return Redirect::to('/');
     }
-		$auctionDonations=AuctionDonation::all();
-		/*$table= DB::table('auction_donations')
-            ->join('users', 'auction_donations.uid', '=', 'users.id')
-            ->select('auction_donations.id', 'users.first', 'users.last', 'auction_donations.year', 'auction_donations.title','auction_donations.status')
-            ->get();
-		*/
+		$auctionDonations=AuctionDonation::with('user')->get();
     	return View::make('auctionDonations/index', ['auctionDonations'=>$auctionDonations]);
     }
 
@@ -62,14 +57,7 @@ class AuctionDonationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		/*$table= DB::table('auction_donations')
-            ->join('users', 'auction_donations.uid', '=', 'users.id')
-            ->select('auction_donations.id as id', 'auction_donations.uid as uid', 'users.first as first', 'users.last as last',
-            	'auction_donations.title as title', 'events.name as name', 'events.start_date as start_date', 'auction_donations.date as date', 'auction_donations.amount as amount');
-        $donation=$table->where('auction_donations.id','=',$id)->first();*/
-		$donation=AuctionDonation::find($id);
-		//$user=User::where('id','=', $auctionDonation->uid)->first();
-		//project=Project::where('id','=',$auctionDonation->eid)->first();
+		$donation=AuctionDonation::with('user')->find($id);
 		return View::make('auctionDonations.show', ['donation'=>$donation, 'editable'=>false]);
 	}
 
@@ -82,7 +70,7 @@ class AuctionDonationsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$auctionDonation=AuctionDonation::find($id);
+		$auctionDonation=AuctionDonation::with('user')->find($id);
 		$user=User::where('id','=', $auctionDonation->uid)->get();
 		return View::make('auctionDonations/show', ['auctionDonation'=>$auctionDonation, 'user'=>$user, 'editable'=>true]);
 	}

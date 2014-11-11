@@ -17,7 +17,7 @@ class UsersController extends \BaseController {
 		if( !(Auth::check() and Auth::user()->type==='admin')){
 			return Redirect::to('/');
 		}
-		$users=User::all();
+		$users=User::with('eventAttendance.project')->get();
 		return View::make('users/index')->withUsers($users);
 	}
 
@@ -85,12 +85,12 @@ class UsersController extends \BaseController {
 		if(!( Auth::check() && Auth::user()->type ==='admin') and (Auth::user()->id !=$id)){
 			return Redirect::to('/');
 		}
-		$user=User::find($id);
+		$user=User::with('eventAttendance.project')->find($id);
 		return View::make('users/show', ['user'=>$user]);
 	}
 
 
-	/**
+	/**w
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -98,9 +98,7 @@ class UsersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
-		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
+		$user=User::with('eventAttendance.project')->find($id);
 		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
 	}
 
@@ -113,7 +111,7 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$user = User::find($id);
+		$user = User::with('eventAttendance.project')->find($id);
 
 		$user->fill(Input::all());
 		if(!$user>isValid()){

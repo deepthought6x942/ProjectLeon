@@ -19,7 +19,7 @@ class ProjectsController extends \BaseController {
 		if( !(Auth::user()->type==='admin')){
 			return Redirect::to('/');
 		}
-		$projects=Project::all();
+		$projects=Project::with('eventAttendance.user')->get();
 		return View::make('projects/index')->withProjects($projects);
 	}
 
@@ -57,9 +57,8 @@ class ProjectsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
-		return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance]);
+		$project=Project::with('eventAttendance.user')->find($id);
+		return View::make('projects/show', ['project'=>$project]);
 	}
 
 
@@ -71,9 +70,8 @@ class ProjectsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
-		return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance, 'editable'=>'TRUE']);
+		$project=Project::with('eventAttendance.user')->find($id);
+		return View::make('projects/show', ['project'=>$project, 'editable'=>'TRUE']);
 	}
 
 
