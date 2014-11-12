@@ -6,7 +6,6 @@
 
 @stop
 @section('content')
-  {{var_dump($errors)}}
   <h1> Enter New Auction Donation</h1>
   {{ Form::open(['route'=>'auctionDonations.store']) }}
      <div>

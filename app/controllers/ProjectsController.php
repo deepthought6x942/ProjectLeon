@@ -2,10 +2,10 @@
 
 class ProjectsController extends \BaseController {
 
-  protected $project;
-  public function __construct (Project $project){
-    $this->project=$project;
-  }
+	protected $project;
+	public function __construct (Project $project){
+		$this->project=$project;
+	}
 
 
 
@@ -16,11 +16,11 @@ class ProjectsController extends \BaseController {
 	 */
 	public function index()
 	{
-	if( !(Auth::user()->type==='admin')){
-      return Redirect::to('/');
-    }
-		$projects=Project::all();
-   		 return View::make('projects/index')->withProjects($projects);
+		if( !(Auth::user()->type==='admin')){
+			return Redirect::to('/');
+		}
+		$projects=Project::with('eventAttendance.user')->get();
+		return View::make('projects/index')->withProjects($projects);
 	}
 
 
@@ -42,12 +42,12 @@ class ProjectsController extends \BaseController {
 	 */
 	public function store()
 	{
-    $input=Input::all();
-    if(! $this->project->fill($input)->isValid()){
-      return Redirect::back()->withInput()->withErrors($this->project->errors);
-    }
+		$input=Input::all();
+		if(! $this->project->fill($input)->isValid()){
+			return Redirect::back()->withInput()->withErrors($this->project->errors);
+		}
 		$this->project->save();
-    return Redirect::route('projects.index');
+		return Redirect::route('projects.index');
 	}
 	/**
 	 * Display the specified resource.
@@ -57,9 +57,8 @@ class ProjectsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
-    return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance]);
+		$project=Project::with('eventAttendance.user')->find($id);
+		return View::make('projects/show', ['project'=>$project]);
 	}
 
 
@@ -71,9 +70,8 @@ class ProjectsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$project=Project::find($id);
-		$eventAttendance=EventAttendance::where('eid','=', $project->id)->get();
-		return View::make('projects/show', ['project'=>$project, 'eventAttendance'=>$eventAttendance, 'editable'=>'TRUE']);
+		$project=Project::with('eventAttendance.user')->find($id);
+		return View::make('projects/show', ['project'=>$project, 'editable'=>'TRUE']);
 	}
 
 
@@ -86,12 +84,12 @@ class ProjectsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-	    if(! $this->project->fill($input)->isValid()){
-	      return Redirect::back()->withInput()->withErrors($this->project->errors);
-	    }
-	    $project = $this->find($id)->fill($input);
-  		$project->save();
-	    return Redirect::route('projects.show($id)');
+		if(! $this->project->fill($input)->isValid()){
+			return Redirect::back()->withInput()->withErrors($this->project->errors);
+		}
+		$project =$this->project->find($id)->fill($input);
+		$project->save();
+		return Redirect::route('projects.show',$id);
 	}
 
 
@@ -103,9 +101,9 @@ class ProjectsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		 $project = $this->find($id);
-		 $project->delete();
-		 return Redirect::route('projects.index');
+		$project = $this->find($id);
+		$project->delete();
+		return Redirect::route('projects.index');
 	}
 
 

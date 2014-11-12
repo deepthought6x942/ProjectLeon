@@ -11,10 +11,10 @@ class MonetaryDonation extends Eloquent{
 	 */
 	protected $table = 'monetary_donations';
   public function project(){
-    return $this->belongsTo('Project');
+    return $this->belongsTo('Project','eid');
   }
   public function user(){
-    return $this->belongsTo('User');
+    return $this->belongsTo('User','uid');
   }
 	/**
 	 * The attributes excluded from the model's JSON form.

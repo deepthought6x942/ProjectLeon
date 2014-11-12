@@ -7,8 +7,6 @@ class UsersController extends \BaseController {
 		$this->user=$user;
 	}
 
-
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,10 +14,10 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		if( !(Auth::user()->type==='admin')){
+		if( !(Auth::check() and Auth::user()->type==='admin')){
 			return Redirect::to('/');
 		}
-		$users=User::all();
+		$users=User::with('eventAttendance.project')->get();
 		return View::make('users/index')->withUsers($users);
 	}
 
@@ -41,14 +39,40 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{	
+
 		$input=Input::all();
 		if(! $this->user->fill($input)->isValid()){
+			return "not valid";
 			return Redirect::back()->withInput()->withErrors($this->user->errors);
 		}
+
 		$input["password"]=Hash::make($input["password"]);
 		$this->user->fill($input)->save();
-		return Redirect::to('/');
+
+		$userdata = array(
+			'email' 	=> Input::get('email'),
+			'password' 	=> Input::get('password')
+			);
+
+	// attempt to do the login
+		if (Auth::attempt($userdata)) {
+
+		// validation successful
+		// redirect them to the secure section or the dashboard
+		// check if they are administrators or general users
+		//return Redirect::to('secure');
+			return Redirect::to('/');
+
+
+		} else {	 	
+
+		// validation not successful, send back to form	
+		//return Redirect::to('login');
+			return Redirect::to('login');
+
+		}
+		
 	}
 	/**
 	 * Display the specified resource.
@@ -58,17 +82,15 @@ class UsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		if(!(Auth::user()->type ==='admin') and (Auth::user()->id !=$id)){
+		if(!( Auth::check() && Auth::user()->type ==='admin') and (Auth::user()->id !=$id)){
 			return Redirect::to('/');
 		}
-		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
-		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
-		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance, 'auctionDonations'=>$auctionDonations]);
+		$user=User::with('eventAttendance.project')->find($id);
+		return View::make('users/show', ['user'=>$user]);
 	}
 
 
-	/**
+	/**w
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -76,9 +98,7 @@ class UsersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$user=User::find($id);
-		$eventAttendance=EventAttendance::where('uid','=', $user->id)->get();
-		$auctionDonations=AuctionDonation::where('uid','=',$user->id)->get();
+		$user=User::with('eventAttendance.project')->find($id);
 		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
 	}
 
@@ -91,21 +111,14 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$user = User::find($id);
-		$user->fill(Input::all());
-		$user->save();
+		$user = User::with('eventAttendance.project')->find($id);
 
-		$s= User::find($id);
-		if($user->type==$s->type)
-		{
-			return Redirect::route('users.show', $id)
-			->with('flash', 'The user was updated');
+		$user->fill(Input::all());
+		if(!$user>isValid()){
+			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
-		
-		return Redirect::route('users.show', $id)
-		->withInput()
-		->withErrors($user->errors());
-		//return Redirect::to('users/'.$id);
+		$user->save();
+		return Redirect::route('users.show', $id);
 	}
 
 	

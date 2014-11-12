@@ -22,7 +22,7 @@
 
 
     <tr class="text-center">
-        <td>{{link_to("project/{$project->id}", $project->id) }}</td>
+        <td>{{link_to("projects/{$project->id}", $project->id) }}</td>
         <td>{{$project->name}}</td>
         <td>{{$project->start_date}}</td>
 

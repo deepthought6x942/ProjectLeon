@@ -1,22 +1,18 @@
 @extends('layouts.default')
-	
-	
 @section('header')
   <title>Events</title>
-
 @stop
 @section('content')
-	{{var_dump($errors)}}
   <h1>Donation Information</h1>
   {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
      <div>
       {{ Form::label('first', 'Donor First Name: ')}}
-      {{ Form::text('first')}}
+      {{ Form::text('first', $donation->user->first)}}
       {{ $errors->first('first') }}
     </div>
     <div>
       {{ Form::label('last', 'Donor Last Name: ')}}
-      {{ Form::text('last')}}
+      {{ Form::text('last', $donation->user->last)}}
       {{ $errors->first('last') }}
     </div>
     <div>
@@ -30,7 +26,7 @@
       $projects=Project::all();
       $labels=array();
       foreach ($projects as $project) {
-        $labels[]= $project->name.", ".$project->start_date;
+        $labels[$project->id]= $project->name.", ".$project->start_date;
       }
     ?>
     {{ Form::select('project_name', $labels)}}
@@ -50,9 +46,9 @@
   {{Form::close ()}}
 
 <h2> Project info</h2>
-  {{link_to("projects/{$donation->eid}", $donation->eid) }}: {{$donation->name}}, {{$donation->start_date}}
+  {{link_to("projects/{$donation->eid}", $donation->eid) }}: {{$donation->project->name}}, {{$donation->project->start_date}}
 <h1> User Info </h2>
-  {{link_to("users/{$donation->uid}", $donation->uid) }}: {{$donation->last}}, {{$donation->first}}
+  {{link_to("users/{$donation->uid}", $donation->uid) }}: {{$donation->user->last}}, {{$donation->user->first}}
 <br><br>
       {{link_to("projects/", 'Projects Main') }}<br>{{link_to("users/", 'Users Main') }}<br>{{link_to("monetaryDonations/", 'Monetary Donations Main') }}
 @stop
