@@ -3,7 +3,7 @@
 
 @extends('layouts.admin_index')
 @section('header')
-	<title>Projects</title>
+	Projects
 @stop	
 @section('tablecontent')
 

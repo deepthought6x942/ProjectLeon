@@ -1,7 +1,7 @@
 
 @extends('layouts.admin_landing')
 @section('header')
-	<title>Welcome Page</title>
+
 @stop	
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin_index')
 @section('header')
-	<title>Monetary Donations</title>
+	Monetary Donations
 	
 @stop	
 @section('tablecontent')

@@ -3,7 +3,7 @@
 
 @extends('layouts.admin_index')
 @section('header')
-	<title>Users</title>
+	Users
 @stop	
 
 @section('tablecontent')
