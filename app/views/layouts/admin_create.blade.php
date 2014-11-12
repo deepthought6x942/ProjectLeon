@@ -9,40 +9,38 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Project Leon</title>
+    <title>@yield('header')</title>
 
     <!-- Bootstrap Core CSS -->
     
     
-     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
     rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../css/plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <![endif]-->
 
 
     </head>
 
     <body>
-    
-    
-  <div id="wrapper">
+      <div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -63,7 +61,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
+
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -79,81 +77,103 @@
                         <li>
                             <a href='#'><i class="fa fa-table fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                           		 <li>
-                                    {{link_to("monetaryDonations/", 'Index') }}
-                                </li>
-                                <li>
-                                    {{link_to("monetaryDonations/create/", 'Create') }}
-                                </li>
-                                
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Projects<span class="fa arrow"></span></a>
-                            
-                              <ul class="nav nav-second-level">
-                                <li>
-                                    {{link_to("projects/", 'Index') }}
-                                </li>
-                                <li>
-                                    {{link_to("projects/create/", 'Create') }}
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    {{link_to("auctionDonations/", 'Index') }}
-                                </li>
-                                <li>
-                                    {{link_to("auctionDonations/create", 'Create') }}
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                       
-                        <li>
+                              <li>
+                                {{link_to("monetaryDonations/", 'Index') }}
+                            </li>
+                            <li>
+                                {{link_to("monetaryDonations/create/", 'Create') }}
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Projects<span class="fa arrow"></span></a>
+
+                        <ul class="nav nav-second-level">
+                            <li>
+                                {{link_to("projects/", 'Index') }}
+                            </li>
+                            <li>
+                                {{link_to("projects/create/", 'Create') }}
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                {{link_to("auctionDonations/", 'Index') }}
+                            </li>
+                            <li>
+                                {{link_to("auctionDonations/create", 'Create') }}
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+
+                    <li>
                         {{link_to("logout", 'Logout') }}
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
+                    </li>
+                </ul>
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-        <!-- /#page-wrapper -->
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+    <!-- /#page-wrapper -->
 
-   </div>
-   
-   </div>
-   
-   @yield('content')
-    <!-- /#wrapper -->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">@yield('header')</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        @yield('content')
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+</div>
+<!-- /#wrapper -->
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+<!-- jQuery -->
+<script src="../js/jquery.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/sb-admin-2.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
-    </script>
+<!-- DataTables JavaScript -->
+<script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../js/sb-admin-2.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+$(document).ready(function() {
+    $('#dataTables-example').dataTable();
+});
+</script>
 
 </body>
 </html>

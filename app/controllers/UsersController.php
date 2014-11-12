@@ -14,9 +14,6 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		if( !(Auth::check() and Auth::user()->type==='admin')){
-			return Redirect::to('/');
-		}
 		$users=User::with('eventAttendance.project')->get();
 		return View::make('users/index')->withUsers($users);
 	}
@@ -82,7 +79,7 @@ class UsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		if(!( Auth::check() && Auth::user()->type ==='admin') and (Auth::user()->id !=$id)){
+		if(Auth::user()->type !='admin' and Auth::user()->id ==$id){
 			return Redirect::to('/');
 		}
 		$user=User::with('eventAttendance.project')->find($id);

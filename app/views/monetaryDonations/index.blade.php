@@ -1,8 +1,5 @@
-@extends('layouts.admin_index')
-@section('header')
-	Monetary Donations
-	
-@stop	
+@extends('layouts.admin_create')
+@section('header') Monetary Donations @stop	
 @section('tablecontent')
 
 <thead>

@@ -2,9 +2,7 @@
 
 
 @extends('layouts.admin_index')
-@section('header')
-	Users
-@stop	
+@section('header') Users @stop	
 
 @section('tablecontent')
 <thead>

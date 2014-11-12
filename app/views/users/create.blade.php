@@ -1,9 +1,6 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
 
-@section('header')
-<title>Register</title>
-
-@stop
+@section('header') Register @stop
 
 
 @section('content')
@@ -15,28 +12,21 @@
 {{ Form::text('first')}}
 {{ $errors->first('first') }}
 </div>
-<div>                                                                              
-
+<div>
 {{ Form::label('last', 'Last Name: ')}}
 {{ Form::text('last')}}
 {{ $errors->first('last') }}
 </div>
 <div>
-									   
-
 {{ Form::label('email', 'E-mail: ')}}
 {{ Form::text('email')}}
 {{ $errors->first('email') }}
 </div>
 <div>
-									   
-
 {{ Form::label('password', 'Password') }}
 {{ Form::password('password') }}
 </div>
 {{Form::submit('Create User')}}
-
-
 {{ Form::close() }}
 
 @stop

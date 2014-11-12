@@ -1,10 +1,7 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
   
   
-@section('header')
-  <title>Create Auction Donation</title>
-
-@stop
+@section('header') Create Auction Donation @stop
 @section('content')
   <h1> Enter New Auction Donation</h1>
   {{ Form::open(['route'=>'auctionDonations.store']) }}
