@@ -7,7 +7,7 @@
     <title>Project Leon</title>
 
     <!-- Bootstrap CSS served from a CDN -->
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/superhero/bootstrap.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
     rel="stylesheet">
     
    

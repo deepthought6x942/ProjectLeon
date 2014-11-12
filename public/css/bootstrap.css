@@ -5255,6 +5255,30 @@ a.list-group-item-danger.active:focus {
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #428bca;
 }
+.filterable {
+   
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: #ff0033;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #ff0033;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
 .panel-success {
   border-color: #d6e9c6;
 }
@@ -6226,30 +6250,7 @@ button.close {
   .hidden-print {
     display: none !important;
   }
- .filterable {
-   
-    margin-top: 15px;
-}
-.filterable .panel-heading .pull-right {
-    margin-top: -20px;
-}
-.filterable .filters input[disabled] {
-    background-color: #ff0033;
-    border: none;
-    cursor: auto;
-    box-shadow: none;
-    padding: 0;
-    height: auto;
-}
-.filterable .filters input[disabled]::-webkit-input-placeholder {
-    color: #ff0033;
-}
-.filterable .filters input[disabled]::-moz-placeholder {
-    color: #333;
-}
-.filterable .filters input[disabled]:-ms-input-placeholder {
-    color: #333;
-} 
+
 
 
 
