@@ -128,9 +128,9 @@
    </div>
    
    </div>
-   
+   <div id="page-wrapper">
    @yield('content')
-    <!-- /#wrapper -->
+   </div>   <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
