@@ -111,7 +111,7 @@ class UsersController extends \BaseController {
 		$user = User::with('eventAttendance.project')->find($id);
 
 		$user->fill(Input::all());
-		if(!$user>isValid()){
+		if(!$user->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
 		$user->save();
