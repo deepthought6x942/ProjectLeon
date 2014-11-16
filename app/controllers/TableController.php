@@ -15,8 +15,10 @@
 			    }
 
 			     fclose($file);
+
+			
 		 return Redirect::to('/');
 		}
-		
+
 
 	}

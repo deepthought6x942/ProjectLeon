@@ -1,7 +1,5 @@
 @extends('layouts.admin_index')
-@section('header')
-<title>Auction Donations</title>
-@stop 
+@section('header') Auction Donations @stop 
 @section('tablecontent')
 
 <thead>

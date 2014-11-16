@@ -1,26 +1,25 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
 @section('header')
-  <title>Events</title>
+ 
 @stop
 @section('content')
-  <h1>Donation Information</h1>
   {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
-     <div>
+     <div class="form-group">
       {{ Form::label('first', 'Donor First Name: ')}}
       {{ Form::text('first', $donation->user->first)}}
       {{ $errors->first('first') }}
     </div>
-    <div>
+    <div class="form-group">
       {{ Form::label('last', 'Donor Last Name: ')}}
       {{ Form::text('last', $donation->user->last)}}
       {{ $errors->first('last') }}
     </div>
-    <div>
+    <div class="form-group">
       {{ Form::label('check_number', 'Check Number: ')}}
       {{ Form::text('check_number')}}
       {{ $errors->first('check_number') }}
     </div>
-    <div>
+    <div class="form-group">
     {{ Form::label('project_name', 'Associated Project ')}}
     <?php
       $projects=Project::all();
@@ -32,12 +31,12 @@
     {{ Form::select('project_name', $labels)}}
     {{ $errors->first('project_name') }}
     </div>
-    <div>
+    <div class="form-group">
     {{ Form::label('date', 'Date: ')}}
     {{ Form::text('date')}}
     {{ $errors->first('date') }}
     </div>
-    <div>
+    <div class="form-group">
     {{ Form::label('amount', 'Amount: $')}}
     {{ Form::text('amount')}}
     {{ $errors->first('amount') }}
@@ -45,10 +44,4 @@
     {{Form::submit('Submit')}}
   {{Form::close ()}}
 
-<h2> Project info</h2>
-  {{link_to("projects/{$donation->eid}", $donation->eid) }}: {{$donation->project->name}}, {{$donation->project->start_date}}
-<h1> User Info </h2>
-  {{link_to("users/{$donation->uid}", $donation->uid) }}: {{$donation->user->last}}, {{$donation->user->first}}
-<br><br>
-      {{link_to("projects/", 'Projects Main') }}<br>{{link_to("users/", 'Users Main') }}<br>{{link_to("monetaryDonations/", 'Monetary Donations Main') }}
 @stop

@@ -7,11 +7,11 @@
     <title>Project Leon</title>
 
     <!-- Bootstrap CSS served from a CDN -->
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/superhero/bootstrap.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
     rel="stylesheet">
     
    
-    <ul class="nav nav-pills">
+    <ul class="dropdown menu left">
       @if (Auth::user()->type==='admin')
 
   	<li >{{link_to("projects/", 'Project Records') }}</li>

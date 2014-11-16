@@ -1,55 +1,54 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
 
 
 @section('header')
-<title>Events</title>
+
 
 @stop
 @section('content')
 
-<h1>Donation Information</h1>
 {{Form::model($donation, array('method'=>'PUT', 'route' => array('auctionDonations.update', $donation->id)))}}
-<div>
+<div class="form-group">
   {{ Form::label('first', 'Donor First Name: ')}}
   {{ Form::text('first', $donation->user->first)}}
   {{ $errors->first('first') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('last', 'Donor Last Name: ')}}
   {{ Form::text('last', $donation->user->last)}}
   {{ $errors->first('last') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('title', 'Donation Title: ')}}
   {{ Form::text('title')}}
   {{ $errors->first('title') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('category', 'Category: ')}}
   {{ Form::text('category')}}
   {{ $errors->first('category') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('quantity', 'Quantity: ')}}
   {{ Form::text('quantity')}}
   {{ $errors->first('quantity') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('description', 'Description: ')}}
   {{ Form::text('description')}}
   {{ $errors->first('description') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('approximate_value', 'Approximate Value: $')}}
   {{ Form::text('approximate_value')}}
   {{ $errors->first('approximate_value') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('amount', 'Amount: $')}}
   {{ Form::text('amount')}}
   {{ $errors->first('amount') }}
 </div>
-<div>
+<div class="form-group">
   {{Form::hidden('uid',$donation->uid)}}
   {{Form::hidden('year', $donation->year)}}
   {{Form::hidden('status', 'Not Delivered')}}
@@ -58,8 +57,4 @@
 
 {{Form::submit('Submit')}}
 {{Form::close ()}}
-<h1> User Info </h2>
-  {{link_to("users/{$donation->uid}", $donation->uid) }}: {{$donation->user->last}}, {{$donation->user->first}}
-  <br><br>
-  {{link_to("projects/", 'Projects Main') }}<br>{{link_to("users/", 'Users Main') }}<br>{{link_to("auctionDonations/", 'Auction Donations Main') }}
   @stop
