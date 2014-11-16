@@ -125,9 +125,6 @@
         </nav>
         <!-- /#page-wrapper -->
 
-   </div>
-   
-   </div>
    <div id="page-wrapper">
    @yield('content')
    </div>   <!-- /#wrapper -->

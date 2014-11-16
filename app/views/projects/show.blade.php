@@ -1,35 +1,34 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
 
 
 @section('header')
-<title>Events</title>
 
 @stop
 @section('content')
 
-<h1>{{$project->name}}</h1>
+
 {{ Form::model($project, array('method'=>'PUT', 'route' => array('projects.update', $project->id))) }}
-<div>
+<div class="form-group">
   {{ Form::label('name', 'Name: ')}}
   {{ Form::text('name')}}
   {{ $errors->first('name') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('start_date', 'Start Date: ')}}
   {{ Form::text('start_date')}}
   {{ $errors->first('start_date') }}
 </div>
-<div>
+<div class="form-group">
   {{ Form::label('end_date', 'End Date: ')}}
   {{ Form::text('end_date')}}
   {{ $errors->first('end_date') }}
   </div>
-  <div>
+ <div class="form-group">
     {{ Form::label('type', 'Type: ')}}
     {{ Form::text('type')}}
     {{ $errors->first('type') }}
   </div>
-  <div>
+ <div class="form-group">
     {{ Form::label('description', 'Description: ')}}
     {{ Form::text('description')}}
     {{ $errors->first('description') }}
@@ -55,6 +54,6 @@
     <br>
   @endif
   <br>
-  {{link_to("projects/", 'Projects Main') }}<br>{{link_to("users/", 'Users Main') }}<br>{{link_to("monetaryDonations/", 'Monetary Donations Main') }}
+  
 
   @stop

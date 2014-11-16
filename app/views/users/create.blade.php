@@ -1,28 +1,28 @@
 @extends('layouts.admin_create')
 
-@section('header') Register @stop
+@section('header') Create New Users @stop
 
 
 @section('content')
 
-<h1> Create New Users</h1>
 {{ Form::open(['route'=>'users.store']) }}
-<div>
+<div class="form-group">
 {{ Form::label('first', 'First Name: ')}}
 {{ Form::text('first')}}
 {{ $errors->first('first') }}
+
 </div>
-<div>
+<div class="form-group">
 {{ Form::label('last', 'Last Name: ')}}
 {{ Form::text('last')}}
 {{ $errors->first('last') }}
 </div>
-<div>
+<div class="form-group">
 {{ Form::label('email', 'E-mail: ')}}
 {{ Form::text('email')}}
 {{ $errors->first('email') }}
 </div>
-<div>
+<div class="form-group">
 {{ Form::label('password', 'Password') }}
 {{ Form::password('password') }}
 </div>

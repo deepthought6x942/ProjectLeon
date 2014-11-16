@@ -1,7 +1,9 @@
 @extends('layouts.admin_create')
 
 
-@section('header') Input Donation @stop
+
+@section('header') Enter New Monetary Donation @stop
+
 
 @section('content')
 
@@ -9,24 +11,23 @@
     Will require some fiddling, but I can see a structure that might work nicely. 
   -->
 
-  <h1> Enter New Monetary Donation</h1>
   {{ Form::open(['route'=>'monetaryDonations.store']) }}
-  <div>
+ <div class="form-group">
     {{ Form::label('first', 'Donor First Name: ')}}
     {{ Form::text('first')}}
     {{ $errors->first('first') }}
   </div>
-  <div>
+ <div class="form-group">
     {{ Form::label('last', 'Donor Last Name: ')}}
     {{ Form::text('last')}}
     {{ $errors->first('last') }}
   </div>
-  <div>
+  <div class="form-group">
     {{ Form::label('check_number', 'Check Number: ')}}
     {{ Form::text('check_number')}}
     {{ $errors->first('start_date') }}
   </div>
-  <div>
+  <div class="form-group">
     {{ Form::label('project_name', 'Associated Project ')}}
     <?php
     $projects=Project::all();
@@ -38,12 +39,12 @@
     {{ Form::select('project_name', $labels)}}
     {{ $errors->first('project_name') }}
   </div>
-  <div>
+ <div class="form-group">
     {{ Form::label('date', 'Date: ')}}
     {{ Form::text('date')}}
     {{ $errors->first('date') }}
   </div>
-  <div>
+  <div class="form-group">
     {{ Form::label('amount', 'Amount: $')}}
     {{ Form::text('amount')}}
     {{ $errors->first('amount') }}

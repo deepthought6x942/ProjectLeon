@@ -1,32 +1,31 @@
-@extends('layouts.default')
+@extends('layouts.admin_create')
 	
 @section('header')
   <title>Users</title>
 
 @stop
 @section('content')
-  <h1>{{$user->first}} {{$user->last}} </h1>
   {{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
-     <div>
+     <div class="form-group">
       {{ Form::label('first', 'First Name: ')}}
       {{ Form::text('first')}}
       {{ $errors->first('first') }}
     </div>
-    <div>
+    <div class="form-group">
       {{ Form::label('last', 'Last Name: ')}}
       {{ Form::text('last')}}
       {{ $errors->first('last') }}
     </div>
-    <div>   
+    <div class="form-group">
     {{ Form::label('email', 'E-mail: ')}}
     {{ Form::text('email')}}
     {{ $errors->first('email') }}
     </div>
-    <div>
+    <div class="form-group">
     {{ Form::label('type', 'Type: ')}}
     {{ Form::text('type')}}
     {{ $errors->first('type') }}
-    </div>
+    <div class="form-group">
     {{Form::submit('Edit User')}}
   {{Form::close ()}}
   @if($user->eventAttendance->count()>0)
@@ -52,7 +51,5 @@
           <li>{{link_to("monetaryDonations/{$md->id}", $md->check_number) }}: {{$md->project->name}}, {{$md->amount}}</li>
         @endforeach
    @endif 
-   <br>
-      {{link_to("projects/", 'Projects Main') }}<br>{{link_to("users/", 'Users Main') }}<br>{{link_to("monetaryDonations/", 'Monetary Donations Main') }}
 
 @stop
