@@ -1,7 +1,7 @@
-@if({Auth::user()->type==="admin"})
-    @extends(layouts.admin)
+@if(Auth::user()->type!="admin")
+    @extends('layouts.user')
 @else
-    @extends(layouts.user)
+    @extends('layouts.admin')
 @endif
 
 @section('content')

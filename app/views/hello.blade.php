@@ -1,7 +1,7 @@
 
-@extends('layouts.admin_landing')
-@section('header')
-
+@extends('layouts.landing')
+@section('header') 
+Hello
 @stop	
 @section('content')
 
