@@ -60,7 +60,7 @@
                                     <!-- Button -->
 
                                     <div class="text-center">
-                                      <a id="btn-login" href="#" class="btn btn-success">{{Form::submit('Create User')}}</a>
+                                      <a id="btn-login" href="#" class="btn btn-default">{{Form::submit('Create User')}}</a>
 
                                     </div>
                                 </div>
