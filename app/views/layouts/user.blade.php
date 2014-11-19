@@ -57,7 +57,8 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            {{link_to("users/{Auth::user()->id}", "View/Update Personal Information")}}
+                            <?php $id=Auth::user()->id?>
+                            {{link_to("users/{$id}", "View/Update Personal Information")}}
                         </li>
                         <li>
                             {{link_to("auctionDonations/create", 'Make Auction Donation') }}

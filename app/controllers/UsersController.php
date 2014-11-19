@@ -78,7 +78,7 @@ class UsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		if(Auth::user()->type !='admin' and Auth::user()->id !=$id){
+		if(Auth::user()->type !== 'admin' and Auth::user()->id != $id){
 			return Redirect::to('/');
 		}
 		$user=User::with('eventAttendance.project')->find($id);
