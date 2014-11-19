@@ -106,7 +106,9 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                       
+                        <li>
+                        {{link_to("eventAttendances", 'Manage Event Attendance') }}
+                        </li>
                         <li>
                         {{link_to("logout", 'Logout') }}
                         </li>

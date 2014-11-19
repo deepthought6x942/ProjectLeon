@@ -24,9 +24,16 @@ class EventAttendancesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function manage()
 	{
-		return View::make('eventAttendances.create');
+		$projects=Project::with('eventAttendance.user')->get();
+		$users=User::with('eventAttendance.project')->get();
+		$r=EventAttendance::groupby('role')->lists('role');
+		$roles=['other'=>'other'];
+		foreach($r as $role){
+			$roles[$role]=$role;
+		}
+		return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles]);
 	}
 
 
@@ -37,13 +44,29 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function store()
 	{	
-
 		$input=Input::all();
+		if(!isset($input['uid']) && isset($input['email'])){
+			$user=User::where("email",$input['email'])->first();
+			if (isset($user)){
+				$input['uid']=$user->id;
+			}else{
+				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
+				$newuser=new User;
+				if(! $newuser->fill($newuserdata)->isValid()){
+					$newuser->fill($input)->save();
+					$user=User::where("email",$input['email'])->first();
+					$input['uid']=$user->id;
+				}
+			}
+		}
+		if($input['role']==='other'){
+			$input['role']=$input['other'];
+		}
 		if(! $this->eventAttendance->fill($input)->isValid()){
-			return "not valid";
 			return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
 		}
 		$this->eventAttendance->fill($input)->save();
+		return Redirect::route('eventAttendances.manage');
 	}
 	/**
 	 * Display the specified resource.

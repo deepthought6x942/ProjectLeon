@@ -1,4 +1,4 @@
-@extends('layouts.admin_index')
+@extends('layouts.index')
 @section('header') Auction Donations @stop 
 @section('tablecontent')
 

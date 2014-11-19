@@ -1,7 +1,4 @@
-
-
-
-@extends('layouts.admin_index')
+@extends('layouts.index')
 @section('header') Projects @stop	
 @section('tablecontent')
 

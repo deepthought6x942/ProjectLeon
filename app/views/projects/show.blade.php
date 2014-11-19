@@ -1,5 +1,4 @@
-@extends('layouts.admin_create')
-
+@extends('layouts.create')
 
 @section('header')
 

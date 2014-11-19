@@ -2,7 +2,7 @@
 
 class EventAttendance extends Eloquent{
 
-  protected $fillable = ['name', 'start_date', 'end_date', 'type', 'description'];
+  protected $fillable = ['uid', 'eid', 'role'];
 
 	/**
 	 * The database table used by the model.
@@ -24,8 +24,8 @@ class EventAttendance extends Eloquent{
 	 */
 
   public static $rules = [
-    'name'=> 'required',
-    'start_date'=> 'required',
+    'uid'=> 'required',
+    'eid'=> 'required',
   ];
   public $messages;
   public $errors;

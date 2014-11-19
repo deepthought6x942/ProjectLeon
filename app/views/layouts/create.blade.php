@@ -1,8 +1,4 @@
-@if(Auth::user()->type==="admin")
-    @extends('layouts.admin')
-@else
-    @extends('layouts.user')
-@endif
+@extends((( Auth::user()->type==="admin") ? 'layouts.admin' : 'layouts.user' ))
 
 @section('content')
     @yield('panelContent')

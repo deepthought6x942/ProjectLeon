@@ -22,7 +22,8 @@ Route::group(array('before'=>'admin'), function(){
 	Route::get('users', array( 'as' => 'users.index' , 'uses' =>'UsersController@index'));
 	Route::patch('users/{users}', array( 'uses' =>'UsersController@update'));
 	Route::delete('users/{users}', array( 'as' => 'users.destroy' , 'uses' =>'UsersController@destroy'));
-
+	Route::get('eventAttendances/', array( 'as' => 'eventAttendances.manage' , 'uses' =>'EventAttendancesController@manage'));
+	Route::post('eventAttendances/', array( 'as' => 'eventAttendances.store' , 'uses' =>'EventAttendancesController@store'));
 	Route::get('auctionDonations', array( 'as' => 'auctionDonations.index' , 'uses' =>'AuctionDonationsController@index'));
 	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));

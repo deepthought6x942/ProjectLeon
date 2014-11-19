@@ -1,4 +1,4 @@
-@extends('layouts.landing')
+@extends('layouts.create')
 @section('header') Create Auction Donation 
 @stop
 @section('content')
