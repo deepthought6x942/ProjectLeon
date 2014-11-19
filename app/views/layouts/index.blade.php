@@ -7,3 +7,10 @@
         </table>
     </div>
 @endsection
+@section('scripts')
+	<script>
+		$(document).ready(function() {
+		    $('#dataTables-example').dataTable();
+		});
+	</script>
+@endsection

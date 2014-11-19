@@ -86,7 +86,21 @@
 {{ $errors->first('other') }}
 {{Form::submit('Submit')}}
 {{Form::close ()}}
-
-
-
-@stop
+@endsection
+@section('scripts')
+  <script>
+    $(document).ready(function() {
+        $('#projects').dataTable();
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('#attendees').dataTable();
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+        $('#users').dataTable();
+    });
+  </script>
+@endsection
