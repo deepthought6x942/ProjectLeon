@@ -1,7 +1,7 @@
 
 
 
-@extends('layouts.index')
+@extends('layouts.admin_index')
 @section('header') Users @stop	
 
 @section('tablecontent')

@@ -9,12 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>@yield("title")</title>
+    <title>@yield('header')</title>
 
     <!-- Bootstrap Core CSS -->
+    <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
     
-    
-     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
+     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css"
     rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -24,7 +24,7 @@
     <link href={{asset("css/plugins/dataTables.bootstrap.css")}} rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
+    
 
     <!-- Custom Fonts -->
     <link href={{asset("font-awesome-4.1.0/css/font-awesome.min.css")}} rel="stylesheet" type="text/css">
@@ -47,12 +47,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                
                 <a class="navbar-brand" href="index.html">Project Leon Admin</a>
             </div>
             <!-- /.navbar-header -->
@@ -68,11 +63,9 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    {{link_to("users/", 'Index') }}
+                                    {{link_to("users/", 'List All') }}
                                 </li>
-                                <li>
-                                    {{link_to("users/create/", 'Create') }}
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -80,7 +73,7 @@
                             <a href='#'><i class="fa fa-table fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                            		 <li>
-                                    {{link_to("monetaryDonations/", 'Index') }}
+                                    {{link_to("monetaryDonations/", 'List All') }}
                                 </li>
                                 <li>
                                     {{link_to("monetaryDonations/create/", 'Create') }}
@@ -93,7 +86,7 @@
                             
                               <ul class="nav nav-second-level">
                                 <li>
-                                    {{link_to("projects/", 'Index') }}
+                                    {{link_to("projects/", 'List All') }}
                                 </li>
                                 <li>
                                     {{link_to("projects/create/", 'Create') }}
@@ -105,7 +98,7 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    {{link_to("auctionDonations/", 'Index') }}
+                                    {{link_to("auctionDonations/", 'List All') }}
                                 </li>
                                 <li>
                                     {{link_to("auctionDonations/create", 'Create') }}
@@ -126,6 +119,7 @@
         <!-- /#page-wrapper -->
 
    <div id="page-wrapper">
+    <h1> @yield('header')</h1>
    @yield('content')
    </div>   <!-- /#wrapper -->
 

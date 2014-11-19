@@ -14,7 +14,7 @@
     <!-- Bootstrap Core CSS -->
     
     
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css"
     rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -45,12 +45,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                
                 <a class="navbar-brand" href="index.html">Project Leon Admin</a>
             </div>
             <!-- /.navbar-header -->
@@ -68,9 +63,7 @@
                                 <li>
                                     {{link_to("users/", 'Index') }}
                                 </li>
-                                <li>
-                                    {{link_to("users/create/", 'Create') }}
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -78,7 +71,7 @@
                             <a href='#'><i class="fa fa-table fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                               <li>
-                                {{link_to("monetaryDonations/", 'Index') }}
+                                {{link_to("monetaryDonations/", 'List All') }}
                             </li>
                             <li>
                                 {{link_to("monetaryDonations/create/", 'Create') }}
@@ -91,7 +84,7 @@
 
                         <ul class="nav nav-second-level">
                             <li>
-                                {{link_to("projects/", 'Index') }}
+                                {{link_to("projects/", 'List All') }}
                             </li>
                             <li>
                                 {{link_to("projects/create/", 'Create') }}
@@ -103,7 +96,7 @@
                         <a href="#"><i class="fa fa-table fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                {{link_to("auctionDonations/", 'Index') }}
+                                {{link_to("auctionDonations/", 'List All') }}
                             </li>
                             <li>
                                 {{link_to("auctionDonations/create", 'Create') }}

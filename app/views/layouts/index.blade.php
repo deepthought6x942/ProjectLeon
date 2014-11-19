@@ -1,8 +1,8 @@
+
 @if(Auth::user()->type!="admin")
     @extends('layouts.user')
 @else
     @extends('layouts.admin')
-@endif
 
 @section('content')
     <div class="table-responsive">
