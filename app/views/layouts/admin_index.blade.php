@@ -58,13 +58,9 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
                                 <li>
-                                    {{link_to("users/", 'Index') }}
+                                    {{link_to("users/", 'Users') }}
                                 </li>
-                                
-                            </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>

@@ -2,57 +2,81 @@
 
 
 @section('header')
-
+Auction Donations
 
 @stop
 @section('content')
 
 {{Form::model($donation, array('method'=>'PUT', 'route' => array('auctionDonations.update', $donation->id)))}}
-<div class="form-group">
-  {{ Form::label('first', 'Donor First Name: ')}}
+<table>
+  <thead>
+    <th>
+      Donor First Name
+    </th>
+    <th>
+      Donor Last Name
+    </th>
+    <th>
+      Donation Title
+    </th>
+    <th>
+      Category
+    </th>
+    <th>
+      Quantity
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Approximate Value
+    </th>
+    <th>
+      Amount
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
   {{ Form::text('first', $donation->user->first)}}
   {{ $errors->first('first') }}
-</div>
-<div class="form-group">
-  {{ Form::label('last', 'Donor Last Name: ')}}
+</td>
+<td>
   {{ Form::text('last', $donation->user->last)}}
   {{ $errors->first('last') }}
-</div>
-<div class="form-group">
-  {{ Form::label('title', 'Donation Title: ')}}
+</td>
+<td>
   {{ Form::text('title')}}
   {{ $errors->first('title') }}
-</div>
-<div class="form-group">
-  {{ Form::label('category', 'Category: ')}}
+</td>
+<td>
   {{ Form::text('category')}}
   {{ $errors->first('category') }}
-</div>
-<div class="form-group">
-  {{ Form::label('quantity', 'Quantity: ')}}
+</td>
+<td>
   {{ Form::text('quantity')}}
   {{ $errors->first('quantity') }}
-</div>
-<div class="form-group">
-  {{ Form::label('description', 'Description: ')}}
+</td>
+<td>
   {{ Form::text('description')}}
   {{ $errors->first('description') }}
-</div>
-<div class="form-group">
-  {{ Form::label('approximate_value', 'Approximate Value: $')}}
+</td>
+<td>
   {{ Form::text('approximate_value')}}
   {{ $errors->first('approximate_value') }}
-</div>
-<div class="form-group">
-  {{ Form::label('amount', 'Amount: $')}}
+</td>
+<td>
   {{ Form::text('amount')}}
   {{ $errors->first('amount') }}
-</div>
-<div class="form-group">
+</td>
+<td>
   {{Form::hidden('uid',$donation->uid)}}
   {{Form::hidden('year', $donation->year)}}
   {{Form::hidden('status', 'Not Delivered')}}
-</div>
+</td>
+</tr>
+</tbody>
+</table>
 
 
 {{Form::submit('Submit')}}

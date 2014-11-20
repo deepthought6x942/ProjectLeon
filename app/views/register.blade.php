@@ -53,6 +53,38 @@
                                         {{ Form::label('password', 'Password') }}
 										{{ Form::password('password') }}</i></span>
                                     </div>
+
+                            
+
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('address1', 'Address 1') }}
+                                        {{ Form::text('address1') }}</i></span>
+                                    </div>
+
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('address2', 'Address 2') }}
+                                        {{ Form::text('address2') }}</i></span>
+                                    </div>
+
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('city', 'City') }}
+                                        {{ Form::text('city') }}</i></span>
+                                    </div>
+
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('state', 'State') }}
+                                        {{ Form::text('state') }}</i></span>
+                                    </div>
+
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('telephone', 'Phone Number') }}
+                                        {{ Form::text('telephone') }}</i></span>
+                                    </div>
                                     
 
 

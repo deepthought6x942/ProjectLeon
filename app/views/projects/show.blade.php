@@ -1,37 +1,55 @@
 @extends('layouts.create')
 
 @section('header')
-
+Projects
 @stop
 @section('content')
 
 
 {{ Form::model($project, array('method'=>'PUT', 'route' => array('projects.update', $project->id))) }}
-<div class="form-group">
-  {{ Form::label('name', 'Name: ')}}
+<table>
+    <thead>
+      <th>
+      Project Name
+    </th>
+    <th>
+      Start Date
+    </th>
+    <th>
+      End Date
+    </th>
+    <th>
+      Type
+    </th>
+    <th>
+      Description
+    </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
   {{ Form::text('name')}}
   {{ $errors->first('name') }}
-</div>
-<div class="form-group">
-  {{ Form::label('start_date', 'Start Date: ')}}
+</td>
+<td>
   {{ Form::text('start_date')}}
   {{ $errors->first('start_date') }}
-</div>
-<div class="form-group">
-  {{ Form::label('end_date', 'End Date: ')}}
+</td>
+<td>
   {{ Form::text('end_date')}}
   {{ $errors->first('end_date') }}
-  </div>
- <div class="form-group">
-    {{ Form::label('type', 'Type: ')}}
+</td>
+ <td>
     {{ Form::text('type')}}
     {{ $errors->first('type') }}
-  </div>
- <div class="form-group">
-    {{ Form::label('description', 'Description: ')}}
+  </td>
+  <td>
     {{ Form::text('description')}}
     {{ $errors->first('description') }}
-  </div>
+  </td>
+</tr>
+</tbody>
+</table>
   {{Form::submit('Edit Event/Project')}}
   {{Form::close ()}}
   @if($project->eventAttendance->count()>0)

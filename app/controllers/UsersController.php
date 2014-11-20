@@ -96,6 +96,7 @@ class UsersController extends \BaseController {
 	{
 		$user=User::with('eventAttendance.project')->find($id);
 		return View::make('users/show', ['user'=>$user, 'eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
+		return View::make('users/');
 	}
 
 

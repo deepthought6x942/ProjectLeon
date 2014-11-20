@@ -1,33 +1,58 @@
 @extends('layouts.create')
 	
 @section('header')
-  <title>Users</title>
+Users
 
 @stop
 @section('content')
   {{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
-     <div class="form-group">
-      {{ Form::label('first', 'First Name: ')}}
+  <table>
+    <thead>
+      <th>
+      First Name
+    </th>
+    <th>
+      Last Name
+    </th>
+    <th>
+      Email
+    </th>
+    <th>
+      Type
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
       {{ Form::text('first')}}
       {{ $errors->first('first') }}
-    </div>
-    <div class="form-group">
-      {{ Form::label('last', 'Last Name: ')}}
+    </td>
+
+    <td>
       {{ Form::text('last')}}
       {{ $errors->first('last') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('email', 'E-mail: ')}}
-    {{ Form::text('email')}}
+    </td>
+    <td>
+      {{ Form::text('email')}}
     {{ $errors->first('email') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('type', 'Type: ')}}
-    {{ Form::text('type')}}
+  </td>
+  <td>
+
+    <?php
+    $memberType=array();
+    array_push($memberType, 'admin', 'member');
+    ?>
+    {{ Form::select('type', $memberType)}}
     {{ $errors->first('type') }}
-    <div class="form-group">
+  </td>
+    </tr>
+   
+    </tbody>
+    </table>
     {{Form::submit('Edit User')}}
   {{Form::close ()}}
+
+
   @if($user->eventAttendance->count()>0)
     <h2>Event Attendance: </h2>
     Id: name, Role  <br>

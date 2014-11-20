@@ -1,26 +1,47 @@
 @extends('layouts.create')
 @section('header')
- 
+ Monetary Donations
 @stop
 @section('content')
   {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
-     <div class="form-group">
-      {{ Form::label('first', 'Donor First Name: ')}}
+
+  <table>
+    <thead>
+      <th>
+        Donor First Name
+      </th>
+      <th>
+        Donor Last Name
+      </th>
+      <th>
+        Check Number
+      </th>
+      <th>
+        Project
+      </th>
+      <th>
+        Date
+      </th>
+      <th>
+        Amount
+      </th>
+     </thead>
+     <tbody>
+      <tr> 
+      <td>
       {{ Form::text('first', $donation->user->first)}}
       {{ $errors->first('first') }}
-    </div>
-    <div class="form-group">
-      {{ Form::label('last', 'Donor Last Name: ')}}
+    </td>
+    <td>
       {{ Form::text('last', $donation->user->last)}}
       {{ $errors->first('last') }}
-    </div>
-    <div class="form-group">
-      {{ Form::label('check_number', 'Check Number: ')}}
+    </td>
+    <td>
       {{ Form::text('check_number')}}
       {{ $errors->first('check_number') }}
+    </td>
     </div>
-    <div class="form-group">
-    {{ Form::label('project_name', 'Associated Project ')}}
+    <td>
     <?php
       $projects=Project::all();
       $labels=array();
@@ -30,17 +51,17 @@
     ?>
     {{ Form::select('project_name', $labels)}}
     {{ $errors->first('project_name') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('date', 'Date: ')}}
+    </td>
+    <td>
     {{ Form::text('date')}}
     {{ $errors->first('date') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('amount', 'Amount: $')}}
+    </td>
+    <td>
     {{ Form::text('amount')}}
     {{ $errors->first('amount') }}
-    </div>
+    </td>
+  </tbody>
+</table>
     {{Form::submit('Submit')}}
   {{Form::close ()}}
 
