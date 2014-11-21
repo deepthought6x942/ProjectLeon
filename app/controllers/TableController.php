@@ -21,4 +21,20 @@
 		}
 
 
+		public function delete(){
+			//delete an array? from some table?
+			return 'deleted';
+		}
+
+		public function makeBooklet($year){
+
+			//insert a sort function here, sort it first on Location and then within each location on category
+    		
+    		$donationsTable = AuctionDonation::with('user')->where('year'=$year)->orderBy('location', 'category')->all();
+
+    		return View::make("booklet", $donationsTable);
+}
+		}
+
+
 	}
