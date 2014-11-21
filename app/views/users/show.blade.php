@@ -1,54 +1,47 @@
 @extends('layouts.create')
-
+	
 @section('header')
 Users
 
 @stop
 @section('content')
-{{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
-<table>
-  <thead>
-    <th>
-      First Name
-    </th>
-    <th>
-      Last Name
-    </th>
-    <th>
-      Email
-    </th>
-    <th>
-      Type
-    </th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        {{ Form::text('first')}}
-        {{ $errors->first('first') }}
-      </td>
-
-      <td>
-        {{ Form::text('last')}}
-        {{ $errors->first('last') }}
-      </td>
-      <td>
-        {{ Form::text('email')}}
-        {{ $errors->first('email') }}
-      </td>
-      <td>
-        {{ Form::select('type', ['admin'=>'admin', 'member'=>'member'])}}
-        {{ $errors->first('type') }}
-      </td>
+  {{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
+ <div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
+     <tr>
+      <td>{{ Form::label('first', 'First Name: ')}}</td>
+      <td>{{ Form::text('first')}}</td>
+      <td>{{ $errors->first('first') }}</td></td>
     </tr>
+    <tr>
+      <td>{{ Form::label('last', 'Last Name: ')}}</td>
+      <td>{{ Form::text('last')}}</td>
+      <td>{{ $errors->first('last') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('email', 'E-mail: ')}}</td>
+    <td>{{ Form::text('email')}}</td>
+    <td>{{ $errors->first('email') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('type', 'Type: ')}}</td>
+    <?php
+    $memberType=array();
+    array_push($memberType, 'admin', 'member');
+    ?>
+    <td>{{ Form::select('type', $memberType)}}</td>
+    <td>{{ $errors->first('type') }}</td>
+    </tr>
+    </table>
+    {{Form::submit('Edit User')}}
+  {{Form::close ()}}
+</div>
+</div>
+</div>
 
-  </tbody>
-</table>
-{{Form::submit('Edit User')}}
-{{Form::close ()}}
-
-
-@if($user->eventAttendance->count()>0)
+  @if($user->eventAttendance->count()>0)
   <div class="panel panel-default">
     <div class="panel-heading">
       Event Attendance:
@@ -106,7 +99,7 @@ Users
 @if($user->monetaryDonations->count()>0)
   <div class="panel panel-default">
     <div class="panel-heading">
-      Monetay Donations: 
+      Monetary Donations: 
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -130,5 +123,4 @@ Users
   </div>
 <!-- /.panel -->
 @endif 
-
 @stop

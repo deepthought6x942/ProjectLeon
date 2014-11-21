@@ -3,34 +3,42 @@
 
 @section('header') Create New Event/Project @stop
 @section('content')
+
+<div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
  
   {{ Form::open(['route'=>'projects.store']) }}
-  <div class="form-group">
-    {{ Form::label('name', 'Name: ')}}
-    {{ Form::text('name')}}
-    {{ $errors->first('name') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('start_date', 'Start Date: ')}}
-    {{ Form::text('start_date')}}
-    {{ $errors->first('start_date') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('end_date', 'End Date: ')}}
-    {{ Form::text('end_date')}}
-    {{ $errors->first('end_date') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('type', 'Type: ')}}
-    {{ Form::text('type')}}
-    {{ $errors->first('type') }}
-  </div>
- <div class="form-group">
-    {{ Form::label('description', 'Description: ')}}
-    {{ Form::text('description')}}
-    {{ $errors->first('description') }}
+  <tr>
+    <td>{{ Form::label('name', 'Name: ')}}</td>
+    <td>{{ Form::text('name')}}</td>
+    <td>{{ $errors->first('name') }}</td>
+  </tr>
+  <tr>
+    <td>{{ Form::label('start_date', 'Start Date: ')}}</td>
+    <td> {{Form::text('start_date')}}</td>
+    <td>{{$errors->first('start_date') }}</td>
+  </tr>
+  <tr>
+    <td>{{ Form::label('end_date', 'End Date: ')}}</td>
+    <td>{{ Form::text('end_date')}}</td>
+    <td>{{ $errors->first('end_date') }}</td>
+  </tr>
+  <tr>
+    <td>{{ Form::label('type', 'Type: ')}}</td>
+    <td>{{ Form::text('type')}}</td>
+    <td>{{ $errors->first('type') }}</td>
+  </tr>
+ <tr>
+    <td>{{ Form::label('description', 'Description: ')}}</td>
+    <td>{{ Form::text('description')}}</td>
+    <td>{{ $errors->first('description') }}</td>
+  </tr>
+  </table>
+    </div>
   </div>
   {{Form::submit('Create Event/Project')}}
   {{Form::close ()}}
-  <br>
+  </div>
 @stop

@@ -3,45 +3,29 @@
  Monetary Donations
 @stop
 @section('content')
+ <div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
   {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
 
-  <table>
-    <thead>
-      <th>
-        Donor First Name
-      </th>
-      <th>
-        Donor Last Name
-      </th>
-      <th>
-        Check Number
-      </th>
-      <th>
-        Project
-      </th>
-      <th>
-        Date
-      </th>
-      <th>
-        Amount
-      </th>
-     </thead>
-     <tbody>
-      <tr> 
-      <td>
-      {{ Form::text('first', $donation->user->first)}}
-      {{ $errors->first('first') }}
-    </td>
-    <td>
-      {{ Form::text('last', $donation->user->last)}}
-      {{ $errors->first('last') }}
-    </td>
-    <td>
-      {{ Form::text('check_number')}}
-      {{ $errors->first('check_number') }}
-    </td>
-    </div>
-    <td>
+     <tr>
+      <td>{{ Form::label('first', 'Donor First Name: ')}}</td>
+      <td>{{ Form::text('first', $donation->user->first)}}</td>
+      <td>{{ $errors->first('first') }}</td>
+    </tr>
+    <tr>
+      <td>{{ Form::label('last', 'Donor Last Name: ')}}</td>
+      <td>{{ Form::text('last', $donation->user->last)}}</td>
+      <td>{{ $errors->first('last') }}</td>
+    </tr>
+    <tr>
+      <td>{{ Form::label('check_number', 'Check Number: ')}}</td>
+      <td>{{ Form::text('check_number')}}</td>
+      <td>{{ $errors->first('check_number') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('project_name', 'Associated Project ')}}</td>
     <?php
       $projects=Project::all();
       $labels=array();
@@ -49,20 +33,28 @@
         $labels[$project->id]= $project->name.", ".$project->start_date;
       }
     ?>
-    {{ Form::select('project_name', $labels)}}
-    {{ $errors->first('project_name') }}
-    </td>
-    <td>
-    {{ Form::text('date')}}
-    {{ $errors->first('date') }}
-    </td>
-    <td>
-    {{ Form::text('amount')}}
-    {{ $errors->first('amount') }}
-    </td>
-  </tbody>
+    <td>{{ Form::select('project_name', $labels)}}</td>
+    <td>{{ $errors->first('project_name') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('date', 'Date: ')}}</td>
+    <td>{{ Form::text('date')}}</td>
+    <td>{{ $errors->first('date') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('amount', 'Amount: $')}}</td>
+    <td>{{ Form::text('amount')}}</td>
+    <td>{{ $errors->first('amount') }}</td>
+    </tr>
+ 
 </table>
+</div>
     {{Form::submit('Submit')}}
   {{Form::close ()}}
+
+  <!-- /.panel-body -->
+  </div>
+<!-- /.panel -->
+
 
 @stop
