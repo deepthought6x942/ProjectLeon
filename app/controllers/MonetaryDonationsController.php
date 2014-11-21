@@ -31,7 +31,12 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('monetaryDonations.create');
+		$p=Project::all();
+		$projects=[];
+		foreach($p as $project){
+			$projects[$project->id]=$project->name.", ".$project->start_date;
+		}
+		return View::make('monetaryDonations.create', ['projects'=>$projects]);
 	}
 
 

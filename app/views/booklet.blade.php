@@ -17,9 +17,8 @@ $currentCategory="none";
 
     @if $currentLocation!=$donation->location
         <h2>{{$currentLocation=$donation->location}}</h2> <br>
-    @endif
-
-    @if $currentCategory!=$donation->category
+        <h2>{{$currectCategory=$donation->category}}</h2><br>
+    @elseif $currentCategory!=$donation->category
         <h2>{{$currectCategory=$donation->category}}</h2><br>
     @endif
 

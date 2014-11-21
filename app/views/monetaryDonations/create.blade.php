@@ -10,48 +10,44 @@
   <!--Implement later: Accessing from different sections will allow you to autofill pieces of this form
     Will require some fiddling, but I can see a structure that might work nicely. 
   -->
-
-  {{ Form::open(['route'=>'monetaryDonations.store']) }}
- <div class="form-group">
-    {{ Form::label('first', 'Donor First Name: ')}}
-    {{ Form::text('first')}}
-    {{ $errors->first('first') }}
-  </div>
- <div class="form-group">
-    {{ Form::label('last', 'Donor Last Name: ')}}
-    {{ Form::text('last')}}
-    {{ $errors->first('last') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('check_number', 'Check Number: ')}}
-    {{ Form::text('check_number')}}
-    {{ $errors->first('start_date') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('project_name', 'Associated Project ')}}
-    <?php
-    $projects=Project::all();
-    $labels=array();
-    foreach ($projects as $project) {
-      $labels[]= $project->name.", ".$project->start_date;
-    }
-    ?>
-    {{ Form::select('project_name', $labels)}}
-    {{ $errors->first('project_name') }}
-  </div>
- <div class="form-group">
-    {{ Form::label('date', 'Date: ')}}
-    {{ Form::text('date')}}
-    {{ $errors->first('date') }}
-  </div>
-  <div class="form-group">
-    {{ Form::label('amount', 'Amount: $')}}
-    {{ Form::text('amount')}}
-    {{ $errors->first('amount') }}
+<div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
+        {{ Form::open(['route'=>'monetaryDonations.store']) }}
+        <tr>
+          <td>{{ Form::label('first', 'Donor First Name: ')}}</td>
+          <td>{{ Form::text('first')}}</td>
+          <td>{{ $errors->first('first') }}</td>
+        </tr>
+        <tr>
+          <td>{{ Form::label('last', 'Donor Last Name: ')}}</td>
+          <td>{{ Form::text('last')}}</td>
+          <td>{{ $errors->first('last') }}</td>
+        </tr>
+        <tr>
+          <td>{{ Form::label('check_number', 'Check Number: ')}}</td>
+          <td>{{ Form::text('check_number')}}</td>
+          <td>{{ $errors->first('check_number') }}</td>
+        </tr><tr>
+          <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
+          <td>{{ Form::select('eid', $projects)}}</td>
+          <td>{{ $errors->first('eid') }}</td>
+        </tr><tr>
+          <td>{{ Form::label('date', 'Date: ')}}</td>
+          <td>{{ Form::text('date')}}</td>
+          <td>{{ $errors->first('date') }}</td>
+        </tr><tr>
+          <td>{{ Form::label('amount', 'Amount: $')}}</td>
+          <td>{{ Form::text('amount')}}</td>
+          <td>{{ $errors->first('amount') }}</td>
+        </tr>
+        <!-- Hidden fields tracking user ID from auth, and the current year.-->
+      </table>
+    </div>
   </div>
   {{Form::submit('Submit')}}
   {{Form::close ()}}
-  <br>
+</div>
   
-  
-  @stop
+@stop

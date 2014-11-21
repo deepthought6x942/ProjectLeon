@@ -2,38 +2,42 @@
 @section('header') Create Auction Donation 
 @stop
 @section('content')
-  {{ Form::open(['route'=>'auctionDonations.store']) }}
-     <div class="form-group">
-      {{ Form::label('title', 'Donation Title: ')}}
-      {{ Form::text('title')}}
-      {{ $errors->first('title') }}
+ <div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
+        {{ Form::open(['route'=>'auctionDonations.store']) }}
+        <tr>
+          <td>{{ Form::label('title', 'Donation Title: ')}}</td>
+          <td>{{ Form::text('title')}}</td>
+          <td>{{ $errors->first('title') }}</td>
+        </tr>
+        <tr>
+          <td>{{ Form::label('category', 'Category: ')}}</td>
+          <td>{{ Form::text('category')}}</td>
+          <td>{{ $errors->first('category') }}</td>
+        </tr>
+        <tr>
+          <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
+          <td>{{ Form::text('quantity', '1')}}</td>
+          <td>{{ $errors->first('quantity') }}</td>
+        </tr><tr>
+          <td>{{ Form::label('description', 'Description: ')}}</td>
+          <td>{{ Form::text('description')}}</td>
+          <td>{{ $errors->first('description') }}</td>
+        </tr><tr>
+          <td>{{ Form::label('approximate_value', 'Approximate Value: $')}}</td>
+          <td>{{ Form::text('approximate_value')}}</td>
+          <td>{{ $errors->first('approximate_value') }}</td>
+        </tr>
+        {{Form::hidden('uid', Auth::user()->id)}}
+        {{Form::hidden('year', '2015')}}
+        {{Form::hidden('status', 'Not Delivered')}}
+        <!-- Hidden fields tracking user ID from auth, and the current year.-->
+      </table>
     </div>
-    <div class="form-group">      {{ Form::label('category', 'Category: ')}}
-      {{ Form::text('category')}}
-      {{ $errors->first('category') }}
-    </div>
-    <div class="form-group">
-      {{ Form::label('quantity', 'Quantity: ')}}
-      {{ Form::text('quantity')}}
-      {{ $errors->first('quantity') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('description', 'Description: ')}}
-    {{ Form::text('description')}}
-    {{ $errors->first('description') }}
-    </div>
-    <div class="form-group">
-    {{ Form::label('approximate_value', 'Approximate Value: $')}}
-    {{ Form::text('approximate_value')}}
-    {{ $errors->first('approximate_value') }}
-    </div>
-    {{Form::hidden('uid', Auth::user()->id)}}
-    {{Form::hidden('year', '2015')}}
-    {{Form::hidden('status', 'Not Delivered')}}
-    <!-- Hidden fields tracking user ID from auth, and the current year.-->
-
-    {{Form::submit('Submit')}}
+  </div>
+  {{Form::submit('Submit')}}
   {{Form::close ()}}
- 
-  
+</div>
 @stop
