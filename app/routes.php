@@ -78,4 +78,6 @@ Route::get('register', array('uses' => 'HomeController@doRegister'));
 
 Route::post('export', array('uses' => 'TableController@get_export'));
 
+Route::get('booklet', array('uses' => 'TableController@makeBooklet'));
+
 
