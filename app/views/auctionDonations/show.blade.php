@@ -48,9 +48,9 @@ Auction Donations
   <td>{{ $errors->first('description') }}</td>
 </tr>
 <tr>
-  <td>{{ Form::label('status', 'Status: ')}}</td>
-  <td>{{ Form::text('status')}}</td>
-  <td>{{ $errors->first('status') }}</td>
+  <td>{{Form::label('status', 'Status: ')}}
+  <td>{{ Form::select('status', ['Not Delivered'=>'Not Delivered', 'Delivered'=>'Delivered'])}}</td>
+  <td> {{ $errors->first('status') }}</td>
 </tr>
 <tr>
   <td>{{ Form::label('location', 'Location: ')}}</td>

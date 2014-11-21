@@ -26,13 +26,39 @@ Users
     <td>{{ $errors->first('email') }}</td>
     </tr>
     <tr>
-    <td>{{ Form::label('type', 'Type: ')}}</td>
-    <?php
-    $memberType=array();
-    array_push($memberType, 'admin', 'member');
-    ?>
-    <td>{{ Form::select('type', $memberType)}}</td>
-    <td>{{ $errors->first('type') }}</td>
+    <td>{{ Form::label('address1', 'Address One: ')}}</td>
+    <td>{{ Form::text('address1')}}</td>
+    <td>{{ $errors->first('address1') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('address2', 'Address Two: ')}}</td>
+    <td>{{ Form::text('address2')}}</td>
+    <td>{{ $errors->first('address2') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('city', 'City: ')}}</td>
+    <td>{{ Form::text('city')}}</td>
+    <td>{{ $errors->first('city') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('state', 'State: ')}}</td>
+    <td>{{ Form::text('state')}}</td>
+    <td>{{ $errors->first('state') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('zip', 'Zipcode: ')}}</td>
+    <td>{{ Form::text('zip')}}</td>
+    <td>{{ $errors->first('zip') }}</td>
+    </tr>
+    <tr>
+      <td>{{Form::label('type', 'Type: ')}}
+     <td>{{ Form::select('type', ['admin'=>'admin', 'member'=>'member'])}}</td>
+       <td> {{ $errors->first('type') }}</td>
+    </tr>
+    <tr>
+    <td>{{ Form::label('telephone', 'Phone Number: ')}}</td>
+    <td>{{ Form::text('telephone')}}</td>
+    <td>{{ $errors->first('telephone') }}</td>
     </tr>
     </table>
     {{Form::submit('Edit User')}}
