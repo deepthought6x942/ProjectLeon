@@ -17,12 +17,12 @@ $currentCategory="none";
 
     @if ($currentLocation!==$donation->location)
         <h2>{{$currentLocation=$donation->location}}</h2> <br>
-        <h2>{{$currectCategory=$donation->category}}</h2><br>
+        <h3>{{$currectCategory=$donation->category}}</h3><br>
     @elseif ($currentCategory!==$donation->category)
-        <h2>{{$currectCategory=$donation->category}}</h2><br>
+        <h3>{{$currectCategory=$donation->category}}</h3><br>
     @endif
 
-        <h3>{{$donation->title}}</h3><br>
+        <h4>{{$donation->title}}</h4><br>
 
         <p>{{$donation->description}} </p><br>
 
