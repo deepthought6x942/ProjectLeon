@@ -32,4 +32,5 @@
   @endforeach
 
 </tbody>
+{{link_to("booklet", 'Create the booklet')}} 
 @stop
