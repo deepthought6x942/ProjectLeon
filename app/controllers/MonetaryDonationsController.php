@@ -70,8 +70,13 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
+		$p=Project::all();
+		$projects=[];
+		foreach($p as $project){
+			$projects[$project->id]=$project->name.", ".$project->start_date;
+		}
         $donation=MonetaryDonation::with('user','project')->find($id);
-		return View::make('monetaryDonations.show', ['donation'=>$donation, 'editable'=>false]);
+		return View::make('monetaryDonations.show', ['donation'=>$donation, 'projects'=>$projects]);
 	}
 
 
@@ -99,10 +104,9 @@ class MonetaryDonationsController extends \BaseController {
 		$raw_input=Input::all();
 		$first=$raw_input["first"];
 		$last=$raw_input["last"];
-		$project_ident=$raw_input["project_name"];
 		$user=User::where('first','=', $first)->where('last', '=', $last)->first();
-		$project=Project::where('id','=',$project_ident)->first();
-		$input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$project->id, 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
+
+		$input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$raw_input['eid'], 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
 
 	    if(! $this->monetaryDonation->fill($input)->isValid()){
 	      return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);

@@ -87,7 +87,7 @@ class AuctionDonationsController extends \BaseController {
 		$input=Input::all();
 		$donation=$this->auctionDonation->find($id)->fill($input);
 	    if(! $donation->isValid()){
-	      return var_dump($input);//Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
+	      Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 	    }
   		$donation->save();
 	    return Redirect::route('auctionDonations.show',$id);

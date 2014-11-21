@@ -25,16 +25,9 @@
       <td>{{ $errors->first('check_number') }}</td>
     </tr>
     <tr>
-    <td>{{ Form::label('project_name', 'Associated Project ')}}</td>
-    <?php
-      $projects=Project::all();
-      $labels=array();
-      foreach ($projects as $project) {
-        $labels[$project->id]= $project->name.", ".$project->start_date;
-      }
-    ?>
-    <td>{{ Form::select('project_name', $labels)}}</td>
-    <td>{{ $errors->first('project_name') }}</td>
+      <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
+      <td>{{ Form::select('eid', $projects, $donation->project->id)}}</td>
+      <td>{{ $errors->first('eid') }}</td>
     </tr>
     <tr>
     <td>{{ Form::label('date', 'Date: ')}}</td>
