@@ -50,11 +50,18 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if( !(Auth::check() and Auth::user()->type==='admin')){
+	if( !(Auth::check() and Auth::user()->type==='admin' or Auth::user()->type==='admin')){
 			return Redirect::to('/');
 		}
 });
 
+
+Route::filter('treasurer', function()
+{
+	if( !(Auth::check() and Auth::user()->type==='treasurer')){
+			return Redirect::to('/');
+		}
+});
 
 Route::filter('auth.basic', function()
 {
