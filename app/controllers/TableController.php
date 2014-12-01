@@ -30,7 +30,7 @@ class TableController extends BaseController {
 
 		//insert a sort function here, sort it first on Location and then within each location on category
 		
-		$donationsTable = AuctionDonation::with('user')->where('year', 2015)->orderBy('location', 'category')->get();
+		$donationsTable = AuctionDonation::with('user')->where('year', 2015)->orderBy('location')->groupBy('category')->get();
 
 		return View::make("booklet", ['donationsTable'=>$donationsTable]);
 	}	

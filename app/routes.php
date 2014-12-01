@@ -14,6 +14,11 @@
 //Route::get('users', 'UsersController@index');
 //Route::get('users/{ID}', 'UsersController@show');
 
+
+Route::group(array('before' => 'treasurer') function(){
+
+});
+
 // these routes are protected so that only logged in administrators can access them
 Route::group(array('before'=>'admin'), function(){
 	
