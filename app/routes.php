@@ -15,7 +15,7 @@
 //Route::get('users/{ID}', 'UsersController@show');
 
 
-Route::group(array('before' => 'treasurer') function(){
+Route::group(array('before' => 'treasurer'), function(){
 
 	Route::get('monetaryDonations', array( 'as' => 'monetaryDonations.index' , 'uses' =>'MonetaryDonationsController@index'));
 	Route::patch('monetaryDonations/{monetaryDonations}', array( 'uses' =>'MonetaryDonationsController@update'));
