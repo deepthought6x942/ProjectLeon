@@ -79,6 +79,11 @@
                                         {{ Form::label('state', 'State') }}
                                         {{ Form::text('state') }}</i></span>
                                     </div>
+                                    <div style="margin-bottom: 25px" class="text-center">
+                                        <span class="text-center input-group-addon">
+                                        {{ Form::label('zipcode', 'Zipcode') }}
+                                        {{ Form::text('zipcode') }}</i></span>
+                                    </div>
 
                                     <div style="margin-bottom: 25px" class="text-center">
                                         <span class="text-center input-group-addon">

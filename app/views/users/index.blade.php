@@ -4,7 +4,7 @@
 @section('tablecontent')
 <thead>
 
-{{link_to("users/create", 'Create a new user') }} 
+
 
   <tr>
     <th class="text-center">User ID</th>

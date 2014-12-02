@@ -4,7 +4,6 @@
 
 <thead>
 	
-     {{link_to("monetaryDonations/create", 'Create a new Donation')}} 
     
     <tr>
     	<th class="text-center">Donation ID</th>

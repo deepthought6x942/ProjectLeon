@@ -4,7 +4,7 @@
 
 <thead>
 
- {{link_to("auctionDonations/create", 'Create a new Donation')}} 
+
 
  <tr>
   <th class="text-center">Donation ID</th>
@@ -32,5 +32,5 @@
   @endforeach
 
 </tbody>
-{{link_to("booklet", 'Create the booklet')}} 
+
 @stop

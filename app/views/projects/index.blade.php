@@ -4,7 +4,6 @@
 
 <thead>
 
-{{link_to("projects/create", 'Create a new Project') }} 
 
 <tr>
     <th class="text-center">Project ID</th>

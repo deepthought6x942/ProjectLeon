@@ -103,6 +103,9 @@
                                 <li>
                                     {{link_to("auctionDonations/create", 'Create') }}
                                 </li>
+                                <li>
+                                {{link_to("booklet", 'Generate booklet')}} 
+                            </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
