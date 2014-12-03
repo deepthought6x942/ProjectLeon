@@ -30,10 +30,11 @@ class MonetaryDonationsController extends \BaseController {
 	{
 		$p=Project::all();
 		$projects=[];
+		$users=User::all();
 		foreach($p as $project){
 			$projects[$project->id]=$project->name.", ".$project->start_date;
 		}
-		return View::make('monetaryDonations.create', ['projects'=>$projects]);
+		return View::make('monetaryDonations.create', ['projects'=>$projects, 'users'=>$users]);
 	}
 
 
@@ -44,15 +45,7 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function store()
 	{
-    $raw_input=Input::all();
-    $first=$raw_input["first"];
-    $last=$raw_input["last"];
-
-    $user=User::where('first','=', $first)->where('last', '=', $last)->first();
-
-    $input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$raw_input['eid'], 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
-
-
+    $input=Input::all();
     if(! $this->monetaryDonation->fill($input)->isValid()){
       return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
     }

@@ -97,13 +97,14 @@ class AuctionDonationsController extends \BaseController {
 		$donation=AuctionDonation::with('user')->find($id);
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
+		$userDonations=AuctionDonation::with('user')->where('uid',Auth::user()->id)->get();
 		if(Auth::user()->type!=='member'){
 			$locations['other']='other';
 			$categories['other']='other';
 		}else{
 			unset($locations['Live Auction']);
 		}
-		return View::make('auctionDonations.resubmit', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'donation'=>$donation]);
+		return View::make('auctionDonations.resubmit', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'donation'=>$donation, 'userDonations'=>$userDonations]);
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -138,7 +139,7 @@ class AuctionDonationsController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 		}
 		$this->auctionDonation->save();
-		return Redirect::route('auctionDonations.index',$this->currentYear);
+		return Redirect::route('auctionDonations.index',$this->currentYear());
 	}
 	/**
 	 * Display the specified resource.

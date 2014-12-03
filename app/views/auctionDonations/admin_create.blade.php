@@ -3,19 +3,15 @@
 @stop
 @section('content')
 <div class="col-lg-6">
+  {{ Form::open(['route'=>'auctionDonations.store']) }}
   <div class="panel panel-default">
     <div class="table-responsive">
       <table class="table">
-        {{ Form::open(['route'=>'auctionDonations.store']) }}
+        
         <tr>
           <td>{{ Form::label('title', 'Donation Title: ')}}</td>
           <td>{{ Form::text('title')}}</td>
           <td>{{ $errors->first('title') }}</td>
-        </tr>
-        <tr>
-          <td>{{ Form::label('year', 'Year: ')}}</td>
-          <td>{{ Form::text('year')}}</td>
-          <td>{{ $errors->first('year') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('category', 'Category: ')}}</td>
@@ -50,8 +46,6 @@
           <td>{{ Form::text('approximate_value')}}</td>
           <td>{{ $errors->first('approximate_value') }}</td>
         </tr>
-
-        <!-- Hidden fields tracking user ID from auth.-->
       </table>
     </div>
   </div>
