@@ -18,7 +18,7 @@
 
 
 <tr class="text-center">
-  <td>{{link_to("users/{$user->id}", $user->id) }}</td>
+  <td>{{link_to("users/{$user->id}", "View/Edit") }}</td>
   <td>{{$user->first}}</td>
   <td>{{$user->last}}</td>
   <td>{{$user->type}}</td>

@@ -16,7 +16,7 @@
 
 
     <tr class="text-center">
-        <td>{{link_to("projects/{$project->id}", $project->id) }}</td>
+        <td>{{link_to("projects/{$project->id}", "View/Edit") }}</td>
         <td>{{$project->name}}</td>
         <td>{{$project->start_date}}</td>
 

@@ -50,7 +50,7 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if( !(Auth::check() and Auth::user()->type==='admin' or Auth::user()->type==='treasurer')){
+	if( !(Auth::check() and (Auth::user()->type==='admin' or Auth::user()->type==='treasurer'))) {
 			return Redirect::to('/');
 		}
 });
@@ -58,7 +58,7 @@ Route::filter('admin', function()
 
 Route::filter('treasurer', function()
 {
-	if( !(Auth::check() and Auth::user()->type==='treasurer')){
+	if( !(Auth::check() and Auth::user()->type==='treasurer')) {
 			return Redirect::to('/');
 		}
 });

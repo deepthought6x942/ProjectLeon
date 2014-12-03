@@ -16,7 +16,7 @@
 <tbody>
 	  @foreach ($monetaryDonations as $donation)	
     <tr class="text-center">
-    	<td>{{link_to("monetaryDonations/{$donation->id}", $donation->id) }}</td>
+    	<td>{{link_to("monetaryDonations/{$donation->id}", "View/Edit") }}</td>
     	<td>{{$donation->user->last}}</td>
         <td>{{$donation->user->first}}</td>
         <td> {{$donation->project->name}}</td>

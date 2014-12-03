@@ -1,2 +1,2 @@
-@extends((( Auth::user()->type==="admin") ? 'layouts.admin' : 'layouts.user' ))
+@extends((( Auth::user()->type!=="member") ? 'layouts.admin' : 'layouts.user' ))
 

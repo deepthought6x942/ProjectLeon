@@ -1,4 +1,4 @@
-@extends((( Auth::user()->type==="admin") ? 'layouts.admin' : 'layouts.user' ))
+@extends((( Auth::user()->type!=="member") ? 'layouts.admin' : 'layouts.user' ))
 
 @section('content')
     <div class="table-responsive">
@@ -6,7 +6,9 @@
             @yield('tablecontent')
         </table>
     </div>
+    @yield('otherContent')
 @endsection
+
 @section('scripts')
 	<script>
 		$(document).ready(function() {

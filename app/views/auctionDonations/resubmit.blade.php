@@ -6,7 +6,7 @@
   <div class="panel panel-default">
     <div class="table-responsive">
       <table class="table">
-        {{ Form::open(['route'=>'auctionDonations.store']) }}
+        {{Form::model($donation, ['route' => array('auctionDonations.store')])}}
         <tr>
           <td>{{ Form::label('title', 'Donation Title: ')}}</td>
           <td>{{ Form::text('title')}}</td>
@@ -32,12 +32,12 @@
           <td>{{ $errors->first('approximate_value') }}</td>
         </tr>
         <tr>
-            <td>{{ Form::label('location', 'Location: ')}}</td>
-            <td>{{ Form::select('location', $locations)}}</td>
-            @if(Auth::user()->type!=='member')
-            <td>{{Form::text('other location', "Input other")}}</td>
-            @endif
-            <td>{{ $errors->first('location') }}</td>
+          <td>{{ Form::label('location', 'Location: ')}}</td>
+          <td>{{ Form::select('location', $locations)}}</td>
+          @if(Auth::user()->type!=='member')
+           <td>{{Form::text('other location', "Input other")}}</td>
+          @endif
+          <td>{{ $errors->first('location') }}</td>
         </tr>
         {{Form::hidden('uid', Auth::user()->id)}}
         {{Form::hidden('status', 'Not Delivered')}}
@@ -47,11 +47,7 @@
   </div>
   {{Form::submit('Submit')}}
   {{Form::close ()}}
-<br>
-<h4> Resubmit past donation </h4>
-<p> Select the donation from the table below to use as a template for a new donation 
-
-<div class="table-responsive">
+  <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover" id="users">
     <thead>
       <tr>
@@ -74,9 +70,5 @@
     </tbody>
   </table>
 </div>
-
-
 </div>
-
-
 @stop

@@ -98,13 +98,16 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    {{link_to("auctionDonations/", 'List All') }}
+                                    {{link_to_route("auctionDonations.index",'List All', AuctionDonationsController::currentYear()) }}
                                 </li>
                                 <li>
-                                    {{link_to("auctionDonations/create", 'Create') }}
+                                    {{link_to_route("auctionDonations.create", 'Make Donation') }}
                                 </li>
                                 <li>
-                                {{link_to("booklet", 'Generate booklet')}} 
+                                    {{link_to_route("auctionDonations.admin_create", 'Create Donation') }}
+                                </li>
+                                <li>
+                                {{link_to_route("booklet", 'Generate booklet')}} 
                             </li>
                             </ul>
                             <!-- /.nav-second-level -->

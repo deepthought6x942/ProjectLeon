@@ -16,9 +16,6 @@ class ProjectsController extends \BaseController {
 	 */
 	public function index()
 	{
-		if( !(Auth::user()->type==='admin')){
-			return Redirect::to('/');
-		}
 		$projects=Project::with('eventAttendance.user')->get();
 		return View::make('projects/index')->withProjects($projects);
 	}

@@ -16,9 +16,6 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function index()
 	{
-	if( !(Auth::user()->type==='admin')){
-      return Redirect::to('/');
-    }
 		$monetaryDonations=MonetaryDonation::with('user','project')->get();
     	return View::make('monetaryDonations/index', ['monetaryDonations'=>$monetaryDonations]);
     }

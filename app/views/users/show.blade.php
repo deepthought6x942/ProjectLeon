@@ -84,7 +84,7 @@ Users
         </thead>
         <tbody>
           @foreach ($user->eventAttendance as $ea)
-          <tr><td>{{link_to("projects/{$ea->eid}", $ea->eid) }} </td><td> {{$ea->project->name}}</td><td> {{$ea->role}}</td></tr>
+          <tr><td>{{link_to("projects/{$ea->eid}", "View/Edit") }} </td><td> {{$ea->project->name}}</td><td> {{$ea->role}}</td></tr>
           @endforeach
         </tbody>
       </table>
@@ -111,7 +111,7 @@ Users
         </thead>
         <tbody>
           @foreach ($user->auctionDonations as $ad)
-          <tr><td>{{link_to("auctionDonations/{$ad->id}", $ad->id) }}</td><td>  {{$ad->title}}</td><td> {{$ad->status}}</td></tr>
+          <tr><td>{{link_to("auctionDonations/{$ad->id}", "View/Edit") }}</td><td>  {{$ad->title}}</td><td> {{$ad->status}}</td></tr>
           @endforeach
         </tbody>
       </table>
@@ -123,7 +123,8 @@ Users
 <!-- /.panel -->
 @endif 
 <br>
-@if($user->monetaryDonations->count()>0)
+<!-- Remind me to check if they want users to be able to view their own monetary donations-->
+@if($user->monetaryDonations->count()>0 && Auth::user()->type==="Treasurer")
 <div class="panel panel-default">
   <div class="panel-heading">
     Monetary Donations: 
@@ -138,8 +139,8 @@ Users
           <th>Amount</th>
         </thead>
         <tbody>
-          @foreach ($user->auctionDonations as $ad)
-          <tr><td>{{link_to("auctionDonations/{$ad->id}", $ad->id) }}</td><td>  {{$ad->title}}</td><td> {{$ad->status}}</td></tr>
+          @foreach ($user->monetaryDonations as $md)
+          <tr><td>{{link_to("monetaryDonations/{$md->id}", "View/Edit") }}</td><td>  {{$md->title}}</td><td> {{$md->status}}</td></tr>
           @endforeach
         </tbody>
       </table>

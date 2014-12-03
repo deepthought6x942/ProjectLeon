@@ -39,7 +39,7 @@
       @if($project->eventAttendance->count()>0)
         @foreach ($project->eventAttendance as $ea)
           <tr>
-            <td>{{link_to("users/{$ea->uid}", $ea->uid) }} </td>
+            <td>{{link_to("users/{$ea->uid}", "View/Edit") }} </td>
             <td>{{$ea->user->first}} {{$ea->user->last}}</td>
             <td> {{$ea->role}}</td>
           </tr>
