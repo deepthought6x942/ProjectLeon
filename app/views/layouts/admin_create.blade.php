@@ -46,7 +46,7 @@
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                
-                <a class="navbar-brand" href="index.html">Project Leon Admin</a>
+                <a class="navbar-brand" href="index.html">Project Gettysburg-León Admin</a>
             </div>
             <!-- /.navbar-header -->
 

@@ -69,7 +69,18 @@
                             
                             <!-- /.nav-second-level -->
                         </li>
-                       
+                        <li>
+                            <a href='#'> Monetary Donations<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                           		 <li>
+                                    {{link_to("monetaryDonations/", 'List All') }}
+                                </li>
+                                <li>
+                                    {{link_to("monetaryDonations/create/", 'Create') }}
+                                </li>
+                                
+                            </ul>
+                        </li>
                         <li>
                             <a href="forms.html"> Projects<span class="fa arrow"></span></a>
                             
