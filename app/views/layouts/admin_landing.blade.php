@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Project Leon</title>
+    <title>Project Gettysburg-León</title>
 
     <!-- Bootstrap Core CSS -->
     

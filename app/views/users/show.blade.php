@@ -53,7 +53,7 @@ Users
         </tr>
         <tr>
           <td>{{Form::label('type', 'Type: ')}}
-           <td>{{ Form::select('type', ['admin'=>'admin', 'member'=>'member'])}}</td>
+           <td>{{ Form::select('type', ['administrator'=>'administrator', 'treasurer'=>'treasurer','member'=>'member'])}}</td>
            <td> {{ $errors->first('type') }}</td>
          </tr>
          <tr>

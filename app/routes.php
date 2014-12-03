@@ -31,7 +31,7 @@ Route::group(array('before' => 'treasurer'), function(){
 });
 
 // these routes are protected so that only logged in administrators can access them
-Route::group(array('before'=>'admin'), function(){
+Route::group(array('before'=>'administrator'), function(){
 	
 	Route::resource('projects', 'ProjectsController');
 	//
