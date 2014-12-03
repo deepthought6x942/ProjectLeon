@@ -60,14 +60,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-    
-
-                                <li>
-                                    {{link_to("users/", 'Users') }}
-                                </li>
-                                
-                            
-                            <!-- /.nav-second-level -->
+                            <a href={{route('users.index')}}><i class="fa-fw"></i> Users</a>
                         </li>
                        
                         <li>
@@ -115,7 +108,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                        {{link_to("eventAttendances", 'Manage Event Attendance') }}
+                            <a href={{route('eventAttendances.manage')}}><i class="fa-fw"></i> Manage Event Attendance</a>
                         </li>
                         <li>
                         {{link_to("logout", 'Logout') }}
