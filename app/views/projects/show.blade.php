@@ -4,6 +4,7 @@
 Projects
 @stop
 @section('content')
+<div class="col-lg-8">
 <div class="panel panel-default">
   <div class="table-responsive">
     <table class="table">

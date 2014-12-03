@@ -10,7 +10,7 @@
   <!--Implement later: Accessing from different sections will allow you to autofill pieces of this form
     Will require some fiddling, but I can see a structure that might work nicely. 
   -->
-<div class="col-lg-6">
+<div class="col-lg-8">
   {{ Form::open(['route'=>'monetaryDonations.store']) }}
   <p> Select the user from the table below. If they are not present in the database, enter their name and email in the boxes below the table and select submit.
   <div class="panel panel-default">
