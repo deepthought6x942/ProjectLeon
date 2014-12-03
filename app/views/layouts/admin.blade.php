@@ -82,7 +82,20 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        @if(Auth::user()->type==="treasurer")
+                        <li>
+                            <a href='#'><i class="fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                 <li>
+                                    {{link_to("monetaryDonations/", 'List All') }}
+                                </li>
+                                <li>
+                                    {{link_to("monetaryDonations/create/", 'Create') }}
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        @endif
                         <li>
                             <a href="#"> Auction Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
