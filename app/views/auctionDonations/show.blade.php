@@ -46,7 +46,7 @@ Auction Donations
           </tr>
           <tr>
             <td>{{ Form::label('description', 'Description: ')}}</td>
-            <td>{{ Form::text('description')}}</td>
+            <td>{{ Form::textarea('description')}}</td>
             <td>{{ $errors->first('description') }}</td>
           </tr>
           <tr>

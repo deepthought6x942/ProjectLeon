@@ -57,7 +57,7 @@
           <td>{{ Form::text('amount')}}</td>
           <td>{{ $errors->first('amount') }}</td>
         </tr>
-        </tr><tr>
+        <tr>
           <td>{{ Form::label('notes', 'Notes:')}}</td>
           <td>{{ Form::textarea('notes')}}</td>
           <td>{{ $errors->first('notes') }}</td>

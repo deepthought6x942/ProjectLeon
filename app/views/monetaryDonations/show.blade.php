@@ -30,14 +30,19 @@
       <td>{{ $errors->first('eid') }}</td>
     </tr>
     <tr>
-    <td>{{ Form::label('date', 'Date: ')}}</td>
-    <td>{{ Form::text('date')}}</td>
-    <td>{{ $errors->first('date') }}</td>
+      <td>{{ Form::label('date', 'Date: ')}}</td>
+      <td>{{ Form::text('date')}}</td>
+      <td>{{ $errors->first('date') }}</td>
     </tr>
     <tr>
-    <td>{{ Form::label('amount', 'Amount: $')}}</td>
-    <td>{{ Form::text('amount')}}</td>
-    <td>{{ $errors->first('amount') }}</td>
+      <td>{{ Form::label('amount', 'Amount: $')}}</td>
+      <td>{{ Form::text('amount')}}</td>
+      <td>{{ $errors->first('amount') }}</td>
+    </tr>
+    <tr>
+      <td>{{ Form::label('notes', 'Notes:')}}</td>
+      <td>{{ Form::textarea('notes')}}</td>
+      <td>{{ $errors->first('notes') }}</td>
     </tr>
  
 </table>
