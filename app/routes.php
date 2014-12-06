@@ -94,6 +94,8 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 //
 Route::get('register', array('uses' => 'HomeController@doRegister'));
 
+Route::get('reminder', array('uses' => 'HomeController@doReminder'));
+
 Route::post('export', array('uses' => 'TableController@get_export'));
 
 Route::get('booklet', array('as'=>'booklet', 'uses' => 'TableController@makeBooklet'));

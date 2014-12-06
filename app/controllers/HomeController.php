@@ -82,7 +82,9 @@
 				return Redirect::to('login'); // redirect the user to the login screen
 			}
 
-
+			public function doReminder(){
+				return View::make('reminder');
+			}
 			public function doRegister(){
 				return View::make('register');
 			}

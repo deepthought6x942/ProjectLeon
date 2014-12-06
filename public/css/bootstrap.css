@@ -5057,7 +5057,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 21px;
-  background-color: #dcdcdc;
+  background-color: #fef9f6;
   border: 1px solid transparent;
   border-radius: 0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5078,7 +5078,7 @@ a.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 17px;
+  font-size: 25px;
   color: inherit;
 }
 .panel-title > a {
@@ -5337,11 +5337,11 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #3c9a5f;
 }
 .panel-info {
-  border-color: #3db5d8;
+  border-color: #03396c;
 }
 .panel-info > .panel-heading {
   color: #ffffff;
-  background-color: #5bc0de;
+  background-color: #03396c;
   border-color: #3db5d8;
 }
 .panel-info > .panel-heading + .panel-collapse > .panel-body {
@@ -6489,14 +6489,14 @@ blockquote small {
   font-weight: 300;
 }
 table {
-  font-size: 12px;
+  font-size: 14px;
 }
 label,
 .control-label,
 .help-block,
 .checkbox,
 .radio {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: normal;
 }
 input[type="radio"],

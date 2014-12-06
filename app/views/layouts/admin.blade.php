@@ -48,7 +48,15 @@
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 
-                <a class="navbar-brand" href="index.html">Project Gettysburg-León Admin</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                </button>
+                
+                <a class="navbar-brand">Project Gettysburg-León Admin</a>
+
             </div>
             <!-- /.navbar-header -->
 
@@ -60,11 +68,11 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href={{route('users.index')}}><i class="fa-fw"></i> Users</a>
+                            <a href={{route('users.index')}}><i class="fa fa-user fa-fw"></i> Users</a>
                         </li>
                        
                         <li>
-                            <a href="forms.html"> Projects<span class="fa arrow"></span></a>
+                            <a href="forms.html"> <i class="fa fa-bar-chart-o fa-fw"></i> Projects<span class="fa arrow"></span></a>
                             
                               <ul class="nav nav-second-level">
                                 <li>
@@ -77,7 +85,7 @@
                         </li>
                         @if(Auth::user()->type==="treasurer")
                         <li>
-                            <a href='#'><i class="fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
+                            <a href='#'><i class="fa fa-table fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                  <li>
                                     {{link_to("monetaryDonations/", 'List All') }}
@@ -90,7 +98,7 @@
                         </li>
                         @endif
                         <li>
-                            <a href="#"> Auction Donations<span class="fa arrow"></span></a>
+                            <a href="#"> <i class="fa fa-files-o fa-fw"></i> Auction Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     {{link_to_route("auctionDonations.index",'List All', AuctionDonationsController::currentYear()) }}
@@ -108,7 +116,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href={{route('eventAttendances.manage')}}><i class="fa-fw"></i> Manage Event Attendance</a>
+                            <a href={{route('eventAttendances.manage')}}><i class="fa fa-wrench fa-fw"></i> Manage Event Attendance</a>
                         </li>
                         <li>
                         {{link_to("logout", 'Logout') }}

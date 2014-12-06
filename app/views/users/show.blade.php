@@ -62,7 +62,7 @@ Users
           <td>{{ Form::text('telephone')}}</td>
           <td>{{ $errors->first('telephone') }}</td>
         </tr>
-        <tr><td>{{Form::submit('Edit User')}}{{Form::close ()}}</td></tr>
+        <tr><td></td><td>{{Form::submit('Edit User')}}{{Form::close ()}}</td></tr>
       </tbody>
     </table>
     

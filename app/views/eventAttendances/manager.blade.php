@@ -65,7 +65,7 @@
       @foreach ($users as $user)
         <!--unless([User is already attending]) -->
         <tr class="text-center">
-          <td>{{Form::radio('uid', $user->id) }}</td>
+          <td>{{Form::checkbox('uid', $user->id) }}</td>
           <td>{{$user->first}}</td>
           <td>{{$user->last}}</td>
         </tr>
