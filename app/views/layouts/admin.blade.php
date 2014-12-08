@@ -22,6 +22,8 @@
 
     <!-- DataTables CSS -->
     <link href={{asset("css/plugins/dataTables.bootstrap.css")}} rel="stylesheet">
+    <link href={{asset("css/plugins/dataTables.colVis.css")}} rel="stylesheet">
+    <link href={{asset("css/plugins/dataTables.tableTools.css")}} rel="stylesheet">
 
     <!-- Custom CSS -->
     
@@ -146,6 +148,8 @@
     <!-- DataTables JavaScript -->
     <script src={{asset ("js/plugins/dataTables/jquery.dataTables.js")}}></script>
     <script src={{asset("js/plugins/dataTables/dataTables.bootstrap.js")}}></script>
+    <script src={{asset("js/plugins/dataTables/dataTables.colVis.js")}}></script>
+    <script src={{asset("js/plugins/dataTables/dataTables.tableTools.js")}}></script>
 
     <!-- Custom Theme JavaScript -->
     <script src={{asset("js/sb-admin-2.js")}}></script>

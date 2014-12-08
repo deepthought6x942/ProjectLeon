@@ -45,6 +45,7 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
+	Route::get('api/users', array('as'=>'api.users', 'uses'=>'UsersController@getDatatable'));
 });
 
 	Route::get('users/create', array( 'as' => 'users.create' , 'uses' => 'UsersController@create'));

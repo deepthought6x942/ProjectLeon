@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
     'Way\Generators\GeneratorsServiceProvider',
     'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
+    'Chumper\Datatable\DatatableServiceProvider',
 
 	),
 
@@ -189,6 +190,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
 
 	),
 

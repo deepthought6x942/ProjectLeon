@@ -14,8 +14,12 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
+		$table = Datatable::table()
+			->addColumn('Select', 'First', 'Last', 'E-mail', 'Type', 'Contact Preference')
+			->setUrl(route('api.users'))
+			->noScript();
 		$users=User::with('eventAttendance.project')->get();
-		return View::make('users/index')->withUsers($users);
+		return View::make('users/index', ['users'=>$users, 'table'=>$table]);
 	}
 
 
@@ -133,6 +137,17 @@ class UsersController extends \BaseController {
 		$user->delete();
 		return Redirect::route('users.index');
 	}
+	public function getDatatable(){
+		
+		$query = User::select('id','first', 'last', 'email', 'type', 'contact_preference')->get();
 
+		return Datatable::collection($query)
+			->addColumn('id', function($model){
+				return link_to('users/'.$model->id,'View/Edit');
+			})
+			->showColumns('first','last', 'email', 'type', 'contact_preference')
+			
+			->make();
+	}
 
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <table class="table table-striped table-bordered table-hover" id='index'>
             @yield('tablecontent')
         </table>
     </div>
@@ -12,7 +12,15 @@
 @section('scripts')
 	<script>
 		$(document).ready(function() {
-		    $('#dataTables-example').dataTable();
+		    $('#index').dataTable({
+                "pageLength": 50,
+                dom: 'TC<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "{{asset("/swf/copy_csv_xls_pdf.swf")}}",
+                    "aButtons": [ "csv"]
+                }
+            });
 		});
 	</script>
+    @yield('otherScripts')
 @endsection
