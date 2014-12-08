@@ -101,5 +101,9 @@ Route::post('export', array('uses' => 'TableController@get_export'));
 Route::get('booklet', array('as'=>'booklet', 'uses' => 'TableController@makeBooklet'));
 
 Route::controller('password', 'RemindersController');
-
+/*
+Route::resource('reminder', 'RemindersController', array(
+    'only' => array('index', 'store', 'show', 'update')
+));
+*/
 
