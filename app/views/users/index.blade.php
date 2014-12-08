@@ -30,11 +30,13 @@
 @stop
 
 @section('otherContent')
+
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
                           'tabletools' => array(
                               "aSwfPath" => asset("/swf/copy_csv_xls_pdf.swf"),
                               "aButtons" => ["csv"]
                       )])->render()}}
+
 @stop
 @section('otherScripts')
   {{$table->script()}}

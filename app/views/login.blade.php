@@ -14,7 +14,7 @@
             <div class="panel panel-info" >
                     <div class="panel-heading">
                         <div class="panel-title">Log In</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a style = "color:white" href="#">{{ link_to("reminder"), 'Forgot Password?' }}</a></div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a style = "color:white" href="#">{{ link_to("reminder", 'Forgot Password?') }}</a></div>
                     </div>     
 
                     <div style="padding-top:30px" class="panel-body" >

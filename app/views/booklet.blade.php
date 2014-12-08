@@ -16,15 +16,14 @@ $currentCategory="none";
 @foreach($donationsTable as $donation)
 
     @if ($currentLocation!==$donation->location)
-        <h2><strong>{{$currentLocation=$donation->location}}</strong></h2> <br>
-        <h3><strong>{{$currectCategory=$donation->category}}</strong></h3><br>
+        <h2><strong>{{$currentLocation=$donation->location}}</strong></h2>
+        <h3><strong>{{$currectCategory=$donation->category}}</strong></h3>
     @elseif ($currentCategory!==$donation->category)
-        <h3>{{$currectCategory=$donation->category}}</h3><br>
+        <h3><strong>{{$currectCategory=$donation->category}}</strong></h3>
     @endif
-
-        <h4>{{$donation->title}}</h4><br>
-        <h5><i>{{$donation->user}}</i></h5><br>
-		<p>{{$donation->description}} </p><br>
+        <h4>{{$donation->title}}</h4>
+        <h5><i>{{$donation->user->first." ".$donation->user->last}}</i></h5>
+		<p>{{$donation->description}} </p>
 
 @endforeach
 
