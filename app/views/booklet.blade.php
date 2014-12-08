@@ -23,8 +23,8 @@ $currentCategory="none";
     @endif
 
         <h4>{{$donation->title}}</h4><br>
-
-        <p>{{$donation->description}} </p><br>
+        <h5><i>{{$donation->user}}</i></h5><br>
+		<p>{{$donation->description}} </p><br>
 
 @endforeach
 
