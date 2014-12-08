@@ -54,6 +54,7 @@ Route::group(array('before'=>'administrator'), function(){
 
 // some routes will need to be available to general users they are defined here
 Route::group(array('before'=>'auth'), function(){
+
 	Route::get('auctionDonations/create', array( 'as' => 'auctionDonations.create' , 'uses' => 'AuctionDonationsController@create'));
 	Route::post('auctionDonations', array( 'as' => 'auctionDonations.store' , 'uses' => 'AuctionDonationsController@store'));
 	Route::get('auctionDonations/resubmit/{auctionDonations}', array( 'as' => 'auctionDonations.resubmit' , 'uses' =>'AuctionDonationsController@resubmit'));
@@ -94,10 +95,10 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 //
 Route::get('register', array('uses' => 'HomeController@doRegister'));
 
-Route::get('reminder', array('uses' => 'HomeController@doReminder'));
-
 Route::post('export', array('uses' => 'TableController@get_export'));
 
 Route::get('booklet', array('as'=>'booklet', 'uses' => 'TableController@makeBooklet'));
+
+Route::controller('password', 'RemindersController');
 
 
