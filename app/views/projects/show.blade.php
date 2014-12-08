@@ -55,13 +55,13 @@ Projects
       <div class="table-responsive">
         <table class="table">
           <thead>
-            <th> Id</th>
+            <th></th>
             <th>Name</th>
             <th>Role</th>
           </thead>
           <tbody>
             @foreach ($project->eventAttendance as $ea)
-            <tr><td>{{link_to("users/{$ea->uid}", $ea->uid) }} </td><td> {{$ea->user->first}}</td><td> {{$ea->role}}</td></tr>
+            <tr><td>{{link_to("users/{$ea->uid}", "View/Edit") }} </td><td> {{$ea->user->first}}</td><td> {{$ea->role}}</td></tr>
             @endforeach
           </tbody>
         </table>
@@ -73,13 +73,15 @@ Projects
 <!-- /.panel -->
 @endif
 <br>
-
+  @if(Auth::user()->type=='treasurer')
 @if($project->monetaryDonations->count()>0)
   <div class="panel panel-default">
     <div class="panel-heading">
       Monetary Donations: 
     </div>
     <!-- /.panel-heading -->
+    
+           
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table">
@@ -99,7 +101,8 @@ Projects
     </div>
   <!-- /.panel-body -->
   </div>
-<!-- /.panel -->
+  @endif
+<!--/.panel -->
   @endif
 
 

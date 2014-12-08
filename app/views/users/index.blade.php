@@ -7,7 +7,7 @@
 
 
   <tr>
-    <th class="text-center">User ID</th>
+    <th class="text-center">Select User</th>
     <th class="text-center">First Name</th>
     <th class="text-center">Last Name</th>
     <th class="text-center">Type</th>

@@ -2,7 +2,7 @@
 @section('header') Create Auction Donation 
 @stop
 @section('content')
-<div class="col-lg-8">
+<div class="col-lg-10">
   {{ Form::open(['route'=>'auctionDonations.store']) }}
   <div class="panel panel-default">
     <div class="table-responsive">

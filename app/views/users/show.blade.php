@@ -52,11 +52,13 @@ Users
           <td>{{ Form::text('zip')}}</td>
           <td>{{ $errors->first('zip') }}</td>
         </tr>
+       @if(Auth::user()->type!=='member')
         <tr>
           <td>{{Form::label('type', 'Type: ')}}
            <td>{{ Form::select('type', ['administrator'=>'administrator', 'treasurer'=>'treasurer','member'=>'member'])}}</td>
            <td> {{ $errors->first('type') }}</td>
          </tr>
+         @endif
          <tr>
           <td>{{ Form::label('telephone', 'Phone Number: ')}}</td>
           <td>{{ Form::text('telephone')}}</td>
@@ -79,7 +81,7 @@ Users
     <div class="table-responsive">
       <table class="table">
         <thead>
-          <th> Id</th>
+          <th> </th>
           <th>Name</th>
           <th>Role</th>
         </thead>
@@ -106,7 +108,7 @@ Users
     <div class="table-responsive">
       <table class="table">
         <thead>
-          <th> Id</th>
+          <th> </th>
           <th>Title</th>
           <th>Status</th>
         </thead>

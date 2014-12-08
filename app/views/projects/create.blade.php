@@ -4,7 +4,7 @@
 @section('header') Create New Event/Project @stop
 @section('content')
 
-<div class="col-lg-8">
+<div class="col-lg-10">
   <div class="panel panel-default">
     <div class="table-responsive">
       <table class="table">
@@ -25,20 +25,24 @@
     <td>{{ Form::text('end_date')}}</td>
     <td>{{ $errors->first('end_date') }}</td>
   </tr>
+ 
   <tr>
     <td>{{ Form::label('type', 'Type: ')}}</td>
-    <td>{{ Form::text('type')}}</td>
+    <td>{{ Form::select('type')}}</td>
+     @if(Auth::user()->type!=='member')
+            <td>{{Form::text('other type', "Input other")}}</td>
+     @endif
     <td>{{ $errors->first('type') }}</td>
   </tr>
+  
  <tr>
     <td>{{ Form::label('description', 'Description: ')}}</td>
-    <td>{{ Form::text('description')}}</td>
+    <td>{{ Form::textarea('description')}}</td>
     <td>{{ $errors->first('description') }}</td>
   </tr>
-  </table>
-    </div>
-  </div>
-  {{Form::submit('Create Event/Project')}}
+  <tr>
+  <td> </td>
+  <td>{{Form::submit('Create Event/Project')}}</td>
   {{Form::close ()}}
-  </div>
+  </table>
 @stop
