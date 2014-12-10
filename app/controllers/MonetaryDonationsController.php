@@ -2,12 +2,12 @@
 
 class MonetaryDonationsController extends \BaseController {
 
-  protected $monetaryDonation;
-  public function __construct (MonetaryDonation $monetaryDonation){
-    $this->monetaryDonation=$monetaryDonation;
-  }
-
-
+	protected $monetaryDonation;
+	public function __construct (MonetaryDonation $monetaryDonation){
+		$this->monetaryDonation=$monetaryDonation;
+	}
+	protected $fieldsList= ['id', 'uid', 'eid', 'date', 'amount', 'check_number', 'notes'];
+	protected $columnNames= ['Select', 'User', 'Project/Event', 'Date', 'Amount', 'Check Number', 'Notes'];
 
 	/**
 	 * Display a listing of the resource.
@@ -16,9 +16,12 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$monetaryDonations=MonetaryDonation::with('user','project')->get();
-    	return View::make('monetaryDonations/index', ['monetaryDonations'=>$monetaryDonations]);
-    }
+		$table = Datatable::table()
+		->addColumn($this->columnNames)
+		->setUrl(route('api.monetaryDonations'))
+		->noScript();
+		return View::make('monetaryDonations/index', ['table'=>$table]);
+	}
 
 
 	/**
@@ -45,12 +48,12 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function store()
 	{
-    $input=Input::all();
-    if(! $this->monetaryDonation->fill($input)->isValid()){
-      return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
-    }
+		$input=Input::all();
+		if(! $this->monetaryDonation->fill($input)->isValid()){
+			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
+		}
 		$this->monetaryDonation->save();
-    return Redirect::route('monetaryDonations.index');
+		return Redirect::route('monetaryDonations.index');
 	}
 	/**
 	 * Display the specified resource.
@@ -65,7 +68,7 @@ class MonetaryDonationsController extends \BaseController {
 		foreach($p as $project){
 			$projects[$project->id]=$project->name.", ".$project->start_date;
 		}
-        $donation=MonetaryDonation::with('user','project')->find($id);
+		$donation=MonetaryDonation::with('user','project')->find($id);
 		return View::make('monetaryDonations.show', ['donation'=>$donation, 'projects'=>$projects]);
 	}
 
@@ -98,14 +101,14 @@ class MonetaryDonationsController extends \BaseController {
 
 		$input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$raw_input['eid'], 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
 
-	    if(! $this->monetaryDonation->fill($input)->isValid()){
-	      return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
-	    }
+		if(! $this->monetaryDonation->fill($input)->isValid()){
+			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
+		}
 
-	    $monetaryDonation = $this->monetaryDonation->find($id)->fill($input);
-  		$monetaryDonation->save();
+		$monetaryDonation = $this->monetaryDonation->find($id)->fill($input);
+		$monetaryDonation->save();
 	    //return Redirect::route('monetaryDonations.show($id)');
-	    return Redirect::back();
+		return Redirect::back();
 	}
 
 
@@ -117,10 +120,26 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		 $monetaryDonation = $this->find($id);
-		 $monetaryDonation->delete();
-		 return Redirect::route('monetaryDonations.index');
+		$monetaryDonation = $this->find($id);
+		$monetaryDonation->delete();
+		return Redirect::route('monetaryDonations.index');
 	}
+	public function getDatatable(){
+		
+		$query = monetaryDonation::with('user','project')->select($this->fieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns($this->fieldsList)
+		->addColumn('id', function($model){
+			return link_to('monetaryDonation/'.$model->id,'View/Edit');
+		})
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
+		->addColumn('eid', function($model){
+			return link_to('projects/'.$model->eid,$model->project->name);
+		})
 
+		->make();
+	}	
 
 }

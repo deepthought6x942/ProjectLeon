@@ -48,6 +48,9 @@ class AuctionDonationsController extends \BaseController {
 		}
 		return $years;
 	}
+	protected $fieldsList= ['id', 'uid', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
+	protected $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -55,9 +58,12 @@ class AuctionDonationsController extends \BaseController {
 	 */
 	public function index($year)
 	{
-		$auctionDonations=AuctionDonation::with('user')->where('year', $year)->get();
 		$years=$this->getYears();
-		return View::make('auctionDonations/index', ['auctionDonations'=>$auctionDonations, 'years'=>$years]);
+		$table = Datatable::table()
+		->addColumn($this->columnNames)
+		->setUrl(route('api.auctionDonations',$year))
+		->noScript();
+		return View::make('auctionDonations/index', ['table'=>$table, 'years'=>$years]);
 	}
 	public function changeYear()
 	{
@@ -216,6 +222,18 @@ class AuctionDonationsController extends \BaseController {
 		$auctionDonation->delete();
 		return Redirect::route('auctionDonations.index');
 	}
-
+	public function getDatatable($year){
+		
+		$query = auctionDonation::with('user')->where('year',$year)->select($this->fieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns($this->fieldsList)
+		->addColumn('id', function($model){
+			return link_to('auctionDonation/'.$model->id,'View/Edit');
+		})
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
+		->make();
+	}	
 
 }

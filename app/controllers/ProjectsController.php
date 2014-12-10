@@ -6,8 +6,8 @@ class ProjectsController extends \BaseController {
 	public function __construct (Project $project){
 		$this->project=$project;
 	}
-
-
+	protected $fieldsList=['id','name', 'start_date', 'end_date', 'type', 'description'];
+	protected $columnNames=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
 
 	/**
 	 * Display a listing of the resource.
@@ -16,8 +16,11 @@ class ProjectsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$projects=Project::with('eventAttendance.user')->get();
-		return View::make('projects/index')->withProjects($projects);
+		$table = Datatable::table()
+			->addColumn($this->columnNames)
+			->setUrl(route('api.projects'))
+			->noScript();
+		return View::make('projects/index', ['table'=>$table]);
 	}
 
 
@@ -102,6 +105,18 @@ class ProjectsController extends \BaseController {
 		$project->delete();
 		return Redirect::route('projects.index');
 	}
+	public function getDatatable(){
+		
+		$query = Project::select($this->fieldsList)->get();
 
+		return Datatable::collection($query)
+			->showColumns($this->fieldsList)
+			->addColumn('id', function($model){
+				return link_to('projects/'.$model->id,'View/Edit');
+			})
+			
+			
+			->make();
+	}
 
 }

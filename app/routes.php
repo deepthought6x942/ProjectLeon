@@ -38,7 +38,7 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::get('users', array( 'as' => 'users.index' , 'uses' =>'UsersController@index'));
 	Route::patch('users/{users}', array( 'uses' =>'UsersController@update'));
 	Route::delete('users/{users}', array( 'as' => 'users.destroy' , 'uses' =>'UsersController@destroy'));
-	Route::get('eventAttendances/', array( 'as' => 'eventAttendances.manage' , 'uses' =>'EventAttendancesController@manage'));
+	Route::get('eventAttendances/{eventAttendances}', array( 'as' => 'eventAttendances.manage' , 'uses' =>'EventAttendancesController@manage'));
 	Route::post('eventAttendances/', array( 'as' => 'eventAttendances.store' , 'uses' =>'EventAttendancesController@store'));
 	Route::post('auctionDonations/changeYear', array( 'as' => 'auctionDonations.changeYear' , 'uses' => 'AuctionDonationsController@changeYear'));
 	Route::get('auctionDonations/index/{auctionDonations}', array( 'as' => 'auctionDonations.index' , 'uses' =>'AuctionDonationsController@index'));
@@ -46,6 +46,13 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
 	Route::get('api/users', array('as'=>'api.users', 'uses'=>'UsersController@getDatatable'));
+	Route::get('api/projects', array('as'=>'api.projects', 'uses'=>'ProjectsController@getDatatable'));
+	Route::get('api/monetaryDonations', array('as'=>'api.monetaryDonations', 'uses'=>'MonetaryDonationsController@getDatatable'));
+	Route::get('api/auctionDonations/{auctionDonations}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
+	Route::get('api/eventAttendances/{eventAttendances}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
+	Route::get('api/users/{eventAttendances}', array('as'=>'api.usersEvents', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
+	Route::get('api/projectsEvents/{eventAttendances}', array('as'=>'api.projectsEvents', 'uses'=>'EventProjectsDatatable'));
+
 });
 
 	Route::get('users/create', array( 'as' => 'users.create' , 'uses' => 'UsersController@create'));

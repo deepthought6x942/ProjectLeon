@@ -7,13 +7,23 @@ class EventAttendancesController extends \BaseController {
 		$this->eventAttendance=$eventAttendance;
 	}
 
+
+	protected $projectsFields=['id','name', 'start_date', 'end_date', 'type', 'description'];
+	protected $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
+	protected $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected $fieldsList=['uid', 'eid', 'role'];
+	protected $columnsList=['User', 'Event', 'Role'];
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($eid)
 	{
+		
+
+
 		$eventAttendances=EventAttendance::with('user', 'project')->get();
 		return View::make('eventAttendances/index')->withEventAttendances($eventAttendances);
 	}
@@ -24,8 +34,22 @@ class EventAttendancesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function manage()
+	public function manage($eid)
 	{
+		$projectsTable = Datatable::table()
+			->addColumn($this->projectsColumns)
+			->setUrl(route('api.projectsEvents'))
+			->noScript();
+		if($eid>=0){
+			$usersTable = Datatable::table()
+				->addColumn($this->usersColumns)
+				->setUrl(route('api.usersEvents',$eid))
+				->noScript();
+			$attendanceTable = Datatable::table()
+				->addColumn($this->columnsList)
+				->setUrl(route('api.eventAttendances',$eid))
+				->noScript();
+		}
 		$projects=Project::with('eventAttendance.user')->get();
 		$users=User::with('eventAttendance.project')->get();
 		$r=EventAttendance::groupby('role')->lists('role');
@@ -33,7 +57,13 @@ class EventAttendancesController extends \BaseController {
 		foreach($r as $role){
 			$roles[$role]=$role;
 		}
-		return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles]);
+		if($eid>=0){
+			return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles,
+				'projectsTable'=>$projectsTable,'usersTable'=>$usersTable,'attendanceTable'=>$attendanceTable, 'eid'=>$eid]);
+		}else{
+			return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles,
+				'projectsTable'=>$projectsTable,'eid'=>$eid]);
+		}
 	}
 
 
@@ -130,6 +160,50 @@ class EventAttendancesController extends \BaseController {
 		$eventAttendance->delete();
 		return Redirect::route('eventAttendances.index');
 	}
+	public function getDatatable($eid){
+		if($eid<0){
+			return null;
+		}
+		$query = eventAttendance::select($this->allFields)->where('eid',$eid)->get();
 
+		return Datatable::collection($query)
+		->addColumn('edit/delete', function($model){
+			return "edit/delete";
+		})
+		->showColumns($this->allFields)
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
+		->addColumn('eid', function($model){
+			return link_to('projects/'.$model->eid,$model->project->name);
+		})
+		->make();
+	}
+	public function getAttendanceDatatable($eid){
+		if($eid<0){
+			return null;
+		}
+		$query = User::with('eventAttendance')->whereHas('eventAttendances', function ($q){ 
+				$q->where('eid',$eid);
+			});
+		$query2= User::whereNotIn($query)->select($this->userFields)->get();
 
+		return Datatable::collection($query2)
+		->showColumns($this->userFields)
+		->addColumn('id', function($model){
+			return Form::radio('uid', $model->id);
+		})
+		->make();
+	}
+	public function getProjectsDatatable(){
+		
+		$query = Project::select($this->fieldsList)->get();
+
+		return Datatable::collection($query)
+			->showColumns($this->fieldsList)
+			->addColumn('id', function($model){
+				return link_to('eventAttendances/'.$model->id,'Select');
+			})
+			->make();
+	}
 }

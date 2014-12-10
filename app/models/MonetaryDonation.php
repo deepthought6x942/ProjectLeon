@@ -2,7 +2,7 @@
 
 class MonetaryDonation extends Eloquent{
 
-  protected $fillable = ['uid', 'check_number', 'eid', 'date', 'amount'];
+  protected $fillable = ['uid', 'check_number', 'eid', 'date', 'amount', 'notes'];
 
 	/**
 	 * The database table used by the model.

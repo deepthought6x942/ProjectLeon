@@ -6,7 +6,10 @@ class UsersController extends \BaseController {
 	public function __construct (User $user){
 		$this->user=$user;
 	}
-
+	protected $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected $reducedFields=["id","first",'last','email','telephone', 'type','contact_preference'];
+	protected $reducedColumns=["Select",'First', 'Last', 'E-mail','Telephone', 'Type','Contact Preference'];
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -15,7 +18,7 @@ class UsersController extends \BaseController {
 	public function index()
 	{
 		$table = Datatable::table()
-			->addColumn('Select', 'First', 'Last', 'E-mail', 'Type', 'Contact Preference')
+			->addColumn($this->allColumns)
 			->setUrl(route('api.users'))
 			->noScript();
 		$users=User::with('eventAttendance.project')->get();
@@ -139,13 +142,14 @@ class UsersController extends \BaseController {
 	}
 	public function getDatatable(){
 		
-		$query = User::select('id','first', 'last', 'email', 'type', 'contact_preference')->get();
+		$query = User::select($this->allFields)->get();
 
 		return Datatable::collection($query)
+			->showColumns($this->allFields)
 			->addColumn('id', function($model){
 				return link_to('users/'.$model->id,'View/Edit');
 			})
-			->showColumns('first','last', 'email', 'type', 'contact_preference')
+			
 			
 			->make();
 	}
