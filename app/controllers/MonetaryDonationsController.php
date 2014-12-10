@@ -130,7 +130,7 @@ class MonetaryDonationsController extends \BaseController {
 		return Datatable::collection($query)
 		->showColumns($this->fieldsList)
 		->addColumn('id', function($model){
-			return link_to('monetaryDonation/'.$model->id,'View/Edit');
+			return link_to('monetaryDonations/'.$model->id,'View/Edit');
 		})
 		->addColumn('uid', function($model){
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
