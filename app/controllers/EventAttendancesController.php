@@ -36,7 +36,7 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function manage($eid)
 	{
-		if(Projects::all()->count()>0){
+		if(Project::all()->count()>0){
 			$projectsTable = Datatable::table()
 				->addColumn($this->projectsColumns)
 				->setUrl(route('api.projectsList'))
@@ -52,7 +52,7 @@ class EventAttendancesController extends \BaseController {
 					->noScript();
 			}
 		}
-		$else{
+		else{
 			$projectsTable="N/A";
 			$usersTable="N/A";
 			$attendanceTable="N/A";

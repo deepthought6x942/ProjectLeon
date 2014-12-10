@@ -52,13 +52,13 @@ Users
           <td>{{ Form::text('zip')}}</td>
           <td>{{ $errors->first('zip') }}</td>
         </tr>
-       @if(Auth::user()->type!=='member')
-        <tr>
-          <td>{{Form::label('type', 'Type: ')}}
-           <td>{{ Form::select('type', ['administrator'=>'administrator', 'treasurer'=>'treasurer','member'=>'member'])}}</td>
-           <td> {{ $errors->first('type') }}</td>
-         </tr>
-         @endif
+        @if(Auth::user()->type!=='member')
+          <tr>
+            <td>{{Form::label('type', 'Type: ')}}
+             <td>{{ Form::select('type', ['administrator'=>'administrator', 'treasurer'=>'treasurer','member'=>'member'])}}</td>
+             <td> {{ $errors->first('type') }}</td>
+           </tr>
+        @endif
          <tr>
           <td>{{ Form::label('telephone', 'Phone Number: ')}}</td>
           <td>{{ Form::text('telephone')}}</td>
