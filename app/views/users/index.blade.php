@@ -9,6 +9,10 @@
                       )])->render()}}
 
 @stop
-@section('scripts')
-  {{str_replace("\\/","/",$table->script())}}
-@stop
+@section('noneFound')
+<!--They should never be able to see this, but it's here for redundancy -->
+  <h1>There are no Users</h1>
+  <p> You can create one {{link_to_route('users.create', 'here')}} </p>
+
+
+@endsection

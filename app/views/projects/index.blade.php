@@ -9,6 +9,7 @@
                       )])->render()}}
 
 @stop
-@section('scripts')
-  {{str_replace("\\/","/",$table->script())}}
-@stop
+@section('noneFound')
+  <h1>There are no Projects or Events</h1>
+  <p> You can create one here: {{link_to_route('projects.create')}} </p>
+@endsection

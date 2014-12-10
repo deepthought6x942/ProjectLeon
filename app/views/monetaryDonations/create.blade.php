@@ -42,6 +42,7 @@
     </div>
   </div>
   <p> Select the user from the table below. If they are not present in the database, enter their name and email in the boxes below the table and select submit.
+  
   <div class="panel panel-default">
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover" id="users">

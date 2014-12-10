@@ -36,19 +36,26 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function manage($eid)
 	{
-		$projectsTable = Datatable::table()
-			->addColumn($this->projectsColumns)
-			->setUrl(route('api.projectsList'))
-			->noScript();
-		if($eid>=0){
-			$usersTable = Datatable::table()
-				->addColumn($this->usersColumns)
-				->setUrl(route('api.usersProjects',$eid))
+		if(Projects::all()->count()>0){
+			$projectsTable = Datatable::table()
+				->addColumn($this->projectsColumns)
+				->setUrl(route('api.projectsList'))
 				->noScript();
-			$attendanceTable = Datatable::table()
-				->addColumn($this->columnsList)
-				->setUrl(route('api.eventAttendances',$eid))
-				->noScript();
+			if($eid>=0){
+				$usersTable = Datatable::table()
+					->addColumn($this->usersColumns)
+					->setUrl(route('api.usersProjects',$eid))
+					->noScript();
+				$attendanceTable = Datatable::table()
+					->addColumn($this->columnsList)
+					->setUrl(route('api.eventAttendances',$eid))
+					->noScript();
+			}
+		}
+		$else{
+			$projectsTable="N/A";
+			$usersTable="N/A";
+			$attendanceTable="N/A";
 		}
 		$projects=Project::with('eventAttendance.user')->get();
 		$users=User::with('eventAttendance.project')->get();

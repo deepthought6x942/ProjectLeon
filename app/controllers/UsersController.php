@@ -17,10 +17,14 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$table = Datatable::table()
-			->addColumn($this->allColumns)
-			->setUrl(route('api.users'))
-			->noScript();
+		if(User::all()->count()>0){
+			$table = Datatable::table()
+				->addColumn($this->allColumns)
+				->setUrl(route('api.users'))
+				->noScript();
+		}else{
+			$table="N/A";
+		}
 		$users=User::with('eventAttendance.project')->get();
 		return View::make('users/index', ['users'=>$users, 'table'=>$table]);
 	}

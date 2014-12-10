@@ -1,21 +1,29 @@
 @extends('layouts.index')
 @section('header') Auction Donations @stop   
 @section('table')
-
-  {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
-                          'tableTools' => array(
-                              "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                              "aButtons" => ["csv"]
-                      )])->render()}}
-
+  @if($table!=="N/A")
+    {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
+                            'tableTools' => array(
+                                "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                "aButtons" => ["csv"]
+                        )])->render()}}
+  @endif
 @stop
 @section('scripts')
-  {{str_replace("\\/","/",$table->script())}}
+  @if($table!=="N/A")
+    {{str_replace("\\/","/",$table->script())}}
+  @endif
 @stop
 @section('otherContent')
-{{Form::open(['route'=>'auctionDonations.changeYear'])}}
-{{Form::label("year", "Select Year: ")}}
-{{Form::select("year",$years)}}
-{{Form::submit("Select")}}
-{{Form::close()}}
+  {{Form::open(['route'=>'auctionDonations.changeYear'])}}
+  {{Form::label("year", "Select Year: ")}}
+  {{Form::select("year",$years)}}
+  {{Form::submit("Select")}}
+  {{Form::close()}}
 @stop
+@section('noneFound')
+  <h1>There are no Donations for this year</h1>
+  <p> You can create one {{link_to_route('auctionDonations.admin_create', 'here')}} </p>
+
+
+@endsection

@@ -59,11 +59,15 @@ class AuctionDonationsController extends \BaseController {
 	public function index($year)
 	{
 		$years=$this->getYears();
-		$table = Datatable::table()
-		->addColumn($this->columnNames)
-		->setUrl(route('api.auctionDonations',$year))
-		->noScript();
-		return View::make('auctionDonations/index', ['table'=>$table, 'years'=>$years]);
+		if(AuctionDonation::where('year',$year)->get()->count()<1){
+			$table="N/A";
+		}else{
+			$table = Datatable::table()
+			->addColumn($this->columnNames)
+			->setUrl(route('api.auctionDonations',$year))
+			->noScript();
+		}
+		return View::make('auctionDonations/index', ['table'=>$table, 'years'=>$years, 'year'=>$year]);
 	}
 	public function changeYear()
 	{
