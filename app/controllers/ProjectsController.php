@@ -114,8 +114,6 @@ class ProjectsController extends \BaseController {
 			->addColumn('id', function($model){
 				return link_to('projects/'.$model->id,'View/Edit');
 			})
-			
-			
 			->make();
 	}
 

@@ -38,12 +38,12 @@ class EventAttendancesController extends \BaseController {
 	{
 		$projectsTable = Datatable::table()
 			->addColumn($this->projectsColumns)
-			->setUrl(route('api.projectsEvents'))
+			->setUrl(route('api.projectsList'))
 			->noScript();
 		if($eid>=0){
 			$usersTable = Datatable::table()
 				->addColumn($this->usersColumns)
-				->setUrl(route('api.usersEvents',$eid))
+				->setUrl(route('api.usersProjects',$eid))
 				->noScript();
 			$attendanceTable = Datatable::table()
 				->addColumn($this->columnsList)
@@ -164,13 +164,13 @@ class EventAttendancesController extends \BaseController {
 		if($eid<0){
 			return null;
 		}
-		$query = eventAttendance::select($this->allFields)->where('eid',$eid)->get();
+		$query = eventAttendance::select($this->fieldsList)->where('eid',$eid)->get();
 
 		return Datatable::collection($query)
 		->addColumn('edit/delete', function($model){
 			return "edit/delete";
 		})
-		->showColumns($this->allFields)
+		->showColumns($this->fieldsList)
 		->addColumn('uid', function($model){
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
 		})
@@ -183,24 +183,21 @@ class EventAttendancesController extends \BaseController {
 		if($eid<0){
 			return null;
 		}
-		$query = User::with('eventAttendance')->whereHas('eventAttendances', function ($q){ 
-				$q->where('eid',$eid);
-			});
-		$query2= User::whereNotIn($query)->select($this->userFields)->get();
-
+		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
+				$q->where('eid', $eid);
+			})->lists('id');		
+		$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
 		return Datatable::collection($query2)
-		->showColumns($this->userFields)
+		->showColumns($this->usersFields)
 		->addColumn('id', function($model){
 			return Form::radio('uid', $model->id);
 		})
 		->make();
 	}
 	public function getProjectsDatatable(){
-		
-		$query = Project::select($this->fieldsList)->get();
-
+		$query = Project::select($this->projectsFields)->get();
 		return Datatable::collection($query)
-			->showColumns($this->fieldsList)
+			->showColumns($this->projectsFields)
 			->addColumn('id', function($model){
 				return link_to('eventAttendances/'.$model->id,'Select');
 			})

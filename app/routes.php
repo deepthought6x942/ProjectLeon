@@ -50,8 +50,8 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::get('api/monetaryDonations', array('as'=>'api.monetaryDonations', 'uses'=>'MonetaryDonationsController@getDatatable'));
 	Route::get('api/auctionDonations/{auctionDonations}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
 	Route::get('api/eventAttendances/{eventAttendances}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
-	Route::get('api/users/{eventAttendances}', array('as'=>'api.usersEvents', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
-	Route::get('api/projectsEvents/{eventAttendances}', array('as'=>'api.projectsEvents', 'uses'=>'EventProjectsDatatable'));
+	Route::get('api/users/{eventAttendances}', array('as'=>'api.usersProjects', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
+	Route::get('api/projectsEvents/{eventAttendances}', array('as'=>'api.projectsList', 'uses'=>'EventAttendancesController@getProjectsDatatable'));
 
 });
 
