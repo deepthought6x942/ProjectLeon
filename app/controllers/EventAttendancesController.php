@@ -130,7 +130,7 @@ class EventAttendancesController extends \BaseController {
 	public function edit($id)
 	{
 		$eventAttendance=EventAttendance::with('eventAttendance.project')->find($id);
-		return View::make('eventAttendances/show', ['eventAttendance'=>$eventAttendance, 'eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
+		return View::make('eventAttendances/show', ['eventAttendance'=>$eventAttendance,'auctionDonations'=>$auctionDonations, 'editable'=>'TRUE']);
 	}
 
 

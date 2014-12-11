@@ -138,12 +138,14 @@ class AuctionDonationsController extends \BaseController {
 				}
 			}
 		} 
-		if($input['location']==='other'&& isset($input['other location'])) {
-			$input['location']=$input['other location'];
+		
+		if($input['location']==='other'&& isset($input['other_location'])) {
+			$input['location']=$input['other_location'];
 		}
-		if($input['category']==='other'&& isset($input['other category'])) {
-			$input['category']=$input['other category'];
+		if($input['category']==='other'&& isset($input['other_category'])) {
+			$input['category']=$input['other_category'];
 		}
+
 		$input['year']=$this->currentYear();
 		if(! $this->auctionDonation->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
@@ -196,14 +198,14 @@ class AuctionDonationsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-		if($input['location']==='other'&& isset($input['other location'])) {
-			$input['location']=$input['other location'];
+		if($input['location']==='other'&& isset($input['other_location'])) {
+			$input['location']=$input['other_location'];
 		}
-		if($input['category']==='other'&& isset($input['other category'])) {
-			$input['category']=$input['other category'];
+		if($input['category']==='other'&& isset($input['other_category'])) {
+			$input['category']=$input['other_category'];
 		}
-		if($input['status']==='other'&& isset($input['other status'])) {
-			$input['status']=$input['other status'];
+		if($input['status']==='other'&& isset($input['other_status'])) {
+			$input['status']=$input['other_status'];
 		}
 		$donation=$this->auctionDonation->find($id)->fill($input);
 		if(! $donation->isValid()){
