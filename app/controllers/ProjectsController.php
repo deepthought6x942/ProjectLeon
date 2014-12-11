@@ -31,7 +31,13 @@ class ProjectsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('projects.create');
+		$t=Project::groupby('type')->lists('type');
+		
+		foreach($t as $type){
+			$types[$type]=$type;
+		}
+		$types['other']='other';
+		return View::make('projects.create', ['types'=>$types]);
 	}
 
 
@@ -43,6 +49,9 @@ class ProjectsController extends \BaseController {
 	public function store()
 	{
 		$input=Input::all();
+		if($input['type']==='other'){
+			$input['type']=$input['other'];
+		}
 		if(! $this->project->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
@@ -57,8 +66,14 @@ class ProjectsController extends \BaseController {
 	 */
 	public function show($id)
 	{
+		$t=Project::groupby('type')->lists('type');
+		$types=['other'=>'other'];
+		foreach($t as $type){
+			$types[$type]=$type;
+		}
+		
 		$project=Project::with('eventAttendance.user')->find($id);
-		return View::make('projects/show', ['project'=>$project]);
+		return View::make('projects/show', ['project'=>$project, 'types'=>$types]);
 	}
 
 
@@ -84,6 +99,9 @@ class ProjectsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
+		if($input['type']==='other'){
+			$input['type']=$input['other'];
+		}
 		if(! $this->project->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}

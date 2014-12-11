@@ -28,7 +28,7 @@
  
   <tr>
     <td>{{ Form::label('type', 'Type: ')}}</td>
-    <td>{{ Form::select('type')}}</td>
+    <td>{{ Form::select('type', $types)}}</td>
      @if(Auth::user()->type!=='member')
             <td>{{Form::text('other type', "Input other")}}</td>
      @endif
