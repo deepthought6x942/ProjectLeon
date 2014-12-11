@@ -29,7 +29,7 @@ Projects
             <td>{{ Form::label('type', 'Type: ')}}</td>
            <td>{{ Form::select('type', $types)}}</td>
      @if(Auth::user()->type!=='member')
-            <td>{{Form::text('other type', "Input other")}}</td>
+            <td>{{Form::text('other', "Input other")}}</td>
      @endif
             <td>{{ $errors->first('type') }}</td>
          </tr>
