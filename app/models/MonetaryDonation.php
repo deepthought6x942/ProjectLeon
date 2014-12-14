@@ -23,7 +23,7 @@ class MonetaryDonation extends Eloquent{
 	 */
 
   public static $rules = [
-    'check_number'=> 'required',
+    'check_number'=> 'required|digits:20',
     'uid'=> 'required',
     'eid'=>'required',
     'amount'=>'required',
