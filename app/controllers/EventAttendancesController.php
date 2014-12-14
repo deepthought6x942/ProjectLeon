@@ -36,20 +36,38 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function manage($eid)
 	{
+		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
+				$q->where('eid', $eid);
+			})->lists('id');		
+		$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
+		$nonAttendingUsers=$query2->count();
 		if(Project::all()->count()>0){
 			$projectsTable = Datatable::table()
 				->addColumn($this->projectsColumns)
 				->setUrl(route('api.projectsList'))
 				->noScript();
 			if($eid>=0){
+				if($nonAttendingUsers>0){
 				$usersTable = Datatable::table()
 					->addColumn($this->usersColumns)
 					->setUrl(route('api.usersProjects',$eid))
 					->noScript();
-				$attendanceTable = Datatable::table()
-					->addColumn($this->columnsList)
-					->setUrl(route('api.eventAttendances',$eid))
-					->noScript();
+				}else{
+					$usersTable="N/A"
+				}
+				if(EventAttendance::where('eid',$eid)->get()->count()>0){
+					$attendanceTable = Datatable::table()
+						->addColumn($this->columnsList)
+						->setUrl(route('api.eventAttendances',$eid))
+						->noScript();
+				}else{
+					$attendanceTable="N/A"
+				}
+				$r=EventAttendance::groupby('role')->lists('role');
+				$roles=['other'=>'other'];
+				foreach($r as $role){
+					$roles[$role]=$role;
+				}
 			}
 		}
 		else{
@@ -57,19 +75,12 @@ class EventAttendancesController extends \BaseController {
 			$usersTable="N/A";
 			$attendanceTable="N/A";
 		}
-		$projects=Project::with('eventAttendance.user')->get();
-		$users=User::with('eventAttendance.project')->get();
-		$r=EventAttendance::groupby('role')->lists('role');
-		$roles=['other'=>'other'];
-		foreach($r as $role){
-			$roles[$role]=$role;
-		}
+		
 		if($eid>=0){
-			return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles,
-				'projectsTable'=>$projectsTable,'usersTable'=>$usersTable,'attendanceTable'=>$attendanceTable, 'eid'=>$eid]);
+			return View::make('eventAttendances.manager', ['roles'=>$roles, 'projectsTable'=>$projectsTable,'usersTable'=>$usersTable,
+				'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'naus'=>$nonAttendingUsers]);
 		}else{
-			return View::make('eventAttendances.manager', ['users'=>$users,'projects'=>$projects, 'roles'=>$roles,
-				'projectsTable'=>$projectsTable,'eid'=>$eid]);
+			return View::make('eventAttendances.manager', ['projectsTable'=>$projectsTable,'eid'=>$eid]);
 		}
 	}
 
@@ -194,12 +205,15 @@ class EventAttendancesController extends \BaseController {
 				$q->where('eid', $eid);
 			})->lists('id');		
 		$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
+		if($query2->count()>0){
 		return Datatable::collection($query2)
 		->showColumns($this->usersFields)
 		->addColumn('id', function($model){
-			return Form::radio('uid', $model->id);
+			return Form::checkbox('uid', $model->id);
 		})
 		->make();
+	}
+		else return "No other users";
 	}
 	public function getProjectsDatatable(){
 		$query = Project::select($this->projectsFields)->get();

@@ -12,25 +12,36 @@
                           )])->render()}}
     </div>
     @if($eid>=0)
-      <div class="table-responsive">
-      <h2> Current Attendees </h2>
-       {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'T<"clear">lfrtip', 
-                                'tableTools' => array(
-                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                                    "aButtons" => ["csv"]
-                            )])->render()}}
-      </div>
-      <div class="table-responsive">
+      @if($attendanceTable!=="N/A")
+        <div class="table-responsive">
+        <h2> Current Attendees </h2>
+        
+         {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'T<"clear">lfrtip', 
+                                  'tableTools' => array(
+                                      "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                      "aButtons" => ["csv"]
+                              )])->render()}}
+        </div>
+      @else
+        <h1>There are currently no attendees</h1>
+        <p> You can create one below </p>
+      @endif
       {{ Form::open(['route'=>'eventAttendances.store']) }}
+      @if($usersTable!=="N/A")
 
+      <div class="table-responsive">
+      
       <h2> Attendee Selection </h2>
-       {{$usersTable->setOptions(['pageLength'=> 5, "dom"=>'T<"clear">lfrtip', 
+       {{$usersTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                                 'tableTools' => array(
                                     "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
                                     "aButtons" => ["csv"]
                             )])->render()}}
       </div>
-
+      @else
+      <h1>All currently existing users attended</h1>
+        <p> You can create a new one below </p>
+      @endif
       {{ Form::label('email', 'Email: ')}} {{Form::text('email') }} {{Form::label('first', 'First: ')}}{{Form::text('first')}} {{Form::label('last', 'Last: ')}}{{Form::text('last')}}
       {{ $errors->first('email')}} {{$errors->first('first')}} {{$errors->first('last')}}
       {{ Form::hidden('eid', $eid)}}
@@ -54,8 +65,12 @@
 @section('scripts')
   @if($projectsTable!=="N/A")
     @if($eid>=0)
-      {{str_replace("\\/","/",$attendanceTable->script())}}
-      {{str_replace("\\/","/",$usersTable->script())}}
+      @if($attendanceTable!=="N/A")
+        {{str_replace("\\/","/",$attendanceTable->script())}}
+      @endif
+      @if($usersTable!=="N/A")
+        {{str_replace("\\/","/",$usersTable->script())}}
+      @endif
     @endif
     {{str_replace("\\/","/",$projectsTable->script())}}
   @endif
