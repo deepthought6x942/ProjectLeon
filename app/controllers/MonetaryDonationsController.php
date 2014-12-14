@@ -8,6 +8,10 @@ class MonetaryDonationsController extends \BaseController {
 	}
 	protected $fieldsList= ['id', 'uid', 'eid', 'date', 'amount', 'check_number', 'notes'];
 	protected $columnNames= ['Select', 'User', 'Project/Event', 'Date', 'Amount', 'Check Number', 'Notes'];
+	protected $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected $projectsFields=['id','name', 'start_date', 'end_date', 'type', 'description'];
+	protected $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
 
 	/**
 	 * Display a listing of the resource.
@@ -37,9 +41,20 @@ class MonetaryDonationsController extends \BaseController {
 		foreach($p as $project){
 			$projects[$project->id]=$project->name.", ".$project->start_date;
 		}
-		return View::make('monetaryDonations.create', ['projects'=>$projects, 'users'=>$users]);
+		if(Project::all()->count()>0){
+			$projectsTable = Datatable::table()
+						->addColumn($this->projectsColumns)
+						->setUrl(route('api.projectsRadio'))
+						->noScript();
+			$usersTable = Datatable::table()
+						->addColumn($this->usersColumns)
+						->setUrl(route('api.usersRadio'))
+						->noScript();
+		}else{
+			$projectsTable=$usersTable="N/A";
+		}
+		return View::make('monetaryDonations.create', ['projectsTable'=>$projectsTable, 'usersTable'=>$usersTable]);
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -49,6 +64,26 @@ class MonetaryDonationsController extends \BaseController {
 	public function store()
 	{
 		$input=Input::all();
+		if (!isset($input['uid']) && isset($input['email'])) {
+			$user=User::where("email",$input['email'])->first();
+			if (isset($user)){
+				$input['uid']=$user->id;
+			}else{
+				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
+				$newuser=new User;
+				if($newuser->fill($newuserdata)->isValid()){
+					$newuser->fill($input)->save();
+					$user=User::where("email",$input['email'])->first();
+					$input['uid']=$user->id;
+					if(!$this->monetaryDonation->fill($input)->isValid()){
+						return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
+					}
+					$this->monetaryDonation->fill($input)->save();
+				}else{
+					return Redirect::back()->withInput()->withErrors($newuser->errors);
+				}
+			}
+		}
 		if(! $this->monetaryDonation->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 		}
@@ -141,5 +176,4 @@ class MonetaryDonationsController extends \BaseController {
 
 		->make();
 	}	
-
 }

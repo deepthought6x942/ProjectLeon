@@ -134,5 +134,15 @@ class ProjectsController extends \BaseController {
 			})
 			->make();
 	}
+	public function getRadioDatatable(){
+		
+		$query = Project::select($this->fieldsList)->get();
 
+		return Datatable::collection($query)
+			->showColumns($this->fieldsList)
+			->addColumn('id', function($model){
+				return Form::radio('eid', $model->id);
+			})
+			->make();
+	}
 }
