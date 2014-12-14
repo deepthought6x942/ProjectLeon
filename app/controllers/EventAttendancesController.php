@@ -36,32 +36,37 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function manage($eid)
 	{
-		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
-				$q->where('eid', $eid);
-			})->lists('id');		
-		$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
-		$nonAttendingUsers=$query2->count();
+		
 		if(Project::all()->count()>0){
 			$projectsTable = Datatable::table()
-				->addColumn($this->projectsColumns)
-				->setUrl(route('api.projectsList'))
-				->noScript();
+			->addColumn($this->projectsColumns)
+			->setUrl(route('api.projectsList'))
+			->noScript();
 			if($eid>=0){
+				$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
+					$q->where('eid', $eid);
+				})->lists('id');
+				if(count($query)>0){	
+					$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
+				}else{
+					$query2= User::select($this->usersFields)->get();
+				}
+				$nonAttendingUsers=$query2->count();
 				if($nonAttendingUsers>0){
-				$usersTable = Datatable::table()
+					$usersTable = Datatable::table()
 					->addColumn($this->usersColumns)
 					->setUrl(route('api.usersProjects',$eid))
 					->noScript();
 				}else{
-					$usersTable="N/A"
+					$usersTable="N/A";
 				}
 				if(EventAttendance::where('eid',$eid)->get()->count()>0){
 					$attendanceTable = Datatable::table()
-						->addColumn($this->columnsList)
-						->setUrl(route('api.eventAttendances',$eid))
-						->noScript();
+					->addColumn($this->columnsList)
+					->setUrl(route('api.eventAttendances',$eid))
+					->noScript();
 				}else{
-					$attendanceTable="N/A"
+					$attendanceTable="N/A";
 				}
 				$r=EventAttendance::groupby('role')->lists('role');
 				$roles=['other'=>'other'];
@@ -202,26 +207,30 @@ class EventAttendancesController extends \BaseController {
 			return null;
 		}
 		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
-				$q->where('eid', $eid);
-			})->lists('id');		
-		$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
+			$q->where('eid', $eid);
+		})->lists('id');		
+		if(count($query)>0){		
+			$query2= User::whereNotIn('id', $query)->select($this->usersFields)->get();
+		}else{
+			$query2= User::select($this->usersFields)->get();
+		}
 		if($query2->count()>0){
-		return Datatable::collection($query2)
-		->showColumns($this->usersFields)
-		->addColumn('id', function($model){
-			return Form::checkbox('uid', $model->id);
-		})
-		->make();
-	}
+			return Datatable::collection($query2)
+			->showColumns($this->usersFields)
+			->addColumn('id', function($model){
+				return Form::checkbox('uid', $model->id);
+			})
+			->make();
+		}
 		else return "No other users";
 	}
 	public function getProjectsDatatable(){
 		$query = Project::select($this->projectsFields)->get();
 		return Datatable::collection($query)
-			->showColumns($this->projectsFields)
-			->addColumn('id', function($model){
-				return link_to('eventAttendances/'.$model->id,'Select');
-			})
-			->make();
+		->showColumns($this->projectsFields)
+		->addColumn('id', function($model){
+			return link_to('eventAttendances/'.$model->id,'Select');
+		})
+		->make();
 	}
 }
