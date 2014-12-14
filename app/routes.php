@@ -107,10 +107,23 @@ Route::post('export', array('uses' => 'TableController@get_export'));
 
 Route::get('booklet', array('as'=>'booklet', 'uses' => 'TableController@makeBooklet'));
 
-Route::controller('password', 'RemindersController');
-/*
-Route::resource('reminder', 'RemindersController', array(
-    'only' => array('index', 'store', 'show', 'update')
+Route::get('password/reset', array(
+  'uses' => 'PasswordController@remind',
+  'as' => 'password.remind'
 ));
-*/
+
+Route::post('password/reset', array(
+  'uses' => 'PasswordController@request',
+  'as' => 'password.request'
+));
+
+Route::get('password/reset/{token}', array(
+  'uses' => 'PasswordController@reset',
+  'as' => 'password.reset'
+));
+
+Route::post('password/reset/{token}', array(
+  'uses' => 'PasswordController@update',
+  'as' => 'password.update'
+));
 
