@@ -7,21 +7,42 @@
     <h2> Events and Projects </h2>
     {{$projectsTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                               'tableTools' => array(
-                                  "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                                  "aButtons" => ["csv"]
+                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                    "aButtons" => [[
+                                        "sExtends"=> "csv",
+                                        "sButtonText"=>"Export All Columns",
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                                    ],
+                                    [
+                                        "sExtends"=>"csv",
+                                        "sButtonText"=>"Export Visible columns",
+                                        "mColumns"=> "visible"
+                                    ]]
                           )])->render()}}
     </div>
     @if($eid>=0)
       @if($attendanceTable!=="N/A")
         <div class="table-responsive">
         <h2> Current Attendees </h2>
-        
-         {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'T<"clear">lfrtip', 
+        {{ Form::open(['route'=>'eventAttendances.destroy', 'method'=>'DELETE']) }}
+        {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                                   'tableTools' => array(
-                                      "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                                      "aButtons" => ["csv"]
+                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                    "aButtons" => [[
+                                        "sExtends"=> "csv",
+                                        "sButtonText"=>"Export All Columns",
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                                    ],
+                                    [
+                                        "sExtends"=>"csv",
+                                        "sButtonText"=>"Export Visible columns",
+                                        "mColumns"=> "visible"
+                                    ]]
                               )])->render()}}
         </div>
+      {{Form::hidden('eid',$eid)}}
+      {{Form::submit('Delete Selected Attendance')}}
+      {{Form::close ()}}
       @else
         <h1>There are currently no attendees</h1>
         <p> You can create one below </p>
@@ -35,8 +56,17 @@
        {{$usersTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                                 'tableTools' => array(
                                     "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                                    "aButtons" => ["csv"]
-                            )])->render()}}
+                                    "aButtons" => [[
+                                        "sExtends"=> "csv",
+                                        "sButtonText"=>"Export All Columns",
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                                    ],
+                                    [
+                                        "sExtends"=>"csv",
+                                        "sButtonText"=>"Export Visible columns",
+                                        "mColumns"=> "visible"
+                                    ]]
+                                    )])->render()}}
       </div>
       @else
       <h1>All currently existing users attended</h1>

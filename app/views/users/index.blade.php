@@ -4,8 +4,19 @@
 
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
                           'tableTools' => array(
-                              "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                              "aButtons" => ["csv"]
+                                    "sRowSelect" =>"multi",
+                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                    "aButtons" => [[
+                                        "sExtends"=> "csv",
+                                        "sButtonText"=>"Export All Columns",
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                                    ],
+                                    [
+                                        "sExtends"=>"csv",
+                                        "sButtonText"=>"Export Visible columns",
+                                        "mColumns"=> "visible"
+                                    ],
+                                    "select_all", "select_none"]
                       )])->render()}}
 
 @stop
