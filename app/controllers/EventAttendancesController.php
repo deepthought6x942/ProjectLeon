@@ -1,5 +1,5 @@
 <?php
-
+use Chumper\Datatable\Columns\FunctionColumn;
 class EventAttendancesController extends \BaseController {
 
 	protected $eventAttendance;
@@ -12,8 +12,8 @@ class EventAttendancesController extends \BaseController {
 	protected $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
 	protected $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
 	protected $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
-	protected $fieldsList=['uid', 'eid', 'role'];
-	protected $columnsList=['User', 'Event', 'Role'];
+	protected $fieldsList=['uid', "first",'last', 'role','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected $columnsList=['Delete', 'First', 'Last', 'Role', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -98,27 +98,39 @@ class EventAttendancesController extends \BaseController {
 	public function store()
 	{	
 		$input=Input::all();
-		if(!isset($input['uid']) && isset($input['email'])){
+		if($input['role']==='other'){
+			$input['role']=$input['other'];
+		}
+		$uids=$input['uid'];
+		if(count($uids)>0){
+			foreach ($uids as $uid) {
+				$input['uid']=$uid;
+				$nea=new EventAttendance;
+				$nea->fill($input);
+				if(!$nea->isValid()){
+					return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
+				}
+				$nea->save();
+			}
+		}
+		elseif(isset($input['email'])) {
 			$user=User::where("email",$input['email'])->first();
 			if (isset($user)){
 				$input['uid']=$user->id;
 			}else{
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
-				if(! $newuser->fill($newuserdata)->isValid()){
+				if($newuser->fill($newuserdata)->isValid()){
 					$newuser->fill($input)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
+					if(!$this->eventAttendance->fill($input)->isValid()){
+						return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
+					}
+					$this->eventAttendance->fill($input)->save();
 				}
 			}
 		}
-		if($input['role']==='other'){
-			$input['role']=$input['other'];
-		}
-		if(! $this->eventAttendance->fill($input)->isValid()){
-			return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
-		}
-		$this->eventAttendance->fill($input)->save();
 		return Redirect::route('eventAttendances.manage');
 	}
 	/**
@@ -177,30 +189,34 @@ class EventAttendancesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		$eventAttendance = $this->find($id);
-		$eventAttendance->delete();
-		return Redirect::route('eventAttendances.index');
+		$input=Input::all();
+		$uids=$input['uid'];
+		EventAttendance::where('eid',$input['eid'])->whereIn('uid', $uids)->delete();
+		return Redirect::route('eventAttendances.manage',$input['eid']);
 	}
+
+
 	public function getDatatable($eid){
 		if($eid<0){
 			return null;
 		}
-		$query = eventAttendance::select($this->fieldsList)->where('eid',$eid)->get();
 
-		return Datatable::collection($query)
-		->addColumn('edit/delete', function($model){
-			return "edit/delete";
-		})
-		->showColumns($this->fieldsList)
-		->addColumn('uid', function($model){
-			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
-		})
-		->addColumn('eid', function($model){
-			return link_to('projects/'.$model->eid,$model->project->name);
-		})
-		->make();
+		foreach ($this->usersFields as $field) {
+			$columns[$field]=new FunctionColumn($field, function($model) use($field){
+			return $model->user->$field;
+			}); 
+		}
+		$query= EventAttendance::with(['user'=>function($q){ $q->addSelect($this->usersFields);}])->where('eid',$eid)->get();
+		$table= Datatable::collection($query)
+		->showColumns($this->fieldsList);
+		foreach ($columns as $column) {
+			$table->addColumn($column);
+		}
+		return $table->addColumn('uid', function($model){
+			return Form::checkbox('uid[]', $model->uid);
+		})->make();
 	}
 	public function getAttendanceDatatable($eid){
 		if($eid<0){
@@ -218,7 +234,7 @@ class EventAttendancesController extends \BaseController {
 			return Datatable::collection($query2)
 			->showColumns($this->usersFields)
 			->addColumn('id', function($model){
-				return Form::checkbox('uid', $model->id);
+				return Form::checkbox('uid[]', $model->id);
 			})
 			->make();
 		}
