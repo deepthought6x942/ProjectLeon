@@ -31,6 +31,12 @@
   {{Form::select("year",$years)}}
   {{Form::submit("Select")}}
   {{Form::close()}}
+  @if(Session::has('auc_donate_success'))
+  Donation Saved!
+  @endif
+  @if(Session::has('auc_edit_success'))
+  Donation edited!
+  @endif
 @stop
 @section('noneFound')
   <h1>There are no Donations for this year</h1>

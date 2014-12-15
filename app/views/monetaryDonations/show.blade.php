@@ -8,10 +8,9 @@ Monetary Donations
     <div class="table-responsive">
       <table class="table">
         {{Form::model($donation, array('method'=>'PUT', 'route' => array('monetaryDonations.update', $donation->id)))}}
-
         <tr>
-          <td>Donor Name:</td>
-          <td>{{link_to_route('users.show', $donation->user->first." ".$donation->user->last,$donation->user->id)}}</td>
+          <td><strong>Donor Name:</strong></td>
+          <td>{{link_to_route('users.show', $donation->user->first." ".$donation->user->last, $donation->user->id)}}</td>
         </tr>
         <tr>
           <td>{{ Form::label('check_number', 'Check Number: ')}}</td>
@@ -19,9 +18,8 @@ Monetary Donations
           <td>{{ $errors->first('check_number') }}</td>
         </tr>
         <tr>
-          <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
-          <td>{{ Form::select('eid', $projects, $donation->project->id)}}</td>
-          <td>{{ $errors->first('eid') }}</td>
+          <td><strong>Associated Project: <strong></td>
+          <td>{{link_to_route('projects.show', $donation->project->name, $donation->eid)}}</td>
         </tr>
         <tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>

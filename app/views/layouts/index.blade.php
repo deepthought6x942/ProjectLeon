@@ -1,6 +1,7 @@
 @extends((( Auth::user()->type!=="member") ? 'layouts.admin' : 'layouts.user'))
 
 @section('content')
+    @yield('otherContent')
     @if($table==="N/A")
         @yield('noneFound')
     @else
@@ -8,7 +9,6 @@
             @yield('table')
         </div>
     @endif
-    @yield('otherContent')
 @endsection
 @section('scripts')
   @if($table!=="N/A")

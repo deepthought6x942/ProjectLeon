@@ -46,15 +46,29 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
+	
+	Route::get('booklet', array('as'=>'booklet', 'uses' => 'AuctionDonationsController@makeBooklet'));
+
+	//These are the datatable routes
 	Route::get('api/users', array('as'=>'api.users', 'uses'=>'UsersController@getDatatable'));
+	Route::get('api/users/radio', array('as'=>'api.users.radio', 'uses'=>'UsersController@getRadioDatatable'));
+	
 	Route::get('api/projects', array('as'=>'api.projects', 'uses'=>'ProjectsController@getDatatable'));
+	Route::get('api/projects/radio', array('as'=>'api.projects.radio', 'uses'=>'ProjectsController@getRadioDatatable'));
+	
 	Route::get('api/monetaryDonations', array('as'=>'api.monetaryDonations', 'uses'=>'MonetaryDonationsController@getDatatable'));
-	Route::get('api/auctionDonations/{auctionDonations}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
-	Route::get('api/eventAttendances/{eventAttendances}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
-	Route::get('api/users/{eventAttendances}', array('as'=>'api.usersProjects', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
-	Route::get('api/projectsEvents/{eventAttendances}', array('as'=>'api.projectsList', 'uses'=>'EventAttendancesController@getProjectsDatatable'));
-	Route::get('api/projectsDonations', array('as'=>'api.projectsRadio', 'uses'=>'ProjectsController@getRadioDatatable'));
-	Route::get('api/usersDonations', array('as'=>'api.usersRadio', 'uses'=>'UsersController@getRadioDatatable'));
+	Route::get('api/monetaryDonations/userTable/{uid}', array('as'=>'api.monetaryDonations.userTable', 'uses'=>'MonetaryDonationsController@getUserDatatable'));
+	Route::get('api/monetaryDonations/projectTable/{eid}', array('as'=>'api.monetaryDonations.projectTable', 'uses'=>'MonetaryDonationsController@getProjectDatatable'));
+	
+	Route::get('api/auctionDonations/{year}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
+	Route::get('api/auctionDonations/userTable/{uid}', array('as'=>'api.auctionDonations.userTable', 'uses'=>'AuctionDonationsController@getUserDatatable'));
+	
+	Route::get('api/eventAttendances/{eid}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
+	Route::get('api/eventAttendances/userTable/{uid}', array('as'=>'api.eventAttendances.userTable', 'uses'=>'EventAttendancesController@getUserDatatable'));
+	Route::get('api/eventAttendances/projectTable/{eid}', array('as'=>'api.eventAttendances.projectTable', 'uses'=>'EventAttendancesController@getProjectDatatable'));
+	Route::get('api/eventAttendances/projectsList/{eid}', array('as'=>'api.eventAttendances.projectsList', 'uses'=>'EventAttendancesController@getProjectsDatatable'));
+	Route::get('api/eventAttendances/usersList{eid}', array('as'=>'api.eventAttendances.usersList', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
+
 });
 
 	Route::get('users/create', array( 'as' => 'users.create' , 'uses' => 'UsersController@create'));
@@ -76,7 +90,7 @@ Route::group(array('before'=>'auth'), function(){
 	Route::get('users/{users}/edit', array( 'as' => 'users.edit' , 'uses' =>'UsersController@edit'));
 	Route::put('users/{users}', array( 'as' => 'users.update' , 'uses' =>'UsersController@update'));
 
-	
+	Route::get('api/auctionDonations/memberTable/{uid}', array('as'=>'api.auctionDonations.memberTable', 'uses'=>'AuctionDonationsController@getMemberDatatable'));
 
 
 });
@@ -108,7 +122,6 @@ Route::get('register', array('uses' => 'HomeController@doRegister'));
 
 Route::post('export', array('uses' => 'TableController@get_export'));
 
-Route::get('booklet', array('as'=>'booklet', 'uses' => 'TableController@makeBooklet'));
 
 Route::get('password/reset', array(
   'uses' => 'PasswordController@remind',

@@ -47,28 +47,19 @@
   </div>
   {{Form::submit('Submit')}}
   {{Form::close ()}}
-  <div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover" id="users">
-    <thead>
-      <tr>
-        <th class="text-center">Select</th>
-        <th class="text-center">Title</th>
-        <th class="text-center">Description</th>
-        <th class="text-center">Year</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($userDonations as $donation)
-        <!--unless([User is already attending]) -->
-        <tr class="text-center">
-          <td>{{link_to("auctionDonations/resubmit/{$donation->id}", 'Select') }}</td>
-          <td>{{$donation->title}}</td>
-          <td>{{$donation->description}}</td>
-          <td>{{$donation->year}}</td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+  @if($table!=="N/A")
+    <h4> Resubmit past donation </h4>
+    <p> Select the donation from the table below to use as a template for a new donation</p> 
+
+    <div class="table-responsive">
+      {{$table->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
+    </div>
+  @endif
+
 </div>
-</div>
+@stop
+@section('scripts')
+  @if($table!=="N/A")
+    {{str_replace("\\/","/",$table->script())}}
+  @endif
 @stop

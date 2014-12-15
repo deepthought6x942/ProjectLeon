@@ -6,12 +6,16 @@ class MonetaryDonationsController extends \BaseController {
 	public function __construct (MonetaryDonation $monetaryDonation){
 		$this->monetaryDonation=$monetaryDonation;
 	}
-	protected $fieldsList= ['id', 'uid', 'eid', 'date', 'amount', 'check_number', 'notes'];
-	protected $columnNames= ['Select', 'User', 'Project/Event', 'Date', 'Amount', 'Check Number', 'Notes'];
-	protected $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	protected $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
-	protected $projectsFields=['id','name', 'start_date', 'end_date', 'type', 'description'];
-	protected $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
+	protected static $fieldsList= ['id', 'uid', 'eid', 'date', 'amount', 'check_number', 'notes'];
+	protected static $columnNames= ['Select', 'User', 'Project/Event', 'Date', 'Amount', 'Check Number', 'Notes'];
+	protected static $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected static $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected static $projectsFields=['id','name', 'start_date', 'end_date', 'type', 'description'];
+	protected static $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
+	public static $usersFieldsList= ['id', 'eid', 'date', 'amount', 'check_number', 'notes'];
+	public static $usersColumnNames= ['Select', 'Project/Event', 'Date', 'Amount', 'Check Number', 'Notes'];
+	public static $projectsFieldsList= ['id', 'uid', 'date', 'amount', 'check_number', 'notes'];
+	public static $projectsColumnNames= ['Select', 'User', 'Date', 'Amount', 'Check Number', 'Notes'];
 
 	/**
 	 * Display a listing of the resource.
@@ -21,7 +25,7 @@ class MonetaryDonationsController extends \BaseController {
 	public function index()
 	{
 		$table = Datatable::table()
-		->addColumn($this->columnNames)
+		->addColumn(self::$columnNames)
 		->setUrl(route('api.monetaryDonations'))
 		->noScript();
 		return View::make('monetaryDonations/index', ['table'=>$table]);
@@ -43,12 +47,12 @@ class MonetaryDonationsController extends \BaseController {
 		}
 		if(Project::all()->count()>0){
 			$projectsTable = Datatable::table()
-						->addColumn($this->projectsColumns)
-						->setUrl(route('api.projectsRadio'))
+						->addColumn(self::$projectsColumns)
+						->setUrl(route('api.projects.radio'))
 						->noScript();
 			$usersTable = Datatable::table()
-						->addColumn($this->usersColumns)
-						->setUrl(route('api.usersRadio'))
+						->addColumn(self::$usersColumns)
+						->setUrl(route('api.users.radio'))
 						->noScript();
 		}else{
 			$projectsTable=$usersTable="N/A";
@@ -157,9 +161,9 @@ class MonetaryDonationsController extends \BaseController {
 	}
 	public function getDatatable(){
 		
-		$query = monetaryDonation::with('user','project')->select($this->fieldsList)->get();
+		$query = monetaryDonation::with('user','project')->select(self::$fieldsList)->get();
 		return Datatable::collection($query)
-		->showColumns($this->fieldsList)
+		->showColumns(self::$fieldsList)
 		->addColumn('id', function($model){
 			return link_to('monetaryDonations/'.$model->id,'View/Edit');
 		})
@@ -170,6 +174,33 @@ class MonetaryDonationsController extends \BaseController {
 			return link_to('projects/'.$model->eid,$model->project->name);
 		})
 
+		->make();
+	}
+	public function getUserDatatable($uid){
+		
+		$query = monetaryDonation::with('user','project')->where('uid',$uid)->select(self::$usersFieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$usersFieldsList)
+		->addColumn('id', function($model){
+			return link_to('monetaryDonations/'.$model->id,'View/Edit');
+		})
+		->addColumn('eid', function($model){
+			return link_to('projects/'.$model->eid,$model->project->name);
+		})
+
+		->make();
+	}
+	public function getProjectDatatable($eid){
+		
+		$query = monetaryDonation::with('user','project')->where('eid',$eid)->select(self::$projectsFieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$projectsFieldsList)
+		->addColumn('id', function($model){
+			return link_to('monetaryDonations/'.$model->id,'View/Edit');
+		})
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
 		->make();
 	}	
 }

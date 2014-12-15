@@ -6,10 +6,10 @@ class UsersController extends \BaseController {
 	public function __construct (User $user){
 		$this->user=$user;
 	}
-	protected $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	protected $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
-	protected $reducedFields=["id","first",'last','email','telephone', 'type','contact_preference'];
-	protected $reducedColumns=["Select",'First', 'Last', 'E-mail','Telephone', 'Type','Contact Preference'];
+	protected static $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	protected static $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected static $reducedFields=["id","first",'last','email','telephone', 'type','contact_preference'];
+	protected static $reducedColumns=["Select",'First', 'Last', 'E-mail','Telephone', 'Type','Contact Preference'];
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -19,7 +19,7 @@ class UsersController extends \BaseController {
 	{
 		if(User::all()->count()>0){
 			$table = Datatable::table()
-				->addColumn($this->allColumns)
+				->addColumn(self::$allColumns)
 				->setUrl(route('api.users'))
 				->noScript();
 		}else{
@@ -89,11 +89,51 @@ class UsersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		if(Auth::user()->type === 'member' and Auth::user()->id != $id){
+		$authType=Auth::user()->type;
+		if($authType === 'member' and Auth::user()->id != $id){
 			return Redirect::to('/');
 		}
 		$user=User::with('eventAttendance.project')->find($id);
-		return View::make('users/show', ['user'=>$user]);
+		if($authType!=='member'){
+			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
+				$adtable="N/A";
+			}else{
+				$adtable = Datatable::table()
+					->addColumn(AuctionDonationsController::$userColumnNames)
+					->setUrl(route('api.auctionDonations.userTable',$id))
+					->noScript();
+			}
+			if(EventAttendance::with('user')->where('uid',$id)->get()->count()<1){
+				$eatable="N/A";
+			}else{
+				$eatable = Datatable::table()
+					->addColumn(EventAttendancesController::$usersColumnNames)
+					->setUrl(route('api.eventAttendances.userTable',$id))
+					->noScript();
+			}
+			if(MonetaryDonation::with('user')->where('uid',$id)->get()->count()<1){
+				$mdtable="N/A";
+			}else{
+				$mdtable = Datatable::table()
+					->addColumn(MonetaryDonationsController::$usersColumnNames)
+					->setUrl(route('api.monetaryDonations.userTable',$id))
+					->noScript();
+			}
+
+
+		}else{
+			if(AuctionDonation::with('user')->where('uid',$id)->get()<1){
+				$adtable="N/A";
+			}else{
+				$adtable = Datatable::table()
+					->addColumn(AuctionDonation::$memberColumnNames)
+					->setUrl(route('api.auctionDonations.memberTable',$id))
+					->noScript();
+			}
+			$eatable="N/A";
+			$mdtable="N/A";
+		}		
+		return View::make('users/show', ['user'=>$user, 'adtable'=>$adtable, 'eatable'=>$eatable, 'mdtable'=>$mdtable]);
 	}
 
 
@@ -145,10 +185,10 @@ class UsersController extends \BaseController {
 	}
 	public function getDatatable(){
 		
-		$query = User::select($this->allFields)->get();
+		$query = User::select(self::$allFields)->get();
 
 		return Datatable::collection($query)
-			->showColumns($this->allFields)
+			->showColumns(self::$allFields)
 			->addColumn('id', function($model){
 				return link_to('users/'.$model->id,'View/Edit');
 			})
@@ -158,10 +198,10 @@ class UsersController extends \BaseController {
 	}
 	public function getRadioDatatable(){
 		
-		$query = User::select($this->allFields)->get();
+		$query = User::select(self::$allFields)->get();
 
 		return Datatable::collection($query)
-			->showColumns($this->allFields)
+			->showColumns(self::$allFields)
 			->addColumn('id', function($model){
 				return Form::radio('uid', $model->id);
 			})

@@ -49,8 +49,12 @@ class AuctionDonationsController extends \BaseController {
 		}
 		return $years;
 	}
-	protected $fieldsList= ['id', 'uid', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
-	protected $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
+	protected static $fieldsList= ['id', 'uid', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
+	protected static $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
+	protected static $userFieldsList= ['id', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
+	public static $userColumnNames= ['Select', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
+	protected static $memberFieldsList= ['id', 'title', 'year', 'category', 'quantity', 'description', 'approximate_value'];
+	public static $memberColumnNames= ['Resubmit', 'Title', 'Year', 'Category', 'Quantity', 'Description', 'Approximate Value'];
 
 	/**
 	 * Display a listing of the resource.
@@ -64,7 +68,7 @@ class AuctionDonationsController extends \BaseController {
 			$table="N/A";
 		}else{
 			$table = Datatable::table()
-			->addColumn($this->columnNames)
+			->addColumn(self::$columnNames)
 			->setUrl(route('api.auctionDonations',$year))
 			->noScript();
 		}
@@ -85,6 +89,7 @@ class AuctionDonationsController extends \BaseController {
 	{
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
+		$id=Auth::user()->id;
 		$userDonations=AuctionDonation::with('user')->where('uid',Auth::user()->id)->get();
 		if(Auth::user()->type!=='member'){
 			$locations['other']='other';
@@ -92,7 +97,15 @@ class AuctionDonationsController extends \BaseController {
 		}else{
 			unset($locations['Live Auction']);
 		}
-		return View::make('auctionDonations.create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'userDonations'=>$userDonations]);
+		if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
+			$table="N/A";
+		}else{
+			$table = Datatable::table()
+			->addColumn(self::$memberColumnNames)
+			->setUrl(route('api.auctionDonations.memberTable',$id))
+			->noScript();
+		}
+		return View::make('auctionDonations.create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'table'=>$table]);
 	}
 	public function adminCreate()
 	{
@@ -107,9 +120,17 @@ class AuctionDonationsController extends \BaseController {
 	public function resubmit($id)
 	{
 		$donation=AuctionDonation::with('user')->find($id);
+		$uid=Auth::user()->id;
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
-		$userDonations=AuctionDonation::with('user')->where('uid',Auth::user()->id)->get();
+		if(AuctionDonation::with('user')->where('uid',$uid)->get()->count()<1){
+			$table="N/A";
+		}else{
+			$table = Datatable::table()
+			->addColumn(self::$columnNames)
+			->setUrl(route('api.auctionDonations.memberTable',$uid))
+			->noScript();
+		}
 		if(Auth::user()->type!=='member'){
 			$locations['other']='other';
 			$categories['other']='other';
@@ -153,7 +174,12 @@ class AuctionDonationsController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 		}
 		$this->auctionDonation->save();
-		return Redirect::route('auctionDonations.index',$this->currentYear());
+		Session::flash('auc_donate_success', true);
+		if(Auth::user()->type!=='member'){
+			return Redirect::route('auctionDonations.index',$this->currentYear());
+		}else{
+			return View::make('auctionDonations.success');
+		}
 	}
 	/**
 	 * Display the specified resource.
@@ -214,7 +240,12 @@ class AuctionDonationsController extends \BaseController {
 			Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 		}
 		$donation->save();
-		return Redirect::route('auctionDonations.index',$this->currentYear());
+		Session::flash('auc_update_success', true);
+		if(Auth::user()->type!=='member'){
+			return Redirect::route('auctionDonations.index',$this->currentYear());
+		}else{
+			return Redirect::route('auctionDonations.show',$id);
+		}
 	}
 
 
@@ -232,9 +263,9 @@ class AuctionDonationsController extends \BaseController {
 	}
 	public function getDatatable($year){
 		
-		$query = auctionDonation::with('user')->where('year',$year)->select($this->fieldsList)->get();
+		$query = auctionDonation::with('user')->where('year',$year)->select(self::$fieldsList)->get();
 		return Datatable::collection($query)
-		->showColumns($this->fieldsList)
+		->showColumns(self::$fieldsList)
 		->addColumn('id', function($model){
 			return link_to('auctionDonations/'.$model->id,'View/Edit');
 		})
@@ -242,6 +273,34 @@ class AuctionDonationsController extends \BaseController {
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
 		})
 		->make();
-	}	
+	}
+	public function getUserDatatable($id){
+		
+		$query = auctionDonation::with('user')->where('uid',$id)->select(self::$userFieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$userFieldsList)
+		->addColumn('id', function($model){
+			return link_to('auctionDonations/'.$model->id,'View/Edit');
+		})
+		->make();
+	}
+	public function getMemberDatatable($id){
+		
+		$query = auctionDonation::with('user')->where('uid',$id)->select(self::$memberFieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$memberFieldsList)
+		->addColumn('id', function($model){
+			return link_to_route('auctionDonations.resubmit','Select',$model->id);
+		})
+		->make();
+	}			
+	public function makeBooklet(){
 
+		//insert a sort function here, sort it first on Location and then within each location on category
+		
+		$donationsTable = AuctionDonation::with('user')->where('year', AuctionDonationsController::currentYear())->where('location','!=', 'Live Auction')->orderBy('location', 'category', 'ASC')->get();
+		$liveAuctionItems = AuctionDonation::with('user')->where('year', AuctionDonationsController::currentYear())->where('location', 'Live Auction')->get();
+
+		return View::make("booklet", ['donationsTable'=>$donationsTable, 'liveAuctionItems'=>$liveAuctionItems]);
+	}	
 }

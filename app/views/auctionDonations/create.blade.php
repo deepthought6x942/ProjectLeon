@@ -13,31 +13,33 @@
           <td>{{ $errors->first('title') }}</td>
         </tr>
         <tr>
-            <td>{{ Form::label('category', 'Category: ')}}</td>
-            <td>{{ Form::select('category', $categories)}}</td>
-            <td>{{Form::text('other category', "Input other")}}</td>
-            <td>{{ $errors->first('category') }}</td>
-          </tr>
+          <td>{{ Form::label('category', 'Category: ')}}</td>
+          <td>{{ Form::select('category', $categories)}}</td>
+          <td>{{Form::text('other category', "Input other")}}</td>
+          <td>{{ $errors->first('category') }}</td>
+        </tr>
         <tr>
           <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
           <td>{{ Form::text('quantity', '1')}}</td>
           <td>{{ $errors->first('quantity') }}</td>
-        </tr><tr>
+        </tr>
+        <tr>
           <td>{{ Form::label('description', 'Description: ')}}</td>
           <td>{{ Form::textarea('description')}}</td>
           <td>{{ $errors->first('description') }}</td>
-        </tr><tr>
+        </tr>
+        <tr>
           <td>{{ Form::label('approximate_value', 'Approximate Value: $')}}</td>
           <td>{{ Form::text('approximate_value')}}</td>
           <td>{{ $errors->first('approximate_value') }}</td>
         </tr>
         <tr>
-            <td>{{ Form::label('location', 'Location: ')}}</td>
-            <td>{{ Form::select('location', $locations)}}</td>
-            @if(Auth::user()->type!=='member')
-            <td>{{Form::text('other location', "Input other")}}</td>
-            @endif
-            <td>{{ $errors->first('location') }}</td>
+          <td>{{ Form::label('location', 'Location: ')}}</td>
+          <td>{{ Form::select('location', $locations)}}</td>
+          @if(Auth::user()->type!=='member')
+          <td>{{Form::text('other location', "Input other")}}</td>
+          @endif
+          <td>{{ $errors->first('location') }}</td>
         </tr>
         {{Form::hidden('uid', Auth::user()->id)}}
         {{Form::hidden('status', 'Not Delivered')}}
@@ -47,36 +49,19 @@
   </div>
   {{Form::submit('Submit')}}
   {{Form::close ()}}
-<br>
-<h4> Resubmit past donation </h4>
-<p> Select the donation from the table below to use as a template for a new donation 
+  @if($table!=="N/A")
+    <h4> Resubmit past donation </h4>
+    <p> Select the donation from the table below to use as a template for a new donation</p> 
 
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover" id="users">
-    <thead>
-      <tr>
-        <th class="text-center">Select</th>
-        <th class="text-center">Title</th>
-        <th class="text-center">Description</th>
-        <th class="text-center">Year</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($userDonations as $donation)
-        <!--unless([User is already attending]) -->
-        <tr class="text-center">
-          <td>{{link_to("auctionDonations/resubmit/{$donation->id}", 'Select') }}</td>
-          <td>{{$donation->title}}</td>
-          <td>{{$donation->description}}</td>
-          <td>{{$donation->year}}</td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
-</div>
-
+    <div class="table-responsive">
+      {{$table->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
+    </div>
+  @endif
 
 </div>
-
-
+@stop
+@section('scripts')
+  @if($table!=="N/A")
+    {{str_replace("\\/","/",$table->script())}}
+  @endif
 @stop

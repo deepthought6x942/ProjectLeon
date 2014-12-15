@@ -14,7 +14,7 @@ Auction Donations
         @if(Auth::user()->type!=='member')
           {{Form::model($donation, array('method'=>'PUT', 'route' => array('auctionDonations.update', $donation->id)))}}
           <tr>
-            <td>Donor Name:</td>
+            <td><strong>Donor Name:</strong></td>
             <td>{{link_to_route('users.show', $donation->user->first." ".$donation->user->last,$donation->user->id)}}</td>
           </tr>
           <tr>
