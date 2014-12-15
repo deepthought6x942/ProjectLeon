@@ -1,5 +1,6 @@
 @extends('layouts.index')
-@section('header') Users @stop	
+@section('header') Users
+@stop	
 @section('table')
 
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 

@@ -1,7 +1,8 @@
 @extends('layouts.create')
 
 
-@section('header') Create New Event/Project @stop
+@section('header') Create New Event/Project
+@stop
 @section('content')
 
 <div class="col-lg-10">
@@ -13,32 +14,32 @@
   <tr>
     <td>{{ Form::label('name', 'Name: ')}}</td>
     <td>{{ Form::text('name')}}</td>
-    <td>{{ $errors->first('name') }}</td>
+    <td style="color:red;">{{ $errors->first('name') }}</td>
   </tr>
   <tr>
     <td>{{ Form::label('start_date', 'Start Date: ')}}</td>
     <td>{{ Form::text('start_date',  null, array('id' => 'datepicker'))}}</td>
-    <td>{{$errors->first('start_date') }}</td>
+    <td style="color:red;">{{$errors->first('start_date') }}</td>
   </tr>
   <tr>
     <td>{{ Form::label('end_date', 'End Date: ')}}</td>
     <td>{{ Form::text('end_date', null, array('id' => 'datepicker2'))}}</td>
-    <td>{{ $errors->first('end_date') }}</td>
+    <td style="color:red;">{{ $errors->first('end_date') }}</td>
   </tr>
  
   <tr>
     <td>{{ Form::label('type', 'Type: ')}}</td>
     <td>{{ Form::select('type', $types)}}</td>
      @if(Auth::user()->type!=='member')
-            <td>{{Form::text('other', "Input other")}}</td>
+            <td>{{Form::text('Other', "Input Other")}}</td>
      @endif
-    <td>{{ $errors->first('type') }}</td>
+    <td style="color:red;">{{ $errors->first('type') }}</td>
   </tr>
   
  <tr>
     <td>{{ Form::label('description', 'Description: ')}}</td>
     <td>{{ Form::textarea('description')}}</td>
-    <td>{{ $errors->first('description') }}</td>
+    <td style="color:red;">{{ $errors->first('description') }}</td>
   </tr>
   <tr>
   <td> </td>

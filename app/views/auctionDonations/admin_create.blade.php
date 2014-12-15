@@ -1,5 +1,5 @@
 @extends('layouts.create')
-@section('header') Create Auction Donation 
+@section('header') Create Auction Donation
 @stop
 @section('content')
 <div class="col-lg-10">
@@ -11,40 +11,40 @@
         <tr>
           <td>{{ Form::label('title', 'Donation Title: ')}}</td>
           <td>{{ Form::text('title')}}</td>
-          <td>{{ $errors->first('title') }}</td>
+          <td style="color:red;">{{ $errors->first('title') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('category', 'Category: ')}}</td>
           <td>{{ Form::select('category', $categories)}}</td>
-          <td>{{Form::text('other category', "Input other")}}</td>
-          <td>{{ $errors->first('category') }}</td>
+          <td>{{Form::text('Other category', "Input Other")}}</td>
+          <td style="color:red;">{{ $errors->first('category') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
-          <td>{{ Form::text('quantity')}}</td>
-          <td>{{ $errors->first('quantity') }}</td>
+          <td>{{ Form::text('quantity','1')}}</td>
+          <td style="color:red;">{{ $errors->first('quantity') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('description', 'Description: ')}}</td>
           <td>{{ Form::textarea('description')}}</td>
-          <td>{{ $errors->first('description') }}</td>
+          <td style="color:red;">{{ $errors->first('description') }}</td>
         </tr>
         <tr>
           <td>{{Form::label('status', 'Status: ')}}</td>
           <td>{{ Form::select('status', $statuses)}}</td>
-          <td>{{Form::text('other status', "Input other")}}</td>
-          <td> {{ $errors->first('status') }}</td>
+          <td>{{Form::text('Other status', "Input Other")}}</td>
+          <td style="color:red;"> {{ $errors->first('status') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('location', 'Location: ')}}</td>
           <td>{{ Form::select('location', $locations)}}</td>
-          <td>{{Form::text('other location', "Input other")}}</td>
-          <td>{{ $errors->first('location') }}</td>
+          <td>{{Form::text('Other location', "Input Other")}}</td>
+          <td style="color:red;">{{ $errors->first('location') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('approximate_value', 'Approximate Value: $')}}</td>
           <td>{{ Form::text('approximate_value')}}</td>
-          <td>{{ $errors->first('approximate_value') }}</td>
+          <td style="color:red;">{{ $errors->first('approximate_value') }}</td>
         </tr>
       </table>
     </div>

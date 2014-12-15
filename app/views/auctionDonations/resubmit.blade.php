@@ -15,7 +15,7 @@
         <tr>
             <td>{{ Form::label('category', 'Category: ')}}</td>
             <td>{{ Form::select('category', $categories)}}</td>
-            <td>{{Form::text('other category', "Input other")}}</td>
+            <td>{{Form::text('Other category', "Input Other")}}</td>
             <td>{{ $errors->first('category') }}</td>
           </tr>
         <tr>
@@ -35,7 +35,7 @@
           <td>{{ Form::label('location', 'Location: ')}}</td>
           <td>{{ Form::select('location', $locations)}}</td>
           @if(Auth::user()->type!=='member')
-           <td>{{Form::text('other location', "Input other")}}</td>
+           <td>{{Form::text('Other location', "Input Other")}}</td>
           @endif
           <td>{{ $errors->first('location') }}</td>
         </tr>

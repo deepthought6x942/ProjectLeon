@@ -15,26 +15,32 @@ Monetary Donations
         <tr>
           <td>{{ Form::label('check_number', 'Check Number: ')}}</td>
           <td>{{ Form::text('check_number')}}</td>
-          <td>{{ $errors->first('check_number') }}</td>
+          <td style="color:red;">{{ $errors->first('check_number') }}</td>
         </tr>
         <tr>
+<<<<<<< Updated upstream
           <td><strong>Associated Project: <strong></td>
           <td>{{link_to_route('projects.show', $donation->project->name, $donation->eid)}}</td>
+=======
+          <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
+          <td>{{ Form::select('eid', $projects, $donation->project->id)}}</td>
+          <td style="color:red;">{{ $errors->first('eid') }}</td>
+>>>>>>> Stashed changes
         </tr>
         <tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>
           <td>{{ Form::text('date')}}</td>
-          <td>{{ $errors->first('date') }}</td>
+          <td style="color:red;">{{ $errors->first('date') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('amount', 'Amount: $')}}</td>
           <td>{{ Form::text('amount')}}</td>
-          <td>{{ $errors->first('amount') }}</td>
+          <td style="color:red;">{{ $errors->first('amount') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('notes', 'Notes:')}}</td>
           <td>{{ Form::textarea('notes')}}</td>
-          <td>{{ $errors->first('notes') }}</td>
+          <td style="color:red;">{{ $errors->first('notes') }}</td>
         </tr>
         
       </table>

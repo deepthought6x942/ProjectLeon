@@ -2,7 +2,8 @@
 
 
 
-@section('header') Enter New Monetary Donation @stop
+@section('header') Enter New Monetary Donation
+@stop
 
 
 @section('content')
@@ -19,20 +20,20 @@
         <tr>
           <td>{{ Form::label('check_number', 'Check Number: ')}}</td>
           <td>{{ Form::text('check_number')}}</td>
-          <td>{{ $errors->first('check_number') }}</td>
+          <td style="color:red;">{{ $errors->first('check_number') }}</td>
         </tr><tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>
           <td>{{ Form::text('date',null, array('id' => 'datepicker'))}}</td>
-          <td>{{ $errors->first('date') }}</td>
+          <td style="color:red;">{{ $errors->first('date') }}</td>
         </tr><tr>
           <td>{{ Form::label('amount', 'Amount: $')}}</td>
           <td>{{ Form::text('amount')}}</td>
-          <td>{{ $errors->first('amount') }}</td>
+          <td style="color:red;">{{ $errors->first('amount') }}</td>
         </tr>
         <tr>
           <td>{{ Form::label('notes', 'Notes:')}}</td>
           <td>{{ Form::textarea('notes')}}</td>
-          <td>{{ $errors->first('notes') }}</td>
+          <td style="color:red;" >{{ $errors->first('notes') }}</td>
         </tr>
       </table>
     </div>

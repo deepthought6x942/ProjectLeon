@@ -36,7 +36,7 @@ class ProjectsController extends \BaseController {
 		foreach($t as $type){
 			$types[$type]=$type;
 		}
-		$types['other']='other';
+		$types['Other']='Other';
 		return View::make('projects.create', ['types'=>$types]);
 	}
 
@@ -49,8 +49,8 @@ class ProjectsController extends \BaseController {
 	public function store()
 	{
 		$input=Input::all();
-		if($input['type']==='other'){
-			$input['type']=$input['other'];
+		if($input['type']==='Other'){
+			$input['type']=$input['Other'];
 		}
 		if(!isset($input['end_date'])){
 			$input['end_date']=$input['start_date'];
@@ -70,7 +70,7 @@ class ProjectsController extends \BaseController {
 	public function show($id)
 	{
 		$t=Project::groupby('type')->lists('type');
-		$types=['other'=>'other'];
+		$types=['Other'=>'Other'];
 		foreach($t as $type){
 			$types[$type]=$type;
 		}
@@ -102,8 +102,8 @@ class ProjectsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-		if($input['type']==='other'){
-			$input['type']=$input['other'];
+		if($input['type']==='Other'){
+			$input['type']=$input['Other'];
 		}
 		if(! $this->project->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->project->errors);

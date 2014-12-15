@@ -1,5 +1,6 @@
 @extends('layouts.index')
-@section('header')Monetary Donations@stop   
+@section('header')Monetary Donations
+@stop   
 @section('table')
 
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 

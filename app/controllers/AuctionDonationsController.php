@@ -22,7 +22,7 @@ class AuctionDonationsController extends \BaseController {
 		foreach($s as $status){
 			$statuses[$status]=$status;
 		}
-		$statuses['other']='other';
+		$statuses['Other']='Other';
 		return $statuses;
 	}
 	public static function getLocations(){
@@ -92,8 +92,8 @@ class AuctionDonationsController extends \BaseController {
 		$id=Auth::user()->id;
 		$userDonations=AuctionDonation::with('user')->where('uid',Auth::user()->id)->get();
 		if(Auth::user()->type!=='member'){
-			$locations['other']='other';
-			$categories['other']='other';
+			$locations['Other']='Other';
+			$categories['Other']='Other';
 		}else{
 			unset($locations['Live Auction']);
 		}
@@ -113,8 +113,8 @@ class AuctionDonationsController extends \BaseController {
 		$categories=$this->getCategories();
 		$users=User::all();
 		$locations=$this->getLocations();
-		$locations['other']='other';
-		$categories['other']='other';
+		$locations['Other']='Other';
+		$categories['Other']='Other';
 		return View::make('auctionDonations.admin_create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'users'=>$users]);
 	}
 	public function resubmit($id)
@@ -132,8 +132,8 @@ class AuctionDonationsController extends \BaseController {
 			->noScript();
 		}
 		if(Auth::user()->type!=='member'){
-			$locations['other']='other';
-			$categories['other']='other';
+			$locations['Other']='Other';
+			$categories['Other']='Other';
 		}else{
 			unset($locations['Live Auction']);
 		}
@@ -162,11 +162,11 @@ class AuctionDonationsController extends \BaseController {
 			}
 		} 
 		
-		if($input['location']==='other'&& isset($input['other_location'])) {
-			$input['location']=$input['other_location'];
+		if($input['location']==='Other'&& isset($input['Other_location'])) {
+			$input['location']=$input['Other_location'];
 		}
-		if($input['category']==='other'&& isset($input['other_category'])) {
-			$input['category']=$input['other_category'];
+		if($input['category']==='Other'&& isset($input['Other_category'])) {
+			$input['category']=$input['Other_category'];
 		}
 
 		$input['year']=$this->currentYear();
@@ -193,8 +193,8 @@ class AuctionDonationsController extends \BaseController {
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
 		if(Auth::user()->type!=='member'){
-			$locations['other']='other';
-			$categories['other']='other';
+			$locations['Other']='Other';
+			$categories['Other']='Other';
 		}else{
 			unset($locations['Live Auction']);
 		}
@@ -226,14 +226,14 @@ class AuctionDonationsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-		if($input['location']==='other'&& isset($input['other_location'])) {
-			$input['location']=$input['other_location'];
+		if($input['location']==='Other'&& isset($input['Other_location'])) {
+			$input['location']=$input['Other_location'];
 		}
-		if($input['category']==='other'&& isset($input['other_category'])) {
-			$input['category']=$input['other_category'];
+		if($input['category']==='Other'&& isset($input['Other_category'])) {
+			$input['category']=$input['Other_category'];
 		}
-		if($input['status']==='other'&& isset($input['other_status'])) {
-			$input['status']=$input['other_status'];
+		if($input['status']==='Other'&& isset($input['Other_status'])) {
+			$input['status']=$input['Other_status'];
 		}
 		$donation=$this->auctionDonation->find($id)->fill($input);
 		if(! $donation->isValid()){

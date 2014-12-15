@@ -14,7 +14,7 @@
     <div class="panel panel-info" >
         <div class="panel-heading">
             <div class="panel-title">Register Users</div>
-            <h5> (*) denotes required field </h5>
+          <h5 style="color:red;"> (*) denotes required field </h5>
         </div>     
 
        
@@ -23,36 +23,40 @@
                 <tr>
                     <td>{{ Form::label('first', 'First Name(*): ')}}</td>
                     <td>{{ Form::text('first')}}</td>
-                    <td>{{ $errors->first('first') }}</td>
+                    <td style="color:red;">{{ $errors->first('first') }}</td>
 
                 </tr>
                 <tr>
                     <td>{{ Form::label('last', 'Last Name(*): ')}}</td>
                     <td>{{ Form::text('last')}}</td>
-                    <td>{{ $errors->first('last') }}</td>
+                    <td style="color:red;">{{ $errors->first('last') }}</td>
 
                 </tr>
 
                 <tr>
                     <td>{{ Form::label('email', 'E-mail(*): ')}}</td>
                     <td>{{ Form::text('email')}}</td>
-                    <td>{{ $errors->first('email') }}</td>
+                    <td style="color:red;">{{ $errors->first('email') }}</td>
 
                 </tr>
 
                 <tr>
                     <td>{{ Form::label('password', 'Password(*):') }}</td>
                     <td>{{ Form::password('password') }}</td>
-                    <td>{{ $errors->first('password') }}</td>
+                    <td style="color:red;">{{ $errors->first('password') }}</td>
                 </tr>
 
                 <tr>
                     <td>{{ Form::label('password_confirmation', 'Password Confirmation(*):') }}</td>
                     <td>{{ Form::password('password') }}</td>
-                    <td>{{ $errors->first('password') }}</td>
+                    <td style="color:red;">{{ $errors->first('password') }}</td>
                 </tr>
 
-
+                <tr>
+                    <td>{{ Form::label('contact_preference', 'Contact Preference:') }}</td>
+                    <td>{{ Form::select('contact_preference', ['E-mail'=>'E-mail', 'Phone'=>'Phone']) }}</td>
+                
+                </tr>
 
                 <tr>
                     <td>{{ Form::label('address1', 'Address One: ') }}</td>

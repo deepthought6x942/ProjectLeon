@@ -1,11 +1,7 @@
 @extends('layouts.create')
-
-
 @section('header')
 Auction Donations
-
 @stop
-
 @section('content')
 <div class="col-lg-8">
   <div class="panel panel-default">
@@ -30,7 +26,7 @@ Auction Donations
           <tr>
             <td>{{ Form::label('category', 'Category: ')}}</td>
             <td>{{ Form::select('category', $categories)}}</td>
-            <td>{{Form::text('other_category', "Input other")}}</td>
+            <td>{{Form::text('Other_category', "Input Other")}}</td>
             <td>{{ $errors->first('category') }}</td>
           </tr>
           <tr>
@@ -52,7 +48,7 @@ Auction Donations
           <tr>
             <td>{{ Form::label('location', 'Location: ')}}</td>
             <td>{{ Form::select('location', $locations)}}</td>
-            <td>{{Form::text('other_location', "Input other")}}</td>
+            <td>{{Form::text('Other_location', "Input Other")}}</td>
             <td>{{ $errors->first('location') }}</td>
           </tr>
           <tr>

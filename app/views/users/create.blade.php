@@ -1,6 +1,7 @@
 @extends('layouts.create')
 
-@section('header') Create New Users @stop
+@section('header') Create New Users
+@stop
 
 
 @section('content')

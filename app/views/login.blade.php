@@ -15,7 +15,7 @@
             <div class="panel panel-info" >
                     <div class="panel-heading">
                         <div class="panel-title">Log In</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a style = "color:white" href="#">{{ link_to("password/reset", 'Forgot Password?') }}</a></div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a style = "color:white" href="#"></a></div>
                     </div>     
 
                     <div style="padding-top:30px" class="panel-body" >
@@ -58,6 +58,12 @@
                                        {{link_to("register", 'Sign Up Here') }}
                                         
                                     </div>
+
+                                    <div style="color: black; border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                          OR
+                                        </div>
+
+                                    {{ link_to("password/reset", 'Forgot Password?') }}
                                 </div>    
                             </form>     
 
