@@ -21,11 +21,13 @@ class AuctionDonation extends Eloquent{
   }
   public static $rules = [
     'uid'=> 'required',
-    'title'=>'required',
-    'year'=>'required',
-    'category'=>'required',
-    'description' =>'required',
-    'quantity'=>'required',
+    'title'=>'required|alpha_num',
+    'year'=>'required|digits:4',
+    'category'=>'required|alpha_num',
+    'description' =>'required|alpha_num',
+    'quantity'=>'required|min:1',
+    'approximate_value'=>"min|0",
+    'sold_for'=>"min|1"
   ];
   public $messages;
   public $errors;

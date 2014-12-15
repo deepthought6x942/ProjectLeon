@@ -23,8 +23,8 @@ class Project extends Eloquent{
     return $this->hasMany('MonetaryDonation', 'eid');
   }
   public static $rules = [
-    'name'=> 'required',
-    'start_date'=> 'required',
+    'name'=> 'required|alpha_num',
+    'start_date'=> 'required|date',
   ];
   public $messages;
   public $errors;

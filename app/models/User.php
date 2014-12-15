@@ -33,9 +33,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     return $this->hasMany('AuctionDonation', 'uid');
   }
   public static $rules = [
-    'first'=> 'required',
-    'last'=> 'required',
-    'password'=> 'required|min:5',
+    'first'=> 'required|alpha_num',
+    'last'=> 'required|alpha_num',
+    'password'=> 'required|min:5|confirmed',
+    'password_confirmation' => 'required',
     'email'=>'required|email|unique:users'
   ];
 
