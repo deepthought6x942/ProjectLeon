@@ -16,7 +16,7 @@ $currentCategory="none";
 @foreach($donationsTable as $donation)
     
     @if ($currentLocation!==$donation->location)
-        <h2><strong>{{$currentLocation=$donation->location}}</strong></h2>
+        <h2><strong><center>{{$currentLocation=$donation->location}}</center></strong></h2>
         <h3><strong>{{$currentCategory=$donation->category}}</strong></h3>
     @elseif ($currentCategory!==$donation->category)
         <h3><strong>{{$currentCategory=$donation->category}}</strong></h3>
