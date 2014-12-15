@@ -10,7 +10,12 @@
 
 
 <link href="css/bootstrap.css" rel="stylesheet">
-	
+	 <div class="container">
+    
+        @if(Session::has('message'))
+            <p class="alert">{{ Session::get('message') }}</p>
+        @endif
+    </div>
 	
   </head>
 

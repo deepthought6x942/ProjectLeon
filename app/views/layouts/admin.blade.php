@@ -25,12 +25,14 @@
     <link href={{asset("css/plugins/dataTables.colVis.css")}} rel="stylesheet">
     <link href={{asset("css/plugins/dataTables.tableTools.css")}} rel="stylesheet">
 
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
     <!-- Custom CSS -->
     
 
     <!-- Custom Fonts -->
     <link href={{asset("font-awesome-4.1.0/css/font-awesome.min.css")}} rel="stylesheet" type="text/css">
-
+    <link href={{asset("css/bootstrap.css")}} rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,6 +50,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <!-- img here -->
             <div class="navbar-header">
                 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -150,6 +153,9 @@
     <script src={{asset("js/plugins/dataTables/dataTables.bootstrap.js")}}></script>
     <script src={{asset("js/plugins/dataTables/dataTables.colVis.js")}}></script>
     <script src={{asset("js/plugins/dataTables/dataTables.tableTools.js")}}></script>
+
+    <!-- DatePicker UI -->
+    <script src={{asset ("js/jquery-ui.js")}}></script>
 
     <!-- Custom Theme JavaScript -->
     <script src={{asset("js/sb-admin-2.js")}}></script>

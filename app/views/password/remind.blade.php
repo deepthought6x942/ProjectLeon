@@ -1,4 +1,4 @@
-
+@extends('layouts.default_noheader')
 
 @if (Session::has('error'))
   {{ trans(Session::get('reason')) }}
