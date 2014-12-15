@@ -32,17 +32,31 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   public function auctionDonations(){
     return $this->hasMany('AuctionDonation', 'uid');
   }
-  public static $rules = [
+  public static $insertRules = [
+    'first'=> 'required',
+    'last'=> 'required',
+    'password'=> 'required|confirmed|min:5',
+    'password_confirmation'=> 'required|min:5',
+    'email'=>'required|email|unique:users'
+  ];
+  public static $updateRules = [
+    'first'=> 'required',
+    'last'=> 'required',
+    'password'=> 'min:5',
+    'email'=>'required|email'
+  ];
+  public static $temporaryRules = [
     'first'=> 'required',
     'last'=> 'required',
     'password'=> 'min:5',
     'email'=>'required|email|unique:users'
   ];
-
   public $messages;
   public $errors;
-  public function isValid(){
-    $validation=Validator::make($this->attributes, static::$rules);
+  public function isValid($type){
+    if($type==='insert') $validation=Validator::make($this->attributes, static::$insertRules);
+    elseif($type==='update') $validation=Validator::make($this->attributes, static::$updateRules);
+    else $validation=Validator::make($this->attributes, static::$temporaryRules);
     if ($validation->passes()) return true;
      $this->errors =$validation->messages ();
      return false;

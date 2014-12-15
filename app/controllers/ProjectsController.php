@@ -110,7 +110,7 @@ class ProjectsController extends \BaseController {
 		}
 		$project =$this->project->find($id)->fill($input);
 		$project->save();
-		return Redirect::route('projects.show',$id);
+		return Redirect::route('projects');
 	}
 
 

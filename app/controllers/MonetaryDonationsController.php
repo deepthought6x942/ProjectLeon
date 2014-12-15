@@ -71,7 +71,7 @@ class MonetaryDonationsController extends \BaseController {
 			}else{
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
-				if($newuser->fill($newuserdata)->isValid()){
+				if($newuser->fill($newuserdata)->isValid('temporary')){
 					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;

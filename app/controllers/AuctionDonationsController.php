@@ -17,11 +17,12 @@ class AuctionDonationsController extends \BaseController {
 		}
 	}
 	public static function getStatuses(){
-		$s=AuctionDonation::groupby('status')->lists('status');
-		$statuses=['other'=>'other'];
+		$s=AuctionDonation::groupby('status')->orderby('status','DESC')->lists('status');
+		$statuses=[];
 		foreach($s as $status){
 			$statuses[$status]=$status;
 		}
+		$statuses['other']='other';
 		return $statuses;
 	}
 	public static function getLocations(){
@@ -95,9 +96,10 @@ class AuctionDonationsController extends \BaseController {
 	}
 	public function adminCreate()
 	{
-		$locations=$this->getLocations();
+		
 		$categories=$this->getCategories();
 		$users=User::all();
+		$locations=$this->getLocations();
 		$locations['other']='other';
 		$categories['other']='other';
 		return View::make('auctionDonations.admin_create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'users'=>$users]);
@@ -212,7 +214,7 @@ class AuctionDonationsController extends \BaseController {
 			Redirect::back()->withInput()->withErrors($this->auctionDonation->errors);
 		}
 		$donation->save();
-		return Redirect::route('auctionDonations.show',$id);
+		return Redirect::route('auctionDonations.index',$this->currentYear());
 	}
 
 

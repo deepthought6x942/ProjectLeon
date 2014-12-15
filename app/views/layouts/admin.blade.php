@@ -109,7 +109,7 @@
                                     {{link_to_route("auctionDonations.index",'List All', AuctionDonationsController::currentYear()) }}
                                 </li>
                                 <li>
-                                    {{link_to_route("auctionDonations.create", 'Make Donation') }}
+                                    {{link_to_route("auctionDonations.create", 'Donate') }}
                                 </li>
                                 <li>
                                     {{link_to_route("auctionDonations.admin_create", 'Create Donation') }}

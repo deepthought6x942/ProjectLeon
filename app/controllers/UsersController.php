@@ -50,7 +50,7 @@ class UsersController extends \BaseController {
 	{	
 
 		$input=Input::all();
-		if(! $this->user->fill($input)->isValid()){
+		if(! $this->user->fill($input)->isValid('insert')){
 			return Redirect::back()->withInput()->withErrors($this->user->errors);
 		}
 
@@ -120,10 +120,9 @@ class UsersController extends \BaseController {
 	public function update($id)
 	{
 		$user = User::with('eventAttendance.project')->find($id);
-
 		$user->fill(Input::all());
-		if(!$user->isValid()){
-			return Redirect::back()->withInput()->withErrors($this->project->errors);
+		if(!$user->isValid('update')){
+			return Redirect::back()->withInput()->withErrors($user->errors);
 		}
 		$user->save();
 		return Redirect::route('users.show', $id);
