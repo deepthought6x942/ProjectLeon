@@ -23,7 +23,7 @@
     @if($eid>=0)
       @if($attendanceTable!=="N/A")
         <div class="table-responsive">
-        <h2> Current Attendees </h2>
+        <h2> Current Attendees of {{$project->name}}</h2>
         {{ Form::open(['route'=>'eventAttendances.destroy', 'method'=>'DELETE']) }}
         {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                                   'tableTools' => array(
@@ -44,7 +44,7 @@
       {{Form::submit('Delete Selected Attendance')}}
       {{Form::close ()}}
       @else
-        <h1>There are currently no attendees</h1>
+        <h1>There are currently no attendees of {{$project->name}}</h1>
         <p> You can create one below </p>
       @endif
       {{ Form::open(['route'=>'eventAttendances.store']) }}
@@ -72,10 +72,12 @@
       <h1>All currently existing users attended</h1>
         <p> You can create a new one below </p>
       @endif
-      {{ Form::label('email', 'Email: ')}} {{Form::text('email') }} {{Form::label('first', 'First: ')}}{{Form::text('first')}} {{Form::label('last', 'Last: ')}}{{Form::text('last')}}
+      <div> User not in the database? Input here: {{ Form::label('email', 'Email: ')}} {{Form::text('email') }} {{Form::label('first', 'First: ')}}{{Form::text('first')}} {{Form::label('last', 'Last: ')}}{{Form::text('last')}}
       {{ $errors->first('email')}} {{$errors->first('first')}} {{$errors->first('last')}}
-      {{ Form::hidden('eid', $eid)}}
-      <p> Select their role: </p>
+      {{ Form::hidden('eid', $eid)}}</div>
+
+      <div>
+      <p> Select the role of the attendees you wish to add: </p>
 
       {{ Form::label('role', 'Role')}}
       {{ Form::select('role', $roles, $roles)}}
@@ -84,6 +86,7 @@
       {{ Form::text('other')}}
       {{ $errors->first('other') }}
       {{Form::submit('Submit')}}
+    </div>
       {{Form::close ()}}
     @endif
   @else

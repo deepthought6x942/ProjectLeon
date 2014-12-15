@@ -45,6 +45,7 @@ class EventAttendancesController extends \BaseController {
 			->setUrl(route('api.eventAttendances.projectsList'))
 			->noScript();
 			if($eid>=0){
+				$project=Project::find($eid);
 				$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
 					$q->where('eid', $eid);
 				})->lists('id');
@@ -85,7 +86,7 @@ class EventAttendancesController extends \BaseController {
 		
 		if($eid>=0){
 			return View::make('eventAttendances.manager', ['roles'=>$roles, 'projectsTable'=>$projectsTable,'usersTable'=>$usersTable,
-				'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'naus'=>$nonAttendingUsers]);
+				'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'project'=>$project]);
 		}else{
 			return View::make('eventAttendances.manager', ['projectsTable'=>$projectsTable,'eid'=>$eid]);
 		}
