@@ -1,9 +1,6 @@
 @extends('layouts.create')
 
-@section('header')
-Users
-
-@stop
+@section('header')Users@stop
 @section('content')
 <div class="col-lg-8">
 {{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
