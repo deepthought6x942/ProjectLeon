@@ -157,5 +157,16 @@ class UsersController extends \BaseController {
 			
 			->make();
 	}
+	public function getRadioDatatable(){
+		
+		$query = User::select($this->allFields)->get();
+
+		return Datatable::collection($query)
+			->showColumns($this->allFields)
+			->addColumn('id', function($model){
+				return Form::radio('uid', $model->id);
+			})
+			->make();
+	}
 
 }

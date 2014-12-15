@@ -21,10 +21,6 @@
           <td>{{ Form::text('check_number')}}</td>
           <td>{{ $errors->first('check_number') }}</td>
         </tr><tr>
-          <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
-          <td>{{ Form::select('eid', $projects)}}</td>
-          <td>{{ $errors->first('eid') }}</td>
-        </tr><tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>
           <td>{{ Form::text('date')}}</td>
           <td>{{ $errors->first('date') }}</td>
@@ -41,28 +37,22 @@
       </table>
     </div>
   </div>
+  
+@if($projectsTable!=="N/A")
+    <p>Select the Associated Event or Project from the table below. If it is not present, you can create a new one {{link_to_route('projects.create','here')}}
+    <div class="table-responsive">
+    <h2> Events and Projects </h2>
+    {{$projectsTable->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
+    </div>
+@else
+  <p>There are no projects, make one {{link_to_route('projects.create','here')}} </p>
+@endif
+
   <p> Select the user from the table below. If they are not present in the database, enter their name and email in the boxes below the table and select submit.
   
   <div class="panel panel-default">
     <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover" id="users">
-        <thead>
-          <tr>
-            <th class="text-center">Select</th>
-            <th class="text-center">First Name</th>
-            <th class="text-center">Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($users as $user)
-          <tr class="text-center">
-            <td>{{Form::radio('uid', $user->id) }}</td>
-            <td>{{$user->first}}</td>
-            <td>{{$user->last}}</td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+      {{$usersTable->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
     </div>
   </div>
   {{ Form::label('email', 'Email: ')}} {{Form::text('email') }} {{Form::label('first', 'First: ')}}{{Form::text('first')}} {{Form::label('last', 'Last: ')}}{{Form::text('last')}}
@@ -71,3 +61,11 @@
   {{Form::close ()}}
 </div>
 @stop
+@section('scripts')
+  @if($projectsTable!=="N/A")
+      @if($usersTable!=="N/A")
+        {{str_replace("\\/","/",$usersTable->script())}}
+      @endif
+    {{str_replace("\\/","/",$projectsTable->script())}}
+  @endif
+@endsection
