@@ -24,7 +24,7 @@ class Project extends Eloquent{
   }
   public static $rules = [
     'name'=> 'required',
-    'start_date'=> 'required',
+    'start_date'=> 'required|date',
     'end_date' => 'after:start_date'
   ];
   public $messages;
