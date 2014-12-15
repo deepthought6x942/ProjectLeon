@@ -132,7 +132,7 @@ class AuctionDonationsController extends \BaseController {
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
 				if(! $newuser->fill($newuserdata)->isValid()){
-					$newuser->fill($input)->save();
+					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
 				}
