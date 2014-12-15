@@ -18,14 +18,8 @@ Monetary Donations
           <td style="color:red;">{{ $errors->first('check_number') }}</td>
         </tr>
         <tr>
-<<<<<<< Updated upstream
           <td><strong>Associated Project: <strong></td>
           <td>{{link_to_route('projects.show', $donation->project->name, $donation->eid)}}</td>
-=======
-          <td>{{ Form::label('eid', 'Associated Project: ')}}</td>
-          <td>{{ Form::select('eid', $projects, $donation->project->id)}}</td>
-          <td style="color:red;">{{ $errors->first('eid') }}</td>
->>>>>>> Stashed changes
         </tr>
         <tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>
