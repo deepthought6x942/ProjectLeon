@@ -21,9 +21,9 @@ class AuctionDonation extends Eloquent{
   }
   public static $rules = [
     'uid'=> 'required',
-    'title'=>'required|alpha_num',
+    'title'=>'required',
     'year'=>'required|digits:4',
-    'category'=>'required|alpha_num',
+    'category'=>'required',
     'description' =>'required',
     'quantity'=>'required|numeric|min:1',
     'approximate_value'=>"numeric|min:0",
