@@ -53,7 +53,8 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::get('api/eventAttendances/{eventAttendances}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
 	Route::get('api/users/{eventAttendances}', array('as'=>'api.usersProjects', 'uses'=>'EventAttendancesController@getAttendanceDatatable'));
 	Route::get('api/projectsEvents/{eventAttendances}', array('as'=>'api.projectsList', 'uses'=>'EventAttendancesController@getProjectsDatatable'));
-
+	Route::get('api/projectsDonations', array('as'=>'api.projectsRadio', 'uses'=>'ProjectsController@getRadioDatatable'));
+	Route::get('api/usersDonations', array('as'=>'api.usersRadio', 'uses'=>'UsersController@getRadioDatatable'));
 });
 
 	Route::get('users/create', array( 'as' => 'users.create' , 'uses' => 'UsersController@create'));
