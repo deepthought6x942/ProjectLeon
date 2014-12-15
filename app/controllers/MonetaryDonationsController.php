@@ -72,19 +72,15 @@ class MonetaryDonationsController extends \BaseController {
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
 				if($newuser->fill($newuserdata)->isValid()){
-					$newuser->fill($input)->save();
+					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
-					if(!$this->monetaryDonation->fill($input)->isValid()){
-						return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
-					}
-					$this->monetaryDonation->fill($input)->save();
 				}else{
 					return Redirect::back()->withInput()->withErrors($newuser->errors);
 				}
 			}
 		}
-		if(! $this->monetaryDonation->fill($input)->isValid()){
+		if(!$this->monetaryDonation->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 		}
 		$this->monetaryDonation->save();

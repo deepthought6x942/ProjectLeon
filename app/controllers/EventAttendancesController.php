@@ -101,8 +101,9 @@ class EventAttendancesController extends \BaseController {
 		if($input['role']==='other'){
 			$input['role']=$input['other'];
 		}
-		$uids=$input['uid'];
-		if(count($uids)>0){
+		
+		if(isset($input['uid'])){
+			$uids=$input['uid'];
 			foreach ($uids as $uid) {
 				$input['uid']=$uid;
 				$nea=new EventAttendance;
@@ -121,7 +122,7 @@ class EventAttendancesController extends \BaseController {
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
 				if($newuser->fill($newuserdata)->isValid()){
-					$newuser->fill($input)->save();
+					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
 					if(!$this->eventAttendance->fill($input)->isValid()){
@@ -131,7 +132,7 @@ class EventAttendancesController extends \BaseController {
 				}
 			}
 		}
-		return Redirect::route('eventAttendances.manage');
+		return Redirect::route('eventAttendances.manage',$eid);
 	}
 	/**
 	 * Display the specified resource.
