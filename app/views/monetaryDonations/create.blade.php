@@ -61,7 +61,7 @@
   {{Form::close ()}}
 </div>
 @stop
-<<<<<<< Updated upstream
+
 @section('scripts')
   @if($projectsTable!=="N/A")
       @if($usersTable!=="N/A")
@@ -69,8 +69,13 @@
       @endif
     {{str_replace("\\/","/",$projectsTable->script())}}
   @endif
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
 @endsection
-=======
+
 
 @section('scripts')
 
@@ -81,4 +86,3 @@
   </script>
 
   @stop
->>>>>>> Stashed changes
