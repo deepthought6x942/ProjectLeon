@@ -52,6 +52,9 @@ class ProjectsController extends \BaseController {
 		if($input['type']==='other'){
 			$input['type']=$input['other'];
 		}
+		if(!isset($input['end_date'])){
+			$input['end_date']=$input['start_date'];
+		}
 		if(! $this->project->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}

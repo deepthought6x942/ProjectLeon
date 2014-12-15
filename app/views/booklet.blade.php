@@ -17,9 +17,9 @@ $currentCategory="none";
 
     @if ($currentLocation!==$donation->location)
         <h2><strong>{{$currentLocation=$donation->location}}</strong></h2>
-        <h3><strong>{{$currectCategory=$donation->category}}</strong></h3>
+        <h3><strong>{{$currentCategory=$donation->category}}</strong></h3>
     @elseif ($currentCategory!==$donation->category)
-        <h3><strong>{{$currectCategory=$donation->category}}</strong></h3>
+        <h3><strong>{{$currentCategory=$donation->category}}</strong></h3>
     @endif
         <h4>{{$donation->title}}</h4>
         <h5><i>{{$donation->user->first." ".$donation->user->last}}</i></h5>
