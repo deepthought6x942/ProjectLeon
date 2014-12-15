@@ -17,12 +17,12 @@
   </tr>
   <tr>
     <td>{{ Form::label('start_date', 'Start Date: ')}}</td>
-    <td> {{Form::text('start_date')}}</td>
+    <td>{{ Form::text('start_date',  null, array('id' => 'datepicker'))}}</td>
     <td>{{$errors->first('start_date') }}</td>
   </tr>
   <tr>
     <td>{{ Form::label('end_date', 'End Date: ')}}</td>
-    <td>{{ Form::text('end_date')}}</td>
+    <td>{{ Form::text('end_date', null, array('id' => 'datepicker2'))}}</td>
     <td>{{ $errors->first('end_date') }}</td>
   </tr>
  
@@ -45,4 +45,18 @@
   <td>{{Form::submit('Create Event/Project')}}</td>
   {{Form::close ()}}
   </table>
+@stop
+@section('scripts')
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+
+  <script>
+  $(function() {
+    $( "#datepicker2" ).datepicker();
+  });
+  </script>
 @stop

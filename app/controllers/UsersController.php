@@ -76,8 +76,8 @@ class UsersController extends \BaseController {
 
 		// validation not successful, send back to form	
 		//return Redirect::to('login');
-			return Redirect::to('login');
-
+			return Redirect::to('login')
+			->with('message', 'Your username/password combination was incorrect');
 		}
 		
 	}

@@ -26,6 +26,10 @@
     <!-- Custom CSS -->
     <link href="../css/sb-admin-2.css" rel="stylesheet">
 
+    <link href="../css/datepicker.css" rel="stylesheet">
+    <link href="../css/datepicker3.css" rel="stylesheet">
+
+
     <!-- Custom Fonts -->
     <link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -167,6 +171,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="../js/sb-admin-2.js"></script>
 
+<script src="../js/bootstrap-datepicker.js"></script>
+
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
 $(document).ready(function() {
@@ -196,6 +202,16 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#dataTables-example').dataTable();
     });
+
+    </script>
+
+    <script>
+        $('#sandbox-container .input-append.date').datepicker({
+    format: "yyyy/mm/dd",
+    autoclose: true,
+    todayHighlight: true
+        });
+
     </script>
 
 

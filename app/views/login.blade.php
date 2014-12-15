@@ -2,6 +2,7 @@
 
 @section('header')
   <title>Login Page</title>
+ 
 
 @stop
 
@@ -53,9 +54,9 @@
                                         <div style="color: black; border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                                             Don't have an account! 
                                         </div>
-                                        <div style="color: violet">
-                                        <a >{{link_to("register", 'Sign Up Here') }}</a>
-                                        </div>
+                                    
+                                       {{link_to("register", 'Sign Up Here') }}
+                                        
                                     </div>
                                 </div>    
                             </form>     

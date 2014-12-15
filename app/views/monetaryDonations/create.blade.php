@@ -22,7 +22,7 @@
           <td>{{ $errors->first('check_number') }}</td>
         </tr><tr>
           <td>{{ Form::label('date', 'Date: ')}}</td>
-          <td>{{ Form::text('date')}}</td>
+          <td>{{ Form::text('date',null, array('id' => 'datepicker'))}}</td>
           <td>{{ $errors->first('date') }}</td>
         </tr><tr>
           <td>{{ Form::label('amount', 'Amount: $')}}</td>
@@ -61,6 +61,7 @@
   {{Form::close ()}}
 </div>
 @stop
+<<<<<<< Updated upstream
 @section('scripts')
   @if($projectsTable!=="N/A")
       @if($usersTable!=="N/A")
@@ -69,3 +70,15 @@
     {{str_replace("\\/","/",$projectsTable->script())}}
   @endif
 @endsection
+=======
+
+@section('scripts')
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+
+  @stop
+>>>>>>> Stashed changes
