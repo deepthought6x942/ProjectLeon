@@ -22,6 +22,8 @@ class AuctionDonationsController extends \BaseController {
 		foreach($s as $status){
 			$statuses[$status]=$status;
 		}
+		$statuses['Not Delivered']='Not Delivered';
+		$statuses['Delivered']='Delivered';
 		$statuses['Other']='Other';
 		return $statuses;
 	}
@@ -85,49 +87,50 @@ class AuctionDonationsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($uid)
 	{
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
-		$id=Auth::user()->id;
-		$userDonations=AuctionDonation::with('user')->where('uid',Auth::user()->id)->get();
+		$userDonations=AuctionDonation::with('user')->where('uid',$uid)->get();
 		if(Auth::user()->type!=='member'){
 			$locations['Other']='Other';
 			$categories['Other']='Other';
 		}else{
 			unset($locations['Live Auction']);
 		}
-		if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
+		if(AuctionDonation::with('user')->where('uid',$uid)->get()->count()<1){
 			$table="N/A";
 		}else{
 			$table = Datatable::table()
 			->addColumn(self::$memberColumnNames)
-			->setUrl(route('api.auctionDonations.memberTable',$id))
+			->setUrl(route('api.auctionDonations.memberTable',$uid))
 			->noScript();
 		}
 		return View::make('auctionDonations.create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'table'=>$table]);
 	}
+
 	public function adminCreate()
 	{
-		
-		$categories=$this->getCategories();
-		$users=User::all();
-		$locations=$this->getLocations();
-		$locations['Other']='Other';
-		$categories['Other']='Other';
-		return View::make('auctionDonations.admin_create', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'users'=>$users]);
+		if(User::all()->count()>0){
+			$portalTable = Datatable::table()
+				->addColumn(UsersController::$allColumns)
+				->setUrl(route('api.auctionDonations.usersPortalDatatable'))
+				->noScript();
+		}else{
+			$usersTable="N/A";
+		}
+		return View::make('auctionDonations.admin_create', ['portalTable'=>$portalTable]);
 	}
-	public function resubmit($id)
+	public function resubmit($id, $uid)
 	{
 		$donation=AuctionDonation::with('user')->find($id);
-		$uid=Auth::user()->id;
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
 		if(AuctionDonation::with('user')->where('uid',$uid)->get()->count()<1){
 			$table="N/A";
 		}else{
 			$table = Datatable::table()
-			->addColumn(self::$columnNames)
+			->addColumn(self::$memberColumnNames)
 			->setUrl(route('api.auctionDonations.memberTable',$uid))
 			->noScript();
 		}
@@ -137,7 +140,7 @@ class AuctionDonationsController extends \BaseController {
 		}else{
 			unset($locations['Live Auction']);
 		}
-		return View::make('auctionDonations.resubmit', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'donation'=>$donation, 'userDonations'=>$userDonations]);
+		return View::make('auctionDonations.resubmit', ['statuses'=>$this->getStatuses(), 'locations'=>$locations, 'categories'=>$categories, 'donation'=>$donation, 'table'=>$table]);
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -284,16 +287,25 @@ class AuctionDonationsController extends \BaseController {
 		})
 		->make();
 	}
-	public function getMemberDatatable($id){
+	public function getMemberDatatable($uid){
 		
-		$query = auctionDonation::with('user')->where('uid',$id)->select(self::$memberFieldsList)->get();
+		$query = auctionDonation::with('user')->where('uid',$uid)->select(self::$memberFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$memberFieldsList)
-		->addColumn('id', function($model){
-			return link_to_route('auctionDonations.resubmit','Select',$model->id);
+		->addColumn('id', function($model)use($uid){
+			return link_to_route('auctionDonations.resubmit','Select',[$uid,$model->id]);
 		})
 		->make();
-	}			
+	}
+	public function usersPortalDatatable(){	
+		$query = User::select(UsersController::$allFields)->get();
+		return Datatable::collection($query)
+		->showColumns(UsersController::$allFields)
+		->addColumn('id', function($model){
+			return link_to_route('auctionDonations.create','Select',[$model->id]);
+		})
+		->make();
+	}
 	public function makeBooklet(){
 
 		//insert a sort function here, sort it first on Location and then within each location on category

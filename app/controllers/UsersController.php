@@ -6,8 +6,8 @@ class UsersController extends \BaseController {
 	public function __construct (User $user){
 		$this->user=$user;
 	}
-	protected static $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	protected static $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	public static $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
+	public static $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
 	protected static $reducedFields=["id","first",'last','email','telephone', 'type','contact_preference'];
 	protected static $reducedColumns=["Select",'First', 'Last', 'E-mail','Telephone', 'Type','Contact Preference'];
 	/**
@@ -160,12 +160,17 @@ class UsersController extends \BaseController {
 	public function update($id)
 	{
 		$user = User::with('eventAttendance.project')->find($id);
-		$user->fill(Input::all());
+		$input=Input::all();
+		$newInput=[];
+		foreach(self::$allFields as $field){
+			if(isset($input[$field])) $newInput[$field]=$input[$field];
+		}
+		$user->fill($newInput);
 		if(!$user->isValid('update')){
 			return Redirect::back()->withInput()->withErrors($user->errors);
 		}
 		$user->save();
-		return Redirect::route('users.show', $id);
+		return Redirect::route('users.index');
 	}
 
 	
@@ -186,7 +191,6 @@ class UsersController extends \BaseController {
 	public function getDatatable(){
 		
 		$query = User::select(self::$allFields)->get();
-
 		return Datatable::collection($query)
 			->showColumns(self::$allFields)
 			->addColumn('id', function($model){

@@ -62,7 +62,8 @@ Route::group(array('before'=>'administrator'), function(){
 	
 	Route::get('api/auctionDonations/{year}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
 	Route::get('api/auctionDonations/userTable/{uid}', array('as'=>'api.auctionDonations.userTable', 'uses'=>'AuctionDonationsController@getUserDatatable'));
-	
+	Route::get('api/ad/users', array('as'=>'api.auctionDonations.usersPortalDatatable', 'uses'=>'AuctionDonationsController@usersPortalDatatable'));
+
 	Route::get('api/eventAttendances/{eid}', array('as'=>'api.eventAttendances', 'uses'=>'EventAttendancesController@getDatatable'));
 	Route::get('api/eventAttendances/userTable/{uid}', array('as'=>'api.eventAttendances.userTable', 'uses'=>'EventAttendancesController@getUserDatatable'));
 	Route::get('api/eventAttendances/projectTable/{eid}', array('as'=>'api.eventAttendances.projectTable', 'uses'=>'EventAttendancesController@getProjectDatatable'));
@@ -79,9 +80,9 @@ Route::group(array('before'=>'administrator'), function(){
 // some routes will need to be available to general users they are defined here
 Route::group(array('before'=>'auth'), function(){
 
-	Route::get('auctionDonations/create', array( 'as' => 'auctionDonations.create' , 'uses' => 'AuctionDonationsController@create'));
+	Route::get('auctionDonations/create/{uid}', array( 'as' => 'auctionDonations.create' , 'uses' => 'AuctionDonationsController@create'));
 	Route::post('auctionDonations', array( 'as' => 'auctionDonations.store' , 'uses' => 'AuctionDonationsController@store'));
-	Route::get('auctionDonations/resubmit/{auctionDonations}', array( 'as' => 'auctionDonations.resubmit' , 'uses' =>'AuctionDonationsController@resubmit'));
+	Route::get('auctionDonations/resubmit/{uid}/{auctionDonations}', array( 'as' => 'auctionDonations.resubmit' , 'uses' =>'AuctionDonationsController@resubmit'));
 	Route::get('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.show' , 'uses' =>'AuctionDonationsController@show'));
 	Route::get('auctionDonations/{auctionDonations}/edit', array( 'as' => 'auctionDonations.edit' , 'uses' =>'AuctionDonationsController@edit'));
 	Route::put('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.update' , 'uses' =>'AuctionDonationsController@update'));

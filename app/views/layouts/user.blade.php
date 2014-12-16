@@ -67,7 +67,7 @@
                             {{link_to("users/{$id}", "View/Update Personal Information")}}
                         </li>
                         <li>
-                            {{link_to("auctionDonations/create", 'Make Auction Donation') }}
+                            {{link_to_route("auctionDonations.create", 'Make Auction Donation',Auth::user()->id) }}
                         </li>
                         <li>
                             {{link_to("logout", 'Logout') }}
