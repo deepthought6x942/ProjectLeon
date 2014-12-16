@@ -3,8 +3,8 @@
 @section('content')
 <div class="col-lg-10">
  <div class="table-responsive">
-      {{$portalTable->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
-    </div>
+    {{$portalTable->setOptions(['pageLength'=> 10, "dom"=>'C<"clear">lfrtip'])->render()}}
+  </div>
 </div>
 
 @stop

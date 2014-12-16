@@ -89,6 +89,10 @@ class AuctionDonationsController extends \BaseController {
 	 */
 	public function create($uid)
 	{
+		$authType=Auth::user()->type;
+		if($authType === 'member' and Auth::user()->id != $uid){
+			return Redirect::to('/');
+		}
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
 		$userDonations=AuctionDonation::with('user')->where('uid',$uid)->get();
@@ -123,6 +127,10 @@ class AuctionDonationsController extends \BaseController {
 	}
 	public function resubmit($id, $uid)
 	{
+		$authType=Auth::user()->type;
+		if($authType === 'member' and Auth::user()->id != $uid){
+			return Redirect::to('/');
+		}
 		$donation=AuctionDonation::with('user')->find($id);
 		$locations=$this->getLocations();
 		$categories=$this->getCategories();
