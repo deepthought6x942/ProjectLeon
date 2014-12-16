@@ -306,7 +306,7 @@ class AuctionDonationsController extends \BaseController {
 		->make();
 	}
 	public function usersPortalDatatable(){	
-		$query = User::select(UsersController::$allFields)->get();
+		$query = User::where('type','member')->select(UsersController::$allFields)->get();
 		return Datatable::collection($query)
 		->showColumns(UsersController::$allFields)
 		->addColumn('id', function($model){
