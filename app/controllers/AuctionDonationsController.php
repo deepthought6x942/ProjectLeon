@@ -66,15 +66,23 @@ class AuctionDonationsController extends \BaseController {
 	public function index($year)
 	{
 		$years=$this->getYears();
-		if(AuctionDonation::where('year',$year)->get()->count()<1){
+		if(AuctionDonation::where('year',$year)->where('status', 'Not Delivered')->get()->count()<1){
+			$ndtable="N/A";
+		}else{
+			$ndtable = Datatable::table()
+			->addColumn(self::$columnNames)
+			->setUrl(route('api.auctionDonations.nd',$year))
+			->noScript();
+		}
+		if(AuctionDonation::where('year',$year)->where('status','!=', 'Not Delivered')->get()->count()<1){
 			$table="N/A";
 		}else{
 			$table = Datatable::table()
 			->addColumn(self::$columnNames)
-			->setUrl(route('api.auctionDonations',$year))
+			->setUrl(route('api.auctionDonations.d',$year))
 			->noScript();
 		}
-		return View::make('auctionDonations/index', ['table'=>$table, 'years'=>$years, 'year'=>$year]);
+		return View::make('auctionDonations/index', ['table'=>$table, 'ndtable'=>$ndtable,'years'=>$years, 'year'=>$year, 'statuses'=>$this->getStatuses()]);
 	}
 	public function changeYear()
 	{
@@ -272,6 +280,27 @@ class AuctionDonationsController extends \BaseController {
 		$auctionDonation->delete();
 		return Redirect::route('auctionDonations.index');
 	}
+
+
+	public function updateStatus()
+	{
+		$input=Input::all();
+		$items=$input['id'];
+		if($input['status']==='Other'&& isset($input['Other_status'])) {
+			$input['status']=$input['Other_status'];
+		}
+		$status=$input['status'];
+		foreach ($items as $id) {
+			$donation=AuctionDonation::find($id);
+			$donation->status=$status;
+			$donation->save();
+		}
+		return Redirect::back();
+		
+	}
+
+
+
 	public function getDatatable($year){
 		
 		$query = auctionDonation::with('user')->where('year',$year)->select(self::$fieldsList)->get();
@@ -322,5 +351,30 @@ class AuctionDonationsController extends \BaseController {
 		$liveAuctionItems = AuctionDonation::with('user')->where('year', AuctionDonationsController::currentYear())->where('location', 'Live Auction')->get();
 
 		return View::make("booklet", ['donationsTable'=>$donationsTable, 'liveAuctionItems'=>$liveAuctionItems]);
-	}	
+	}
+	public function getDeliveredDatatable($year){
+		
+		$query = auctionDonation::with('user')->where('year',$year)->where('status','!=',"Not Delivered")->select(self::$fieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$fieldsList)
+		->addColumn('id', function($model){
+			return link_to('auctionDonations/'.$model->id,'View/Edit');
+		})
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
+		->make();
+	}
+	public function getNotDeliveredDatatable($year){
+		$query = auctionDonation::with('user')->where('year',$year)->where('status',"Not Delivered")->select(self::$fieldsList)->get();
+		return Datatable::collection($query)
+		->showColumns(self::$fieldsList)
+		->addColumn('id', function($model){
+				return Form::checkbox('id[]', $model->id);
+		})
+		->addColumn('uid', function($model){
+			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})
+		->make();
+	}		
 }

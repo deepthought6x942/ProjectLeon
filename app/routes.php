@@ -46,7 +46,8 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
-	
+	Route::post('auctionDonations/updateStatuses', array( 'as' => 'auctionDonations.updateStatus' , 'uses' =>'AuctionDonationsController@updateStatus'));
+
 	Route::get('booklet', array('as'=>'booklet', 'uses' => 'AuctionDonationsController@makeBooklet'));
 
 	//These are the datatable routes
@@ -61,6 +62,8 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::get('api/monetaryDonations/projectTable/{eid}', array('as'=>'api.monetaryDonations.projectTable', 'uses'=>'MonetaryDonationsController@getProjectDatatable'));
 	
 	Route::get('api/auctionDonations/{year}', array('as'=>'api.auctionDonations', 'uses'=>'AuctionDonationsController@getDatatable'));
+	Route::get('api/auctionDonations/d/{year}', array('as'=>'api.auctionDonations.d', 'uses'=>'AuctionDonationsController@getDeliveredDatatable'));
+	Route::get('api/auctionDonations/nd/{year}', array('as'=>'api.auctionDonations.nd', 'uses'=>'AuctionDonationsController@getNotDeliveredDatatable'));
 	Route::get('api/auctionDonations/userTable/{uid}', array('as'=>'api.auctionDonations.userTable', 'uses'=>'AuctionDonationsController@getUserDatatable'));
 	Route::get('api/ad/users', array('as'=>'api.auctionDonations.usersPortalDatatable', 'uses'=>'AuctionDonationsController@usersPortalDatatable'));
 
