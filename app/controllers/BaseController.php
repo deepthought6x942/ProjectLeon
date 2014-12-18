@@ -14,11 +14,5 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
-	protected function goHomeLoser()
-	{
-		if( !(Auth::user()->type==='admin')){
-      		return Redirect::to('/');
-    	}
-	}
 
 }
