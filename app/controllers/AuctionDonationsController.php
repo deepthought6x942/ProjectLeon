@@ -298,6 +298,7 @@ class AuctionDonationsController extends \BaseController {
 			$donation->$field=$changeTo;
 			$donation->save();
 		}
+		Session::flash('auc_update_success', true);
 		return Redirect::back();
 		
 	}

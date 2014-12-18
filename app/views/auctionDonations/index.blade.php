@@ -9,8 +9,8 @@
   @if(Session::has('auc_donate_success'))
   Donation Saved!
   @endif
-  @if(Session::has('auc_edit_success'))
-  Donation edited!
+  @if(Session::has('auc_update_success'))
+  Update Succesful!
   @endif
   @if($table!=="N/A")
   
