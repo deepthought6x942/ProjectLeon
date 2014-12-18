@@ -182,7 +182,9 @@ class UsersController extends \BaseController {
 		$input=Input::all();
 		$newInput=[];
 		foreach(self::$allFields as $field){
-			if(isset($input[$field])) $newInput[$field]=$input[$field];
+			if(isset($input[$field])){
+				$newInput[$field]=$input[$field];
+			}
 		}
 		$user->fill($newInput);
 		if(!$user->isValid('update')){

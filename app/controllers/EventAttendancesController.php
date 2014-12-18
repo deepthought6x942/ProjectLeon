@@ -267,7 +267,7 @@ class EventAttendancesController extends \BaseController {
 		return Datatable::collection($query)
 		->showColumns(self::$projectsFieldsList)
 		->addColumn('uid', function($model){
-			return link_to('user/'.$model->user->id,$model->user->first." ".$model->user->last);
+			return link_to_route('users.show',$model->user->first." ".$model->user->last,$model->user->id);
 		})
 		->make();
 	}
