@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('header')Auction Donations@stop   
+@section('header')Auction Donations @stop   
 @section('content')
   {{Form::open(['route'=>'auctionDonations.changeYear'])}}
   {{Form::label("year", "Select Year: ")}}
