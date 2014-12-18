@@ -1,4 +1,4 @@
-@extends('layouts.create')
+@extends('layouts.default')
 
 @section('header')Users
 @stop
@@ -81,7 +81,7 @@
       </table>
     </div>
   </div>
-  @if($user->auctionDonations->count()>0)
+  @if($adtable!=='N/A')
   <div class="panel panel-default">
     <div class="panel-heading">
       Auction Donations:
@@ -137,12 +137,13 @@
 
   @stop
   @section('scripts')
-  @if($mdtable!=="N/A")
-    {{str_replace("\\/","/",$mdtable->script())}}
-  @endif
   @if($adtable!=="N/A")
     {{str_replace("\\/","/",$adtable->script())}}
   @endif
+  @if($mdtable!=="N/A")
+    {{str_replace("\\/","/",$mdtable->script())}}
+  @endif
+  
   @if($eatable!=="N/A")
     {{str_replace("\\/","/",$eatable->script())}}
   @endif

@@ -19,7 +19,6 @@
     {{ Form::open(['route'=>'auctionDonations.updateBatch']) }}
     {{$table->setOptions(['pageLength'=> 100, "dom"=>'TC<"clear">lfrtip', 
                             'tableTools' => array(
-                                    "sRowSelect" =>"multi",
                                     "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
                                     "aButtons" => [[
                                         "sExtends"=> "csv",
@@ -30,8 +29,7 @@
                                         "sExtends"=>"csv",
                                         "sButtonText"=>"Export Visible columns",
                                         "mColumns"=> "visible"
-                                    ],
-                                    "select_all", "select_none"]
+                                    ]]
                         )])->render()}}
   </div>
   <h3>Edit Selected Donations</h3>

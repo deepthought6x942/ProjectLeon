@@ -26,7 +26,9 @@ Auction Donations
           <tr>
             <td>{{ Form::label('category', 'Category: ')}}</td>
             <td>{{ Form::select('category', $categories)}}</td>
+            @if(Auth::user()->type !== 'member')
             <td>{{Form::text('Other_category', "Input Other")}}</td>
+            @endif
             <td>{{ $errors->first('category') }}</td>
           </tr>
           <tr>

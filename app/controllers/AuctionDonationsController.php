@@ -179,7 +179,7 @@ class AuctionDonationsController extends \BaseController {
 	 * @return Response
 	 */
 
-	public function resubmit($id, $uid)
+	public function resubmit($uid, $id)
 	{
 		$authType=Auth::user()->type;
 		if($authType === 'member' and Auth::user()->id != $uid){
@@ -376,8 +376,7 @@ class AuctionDonationsController extends \BaseController {
 	* @param int uid
 	**/
 	public function getMemberDatatable($uid){
-		
-		$query = auctionDonation::with('user')->where('uid',$uid)->select(self::$memberFieldsList)->get();
+		$query = AuctionDonation::with('user')->where('uid',$uid)->select(self::$memberFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$memberFieldsList)
 		->addColumn('id', function($model)use($uid){

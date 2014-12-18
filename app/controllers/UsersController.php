@@ -133,11 +133,11 @@ class UsersController extends \BaseController {
 
 
 		}else{
-			if(AuctionDonation::with('user')->where('uid',$id)->get()<1){
+			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
 				$adtable="N/A";
 			}else{
 				$adtable = Datatable::table()
-					->addColumn(AuctionDonation::$memberColumnNames)
+					->addColumn(AuctionDonationsController::$memberColumnNames)
 					->setUrl(route('api.auctionDonations.memberTable',$id))
 					->noScript();
 			}
