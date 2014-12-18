@@ -74,9 +74,24 @@ class ProjectsController extends \BaseController {
 		foreach($t as $type){
 			$types[$type]=$type;
 		}
-		
+		if(EventAttendance::with('project')->where('eid',$id)->get()->count()<1){
+				$eatable="N/A";
+			}else{
+				$eatable = Datatable::table()
+					->addColumn(EventAttendancesController::$projectsColumnNames)
+					->setUrl(route('api.eventAttendances.projectTable',$id))
+					->noScript();
+			}
+			if(MonetaryDonation::with('project')->where('eid',$id)->get()->count()<1){
+				$mdtable="N/A";
+			}else{
+				$mdtable = Datatable::table()
+					->addColumn(MonetaryDonationsController::$projectsColumnNames)
+					->setUrl(route('api.monetaryDonations.projectTable',$id))
+					->noScript();
+			}
 		$project=Project::with('eventAttendance.user')->find($id);
-		return View::make('projects/show', ['project'=>$project, 'types'=>$types]);
+		return View::make('projects/show', ['project'=>$project, 'types'=>$types, 'eatable'=>$eatable, 'mdtable'=>$mdtable]);
 	}
 
 

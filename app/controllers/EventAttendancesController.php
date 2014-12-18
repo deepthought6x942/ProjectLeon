@@ -17,7 +17,7 @@ class EventAttendancesController extends \BaseController {
 	public static $usersFieldsList=['eid', 'role'];
 	public static $usersColumnNames=['Event','Role'];
 	public static $projectsFieldsList=['uid', 'role'];
-	public static $projcetsColumnNames=['User','Role'];
+	public static $projectsColumnNames=['User','Role'];
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -263,10 +263,10 @@ class EventAttendancesController extends \BaseController {
 		->make();
 	}
 	public function getProjectDatatable($eid){
-		$query = EventAttendance::where('eid',$uid)->select(self::$projectsFieldsList2)->get();
+		$query = EventAttendance::with('user')->where('eid',$eid)->select(self::$projectsFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$projectsFieldsList)
-		->addColumn('eid', function($model){
+		->addColumn('uid', function($model){
 			return link_to('user/'.$model->user->id,$model->user->first." ".$model->user->last);
 		})
 		->make();

@@ -56,18 +56,7 @@ Projects
     <!-- /.panel-heading -->
     <div class="panel-body">
       <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <th></th>
-            <th>Name</th>
-            <th>Role</th>
-          </thead>
-          <tbody>
-            @foreach ($project->eventAttendance as $ea)
-            <tr><td>{{link_to("users/{$ea->uid}", "View/Edit") }} </td><td> {{$ea->user->first}}</td><td> {{$ea->role}}</td></tr>
-            @endforeach
-          </tbody>
-        </table>
+        {{$eatable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
       </div>
     <!-- /.table-responsive -->
     </div>
@@ -87,18 +76,7 @@ Projects
            
     <div class="panel-body">
       <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <th> Check Number</th>
-            <th>Donor name</th>
-            <th>Amount</th>
-          </thead>
-          <tbody>
-            @foreach ($project->monetaryDonations as $md)
-            <tr><td>{{link_to("monetaryDonations/{$md->id}", $md->check_number) }}</td><td>  {{$md->user->first." ".$md->user->last}} </td><td> {{$md->amount}}</td></tr>
-            @endforeach
-          </tbody>
-        </table>
+        {{$mdtable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
       </div>
     <!-- /.table-responsive -->
     </div>
@@ -108,5 +86,15 @@ Projects
 <!--/.panel -->
   @endif
 
+
+  @stop
+
+  @section('scripts')
+  @if($mdtable!=="N/A")
+    {{str_replace("\\/","/",$mdtable->script())}}
+  @endif
+  @if($eatable!=="N/A")
+    {{str_replace("\\/","/",$eatable->script())}}
+  @endif
 
   @stop
