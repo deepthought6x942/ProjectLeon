@@ -107,9 +107,14 @@ Route::get('/', function()
 		return View::make('login');
 	}
 
-	$id=Auth::user()->id;
-	$currentuser = User::find($id);	
-	return View::make('hello', ['currentuser', $currentuser]);
+	if( (Auth::check() and (Auth::user()->type==='administrator' or Auth::user()->type==='treasurer'))){
+		return Redirect::route('projects.index');
+	}
+    else{
+		$id=Auth::user()->id;
+		$currentuser = User::find($id);	
+		return View::make('hello', ['currentuser', $currentuser]);
+	}
 });
 
 // route to show the login form
