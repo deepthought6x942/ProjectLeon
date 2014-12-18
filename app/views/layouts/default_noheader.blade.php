@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS served from a CDN -->
 
 
-<link href="../css/bootstrap.css" rel="stylesheet">
+    <link href={{asset("css/bootstrap.css")}} rel="stylesheet">
+
 	 <div class="container">
     
         @if(Session::has('message'))
