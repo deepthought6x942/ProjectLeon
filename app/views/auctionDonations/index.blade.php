@@ -12,40 +12,11 @@
   @if(Session::has('auc_edit_success'))
   Donation edited!
   @endif
-  @if($ndtable!=="N/A")
-  
-  <h2> Not Delivered Donations </h2>
-  <div class="table-responsive">
-    {{ Form::open(['route'=>'auctionDonations.updateStatus']) }}
-    {{$ndtable->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
-                            'tableTools' => array(
-                                    "sRowSelect" =>"multi",
-                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
-                                    "aButtons" => [[
-                                        "sExtends"=> "csv",
-                                        "sButtonText"=>"Export All Columns",
-                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-                                    ],
-                                    [
-                                        "sExtends"=>"csv",
-                                        "sButtonText"=>"Export Visible columns",
-                                        "mColumns"=> "visible"
-                                    ],
-                                    "select_all", "select_none"]
-                        )])->render()}}
-  </div>
-  {{ Form::label('status', 'Status')}}
-    {{ Form::select('status', $statuses, $statuses)}}
-    {{ $errors->first('statuses') }}
-    {{ Form::label('other', 'Role if other selected')}}
-    {{ Form::text('other')}}
-    {{ $errors->first('other') }}
-    {{Form::submit('Submit')}}
-    @endif
   @if($table!=="N/A")
-    <h2> Other Donations </h2>
-    <div class="table-responsive">
-    
+  
+  <h2> Donations </h2>
+  <div class="table-responsive">
+    {{ Form::open(['route'=>'auctionDonations.updateBatch']) }}
     {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
                             'tableTools' => array(
                                     "sRowSelect" =>"multi",
@@ -62,17 +33,58 @@
                                     ],
                                     "select_all", "select_none"]
                         )])->render()}}
-    </div>
-    
-  @endif
+  </div>
+  {{ Form::label('field', 'Select the Field')}}
+    {{ Form::select('field', $batchFields, 'status')}}
+    {{ Form::label('changeTo', 'Select the new Value')}}
+    {{ Form::select('changeTo', $statuses)}}
+    {{ Form::label('other', 'Value if other selected')}}
+    {{ Form::text('other')}}
+    {{ $errors->first('other') }}
+    {{Form::submit('Submit')}}
+    {{Form::close()}}
+    @endif
 @stop
 @section('scripts')
-  @if($ndtable!=="N/A")
-    {{str_replace("\\/","/",$ndtable->script())}}
-  @endif
   @if($table!=="N/A")
     {{str_replace("\\/","/",$table->script())}}
   @endif
+  <script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#field').change(function() {
+      var options = '';
+      if($(this).val() == 'status') {
+          options= '<?php
+            $string='';
+            foreach ($statuses as $status => $name) {
+              $string=$string.'<option value="'.$status.'">'.$name.'</option>';
+            }
+            echo $string;
+          ?>';
+      }
+      else if($(this).val() == 'category') {
+          options= '<?php
+            $string='';
+            foreach ($categories as $cat => $name) {
+              $string=$string.'<option value="'.$cat.'">'.$name.'</option>';
+            }
+            echo $string;
+          ?>';
+      }else if($(this).val() == 'location') {
+          options= '<?php
+            $string='';
+            foreach ($locations as $loc => $name) {
+              $string=$string.'<option value="'.$loc.'">'.$name.'</option>';
+            }
+            echo $string;
+          ?>';
+      }
+      $('#changeTo').html(options);
+    });
+});
+</script>
+
+
 @stop
 @section('otherContent')
   

@@ -52,7 +52,9 @@ class AuctionDonationsController extends \BaseController {
 		return $years;
 	}
 	protected static $fieldsList= ['id', 'uid', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
-	protected static $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
+	protected static $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For', 'Edit'];
+	protected static $batchFields= ['category'=>'Category', 'location'=>'Location', 'status'=>'Status'];
+
 	protected static $userFieldsList= ['id', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
 	public static $userColumnNames= ['Select', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
 	protected static $memberFieldsList= ['id', 'title', 'year', 'category', 'quantity', 'description', 'approximate_value'];
@@ -66,23 +68,23 @@ class AuctionDonationsController extends \BaseController {
 	public function index($year)
 	{
 		$years=$this->getYears();
-		if(AuctionDonation::where('year',$year)->where('status', 'Not Delivered')->get()->count()<1){
-			$ndtable="N/A";
-		}else{
-			$ndtable = Datatable::table()
-			->addColumn(self::$columnNames)
-			->setUrl(route('api.auctionDonations.nd',$year))
-			->noScript();
-		}
-		if(AuctionDonation::where('year',$year)->where('status','!=', 'Not Delivered')->get()->count()<1){
+		if(AuctionDonation::where('year',$year)->get()->count()<1){
 			$table="N/A";
 		}else{
 			$table = Datatable::table()
 			->addColumn(self::$columnNames)
-			->setUrl(route('api.auctionDonations.d',$year))
+			->setUrl(route('api.auctionDonations',$year))
 			->noScript();
 		}
-		return View::make('auctionDonations/index', ['table'=>$table, 'ndtable'=>$ndtable,'years'=>$years, 'year'=>$year, 'statuses'=>$this->getStatuses()]);
+		$locations=$this->getLocations();
+		$categories=$this->getCategories();
+		if(Auth::user()->type!=='member'){
+			$locations['Other']='Other';
+			$categories['Other']='Other';
+		}
+		return View::make('auctionDonations/index', ['table'=>$table,'years'=>$years, 'year'=>$year, 
+			'statuses'=>$this->getStatuses(), 'batchFields'=>self::$batchFields, 'locations'=>$locations, 
+			'categories'=>$categories]);
 	}
 	public function changeYear()
 	{
@@ -282,17 +284,18 @@ class AuctionDonationsController extends \BaseController {
 	}
 
 
-	public function updateStatus()
+	public function updateBatch()
 	{
 		$input=Input::all();
 		$items=$input['id'];
-		if($input['status']==='Other'&& isset($input['Other_status'])) {
-			$input['status']=$input['Other_status'];
+		if($input['changeTo']==='Other'&& isset($input['other'])) {
+			$input['changeTo']=$input['other'];
 		}
-		$status=$input['status'];
+		$changeTo=$input['changeTo'];
+		$field=$input['field'];
 		foreach ($items as $id) {
 			$donation=AuctionDonation::find($id);
-			$donation->status=$status;
+			$donation->$field=$changeTo;
 			$donation->save();
 		}
 		return Redirect::back();
@@ -307,10 +310,12 @@ class AuctionDonationsController extends \BaseController {
 		return Datatable::collection($query)
 		->showColumns(self::$fieldsList)
 		->addColumn('id', function($model){
-			return link_to('auctionDonations/'.$model->id,'View/Edit');
+				return Form::checkbox('id[]', $model->id);
 		})
 		->addColumn('uid', function($model){
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})->addColumn('edit', function($model){
+			return link_to('auctionDonations/'.$model->id,'View/Edit');
 		})
 		->make();
 	}
@@ -358,10 +363,12 @@ class AuctionDonationsController extends \BaseController {
 		return Datatable::collection($query)
 		->showColumns(self::$fieldsList)
 		->addColumn('id', function($model){
-			return link_to('auctionDonations/'.$model->id,'View/Edit');
+				return Form::checkbox('id[]', $model->id);
 		})
 		->addColumn('uid', function($model){
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})->addColumn('edit', function($model){
+			return link_to('auctionDonations/'.$model->id,'View/Edit');
 		})
 		->make();
 	}
@@ -374,6 +381,8 @@ class AuctionDonationsController extends \BaseController {
 		})
 		->addColumn('uid', function($model){
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
+		})->addColumn('edit', function($model){
+			return link_to('auctionDonations/'.$model->id,'View/Edit');
 		})
 		->make();
 	}		

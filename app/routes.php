@@ -46,7 +46,7 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
 	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
-	Route::post('auctionDonations/updateStatuses', array( 'as' => 'auctionDonations.updateStatus' , 'uses' =>'AuctionDonationsController@updateStatus'));
+	Route::post('auctionDonations/updateBatch', array( 'as' => 'auctionDonations.updateBatch' , 'uses' =>'AuctionDonationsController@updateBatch'));
 
 	Route::get('booklet', array('as'=>'booklet', 'uses' => 'AuctionDonationsController@makeBooklet'));
 
