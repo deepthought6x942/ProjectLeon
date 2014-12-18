@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'jrioux@gettysburg.edu', 'name' => 'Jeffrey'),
+	'from' => array('address' => 'jrioux@gettysburg.edu', 'name' => 'Project Leon Password Recovery'),
 
 	/*
 	|--------------------------------------------------------------------------
