@@ -28,7 +28,7 @@ class AddForeignKeysToAuctionDonationsTable extends Migration {
 	{
 		Schema::table('auction_donations', function(Blueprint $table)
 		{
-			$table->dropForeign('uid');
+			$table->dropForeign('auction_donations_ibfk_1');
 		});
 	}
 

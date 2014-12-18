@@ -14,6 +14,7 @@ class CreateAuctionDonationsTable extends Migration {
 	{
 		Schema::create('auction_donations', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->integer('id', true);
 			$table->integer('uid');
 			$table->string('title', 50);

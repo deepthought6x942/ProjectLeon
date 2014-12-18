@@ -14,6 +14,7 @@ class CreateEventAttendanceTable extends Migration {
 	{
 		Schema::create('event_attendance', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->integer('eid')->index('eid_2');
 			$table->integer('uid')->index('uid');
 			$table->string('role', 50);

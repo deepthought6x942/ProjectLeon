@@ -29,8 +29,8 @@ class AddForeignKeysToEventAttendanceTable extends Migration {
 	{
 		Schema::table('event_attendance', function(Blueprint $table)
 		{
-			$table->dropForeign('eid');
-			$table->dropForeign('uid');
+			$table->dropForeign('event_attendance_ibfk_1');
+			$table->dropForeign('event_attendance_ibfk_2');
 		});
 	}
 

@@ -14,6 +14,7 @@ class CreateMonetaryDonationsTable extends Migration {
 	{
 		Schema::create('monetary_donations', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->integer('id', true);
 			$table->integer('uid')->index('uid_2');
 			$table->string('check_number', 34)->unique('check_number');

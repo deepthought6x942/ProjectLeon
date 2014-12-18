@@ -1,7 +1,7 @@
 @extends('layouts.create')
 
 
-@section('header')Donation Submitted@stop
+@section('header')Donation Submitted @stop
 
 @section('content')
 <div class="col-lg-8">

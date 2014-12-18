@@ -29,8 +29,8 @@ class AddForeignKeysToMonetaryDonationsTable extends Migration {
 	{
 		Schema::table('monetary_donations', function(Blueprint $table)
 		{
-			$table->dropForeign('uid');
-			$table->dropForeign('eid');
+			$table->dropForeign('monetary_donations_ibfk_1');
+			$table->dropForeign('monetary_donations_ibfk_2');
 		});
 	}
 
