@@ -48,8 +48,8 @@
 
                 <tr>
                     <td>{{ Form::label('password_confirmation', 'Password Confirmation(*):') }}</td>
-                    <td>{{ Form::password('password') }}</td>
-                    <td style="color:red;">{{ $errors->first('password') }}</td>
+                    <td>{{ Form::password('password_confirmation') }}</td>
+                    <td style="color:red;">{{ $errors->first('password_confirmation') }}</td>
                 </tr>
 
                 <tr>

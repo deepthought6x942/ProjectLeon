@@ -20,12 +20,15 @@ public function reset($token)
   return View::make('password.reset')->with('token', $token);
 }
 
+
 public function update()
 {
-  $credentials = array('email' => Input::get('email'));
+  $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'), 'password_confirmation' => Input::get('password_confirmation'),  'token' => Input::get('token'));
  
   return Password::reset($credentials, function($user, $password)
   {
+
+
     $user->password = Hash::make($password);
  
     $user->save();

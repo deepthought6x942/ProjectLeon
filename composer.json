@@ -5,7 +5,11 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
- 		"chumper/datatable": "2.*"
+ 		"chumper/datatable": "2.*",
+		"mandrill/mandrill": "~1.0",
+		"guzzle/guzzle": "~3.9",
+		"guzzle/http": "~3.9",
+		"guzzlehttp/guzzle": "~4.0"
 	},
 	"autoload": {
 		"classmap": [

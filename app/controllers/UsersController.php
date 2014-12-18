@@ -50,16 +50,27 @@ class UsersController extends \BaseController {
 	{	
 
 		$input=Input::all();
+
 		if(! $this->user->fill($input)->isValid('insert')){
+
+
 			return Redirect::back()->withInput()->withErrors($this->user->errors);
 		}
+		
+		//no need to store the confirmaiton in the db
+		unset($input['password_confirmation']);
+		
+		$this->user= new User;
 
 		$input["password"]=Hash::make($input["password"]);
+		
+
 		$this->user->fill($input)->save();
 
 		$userdata = array(
 			'email' 	=> Input::get('email'),
 			'password' 	=> Input::get('password')
+		
 			);
 
 	// attempt to do the login
