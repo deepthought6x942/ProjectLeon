@@ -27,7 +27,7 @@ class MonetaryDonation extends Eloquent{
     'uid'=> 'required',
     'eid'=>'required',
     'amount'=>'required|min:1',
-    'date'=>'required|date(format)'
+    'date'=>'required|date'
   ];
   public $messages;
   public $errors;
