@@ -66,7 +66,7 @@ class EventAttendancesController extends \BaseController {
 			$attendanceTable="N/A";
 		}
 		$r=EventAttendance::groupby('role')->lists('role');
-		$roles=['other'=>'other'];
+		$roles=['other'=>'Other'];
 		foreach($r as $role){
 			$roles[$role]=$role;
 		}
@@ -119,7 +119,7 @@ class EventAttendancesController extends \BaseController {
 				$nea->save();
 			}
 		}
-		elseif(isset($input['email'])) {
+		if($input['email']==='') {
 			$user=User::where("email",$input['email'])->first();
 			if (isset($user)){
 				$input['uid']=$user->id;

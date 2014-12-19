@@ -43,6 +43,10 @@
     {{Form::submit('Submit')}}
     {{Form::close()}}
     <br>
+    @else
+    <h1>There are no Donations for this year</h1>
+    <p> You can create one {{link_to_route('auctionDonations.admin_create', 'here')}} </p>
+
     @endif
 @stop
 @section('scripts')
@@ -90,8 +94,6 @@ jQuery(document).ready(function($){
   
 @stop
 @section('noneFound')
-  <h1>There are no Donations for this year</h1>
-  <p> You can create one {{link_to_route('auctionDonations.admin_create', 'here')}} </p>
-
+  
 
 @endsection

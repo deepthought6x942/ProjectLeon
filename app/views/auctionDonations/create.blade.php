@@ -15,7 +15,9 @@
         <tr>
             <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
             <td>{{ Form::select('category', $categories)}}</td>
+            @if(Auth::user()->type!=='member')
             <td>{{Form::text('Other category', "Input Other")}}</td>
+            @endif
             <td style="color:red;">{{ $errors->first('category') }}</td>
           </tr>
         <tr>

@@ -165,7 +165,7 @@ class AuctionDonationsController extends \BaseController {
 				->setUrl(route('api.auctionDonations.usersPortalDatatable'))
 				->noScript();
 		}else{
-			$usersTable="N/A";
+			$portalTable="N/A";
 		}
 		return View::make('auctionDonations.admin_create', ['portalTable'=>$portalTable]);
 	}

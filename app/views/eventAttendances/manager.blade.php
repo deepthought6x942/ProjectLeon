@@ -28,7 +28,7 @@
       <p> <a href={{$mailtoURL}}>Mail To Attendees </a> </p>
       @else
         <h1>There are currently no attendees of {{$project->name}}</h1>
-        <p> You can create one below </p>
+        <p> You can Select one below </p>
       @endif
       {{ Form::open(['route'=>'eventAttendances.store']) }}
       @if($usersTable!=="N/A")

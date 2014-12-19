@@ -13,8 +13,8 @@ An email with the password reset has been sent.
     <div class="panel-heading">
      <center><div class="panel-title">Enter Email Address Below</div></center>
 
-   </div>   
-   <div style="padding-top:30px" class="panel-body" >
+    </div>   
+    <div style="padding-top:30px" class="panel-body" >
 
     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
     <center>
