@@ -125,7 +125,7 @@ class ProjectsController extends \BaseController {
 		}
 		$project =$this->project->find($id)->fill($input);
 		$project->save();
-		return Redirect::route('projects');
+		return Redirect::route('projects.index');
 	}
 
 

@@ -18,7 +18,7 @@ Monetary Donations
           <td style="color:red;">{{ $errors->first('check_number') }}</td>
         </tr>
         <tr>
-          <td><strong>Associated Project: <strong></td>
+          <td><strong>Associated Project: </strong></td>
           <td>{{link_to_route('projects.show', $donation->project->name, $donation->eid)}}</td>
         </tr>
         <tr>
@@ -47,5 +47,5 @@ Monetary Donations
   </div>
   <!-- /.panel -->
 
-
-  @stop
+</div>
+@stop

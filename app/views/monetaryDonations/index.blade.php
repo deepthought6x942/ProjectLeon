@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.index')
 @section('header')Monetary Donations
 @stop   
 @section('table')

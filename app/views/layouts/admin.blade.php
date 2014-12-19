@@ -14,7 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
     
-     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css"
     rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -25,7 +25,7 @@
     <link href={{asset("css/plugins/dataTables.colVis.css")}} rel="stylesheet">
     <link href={{asset("css/plugins/dataTables.tableTools.css")}} rel="stylesheet">
 
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
     <!-- Custom CSS -->
     
@@ -38,26 +38,23 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <![endif]-->
 
 
-    </head>
+</head>
 
-    <body>
-    
-    
-  <div id="wrapper">
-
+<body>
+    <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <!-- img here -->
             <div class="navbar-header">
-                
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                         <span class="icon-bar"></span>
-                         <span class="icon-bar"></span>
-                         <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 
                 <a class="navbar-brand">Project Gettysburg-León Admin</a>
@@ -71,15 +68,15 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
+
                         <li>
                             <a href={{route('users.index')}}><i class="fa fa-user fa-fw"></i> Users</a>
                         </li>
-                       
+
                         <li>
                             <a href="forms.html"> <i class="fa fa-bar-chart-o fa-fw"></i> Projects<span class="fa arrow"></span></a>
                             
-                              <ul class="nav nav-second-level">
+                            <ul class="nav nav-second-level">
                                 <li>
                                     {{link_to("projects/", 'List All') }}
                                 </li>
@@ -92,13 +89,12 @@
                         <li>
                             <a href='#'><i class="fa fa-table fa-fw"></i> Monetary Donations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                 <li>
+                                <li>
                                     {{link_to("monetaryDonations/", 'List All') }}
                                 </li>
                                 <li>
                                     {{link_to("monetaryDonations/create/", 'Create') }}
                                 </li>
-                                
                             </ul>
                         </li>
                         @endif
@@ -109,11 +105,11 @@
                                     {{link_to_route("auctionDonations.index",'List All', AuctionDonationsController::currentYear()) }}
                                 </li>
                                 <li>
-                                    {{link_to_route("auctionDonations.admin_create", 'Create Donation') }}
+                                    {{link_to_route("auctionDonations.admin_create", 'Donate') }}
                                 </li>
                                 <li>
-                                {{link_to_route("booklet", 'Generate booklet')}} 
-                            </li>
+                                    {{link_to_route("booklet", 'Booklet')}} 
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -121,7 +117,7 @@
                             <a href={{route('eventAttendances.managePortal')}}><i class="fa fa-wrench fa-fw"></i> Manage Event Attendance</a>
                         </li>
                         <li>
-                        {{link_to("logout", 'Logout') }}
+                            {{link_to("logout", 'Logout') }}
                         </li>
                     </ul>
                 </div>
@@ -130,12 +126,11 @@
             <!-- /.navbar-static-side -->
         </nav>
         <!-- /#page-wrapper -->
-
-   <div id="page-wrapper">
-    <h1> @yield('header')</h1>
-   @yield('content')
-   </div>   <!-- /#wrapper -->
-
+        <div id="page-wrapper">
+            <h1> @yield('header')</h1>
+            @yield('content')
+        </div>   <!-- /#wrapper -->
+    </div>
     <!-- jQuery -->
     <script src={{asset("js/jquery.js")}}></script>
 

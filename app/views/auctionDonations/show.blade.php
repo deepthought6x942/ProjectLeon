@@ -99,6 +99,5 @@ Auction Donations
       </div>
     </div>
   @endif
-
 </div>  
 @stop

@@ -36,7 +36,6 @@
         <tr>
             <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
             <td>{{ Form::select('location', $locations)}}</td>
-          </select>
             @if(Auth::user()->type!=='member')
             <td>{{Form::text('Other location', "Input Other")}}</td>
             @endif
