@@ -42,6 +42,7 @@
     {{ $errors->first('other') }}
     {{Form::submit('Submit')}}
     {{Form::close()}}
+    <br>
     @endif
 @stop
 @section('scripts')

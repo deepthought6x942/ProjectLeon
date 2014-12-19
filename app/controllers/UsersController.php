@@ -32,7 +32,7 @@ class UsersController extends \BaseController {
 	public static function generateMailTo($ids){
 		$emails=[];
 		foreach ($ids as $i) {
-			array_push($emails,User::where('id',$i)->select('email')->first());
+			array_push($emails,User::where('id',$i)->where('contact_preference','E-mail')->select('email')->first());
 		}
 		return "mailto:".implode(',',$emails);
 	}
