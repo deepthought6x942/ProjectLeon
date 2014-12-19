@@ -1,6 +1,5 @@
 @extends('layouts.default')
 
-
 @section('header')Donation Submitted @stop
 
 @section('content')

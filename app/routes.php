@@ -18,15 +18,7 @@
 Route::group(array('before' => 'treasurer'), function(){
 	Route::resource('monetaryDonations', 'MonetaryDonationsController');
 	Route::get('monetaryDonations', array( 'as' => 'monetaryDonations.index' , 'uses' =>'MonetaryDonationsController@index'));
-	/*
-	Route::patch('monetaryDonations/{monetaryDonations}', array( 'uses' =>'MonetaryDonationsController@update'));
-	Route::delete('monetaryDonations/{monetaryDonations}', array( 'as' => 'monetaryDonations.destroy' , 'uses' =>'MonetaryDonationsController@destroy'));
-	Route::get('monetaryDonations/create', array( 'as' => 'monetaryDonations.create' , 'uses' => 'MonetaryDonationsController@create'));
-	Route::post('monetaryDonations', array( 'as' => 'monetaryDonations.store' , 'uses' => 'MonetaryDonationsController@store'));
-	Route::get('monetaryDonations/{monetaryDonations}', array( 'as' => 'monetaryDonations.show' , 'uses' =>'MonetaryDonationsController@show'));
-	Route::get('monetaryDonations/{monetaryDonations}/edit', array( 'as' => 'monetaryDonations.edit' , 'uses' =>'MonetaryDonationsController@edit'));
-	Route::put('monetaryDonations/{monetaryDonations}', array( 'as' => 'monetaryDonations.update' , 'uses' =>'MonetaryDonationsController@update'));
-	*/	
+	
 
 });
 
@@ -36,8 +28,6 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::resource('projects', 'ProjectsController');
 	//
 	Route::get('users', array( 'as' => 'users.index' , 'uses' =>'UsersController@index'));
-	Route::patch('users/{users}', array( 'uses' =>'UsersController@update'));
-	Route::delete('users/{users}', array( 'as' => 'users.destroy' , 'uses' =>'UsersController@destroy'));
 	Route::get('eventAttendances/{eventAttendances}', array( 'as' => 'eventAttendances.manage' , 'uses' =>'EventAttendancesController@manage'));
 	Route::get('eventAttendances/', array( 'as' => 'eventAttendances.managePortal' , 'uses' =>'EventAttendancesController@managePortal'));
 	
@@ -45,8 +35,6 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::post('eventAttendances/', array( 'as' => 'eventAttendances.store' , 'uses' =>'EventAttendancesController@store'));
 	Route::post('auctionDonations/changeYear', array( 'as' => 'auctionDonations.changeYear' , 'uses' => 'AuctionDonationsController@changeYear'));
 	Route::get('auctionDonations/index/{auctionDonations}', array( 'as' => 'auctionDonations.index' , 'uses' =>'AuctionDonationsController@index'));
-	Route::patch('auctionDonations/{auctionDonations}', array( 'uses' =>'AuctionDonationsController@update'));
-	Route::delete('auctionDonations/{auctionDonations}', array( 'as' => 'auctionDonations.destroy' , 'uses' =>'AuctionDonationsController@destroy'));
 	Route::get('auctionDonations/admin_create', array( 'as' => 'auctionDonations.admin_create' , 'uses' => 'AuctionDonationsController@adminCreate'));
 	Route::post('auctionDonations/updateBatch', array( 'as' => 'auctionDonations.updateBatch' , 'uses' =>'AuctionDonationsController@updateBatch'));
 

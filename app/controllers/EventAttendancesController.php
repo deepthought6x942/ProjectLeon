@@ -32,7 +32,7 @@ class EventAttendancesController extends \BaseController {
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for Event Attendance Management.
 	 *
 	 * @return Response
 	 */
@@ -74,6 +74,11 @@ class EventAttendancesController extends \BaseController {
 		return View::make('eventAttendances.manager', ['roles'=>$roles,'usersTable'=>$usersTable,
 			'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'project'=>$project, 'mailtoURL'=>$mailtoURL]);
 	}
+	/**
+	 * Select the desired project
+	 *
+	 * @return Response
+	 */
 	public function managePortal()
 	{
 		if(Project::all()->count()>0){

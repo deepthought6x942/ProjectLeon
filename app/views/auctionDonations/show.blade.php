@@ -26,9 +26,7 @@ Auction Donations
           <tr>
             <td>{{ Form::label('category', 'Category: ')}}</td>
             <td>{{ Form::select('category', $categories)}}</td>
-            @if(Auth::user()->type !== 'member')
             <td>{{Form::text('Other_category', "Input Other")}}</td>
-            @endif
             <td>{{ $errors->first('category') }}</td>
           </tr>
           <tr>
@@ -63,8 +61,6 @@ Auction Donations
             <td>{{ Form::text('sold_for')}}</td>
             <td>{{ $errors->first('sold_for') }}</td>
           </tr>
-
-
         </table>
       </div>
     </div>
@@ -99,8 +95,6 @@ Auction Donations
             <td>Approximate Value: </td>
             <td>{{ $donations->approximate_value}}</td>
           </tr>
-
-
         </table>
       </div>
     </div>

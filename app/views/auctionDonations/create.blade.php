@@ -13,7 +13,6 @@
           <td style="color:red;">{{ $errors->first('title') }}</td>
         </tr>
         <tr>
-
             <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
             <td>{{ Form::select('category', $categories)}}</td>
             <td>{{Form::text('Other category', "Input Other")}}</td>
@@ -23,19 +22,18 @@
           <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
           <td>{{ Form::text('quantity', '1')}}</td>
           <td style="color:red;">{{ $errors->first('quantity') }}</td>
-        </tr><tr>
+        </tr>
+        <tr>
           <td>{{ Form::label('description', 'Description: ')}}</td>
           <td>{{ Form::textarea('description')}}</td>
           <td style="color:red;">{{ $errors->first('description') }}</td>
-        </tr><tr>
-
-
+        </tr>
+        <tr>
           <td>{{ Form::label('approximate_value', 'Approximate Value: $')}}</td>
           <td>{{ Form::text('approximate_value')}}</td>
           <td style="color:red;">{{ $errors->first('approximate_value') }}</td>
         </tr>
         <tr>
-            
             <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
             <td>{{ Form::select('location', $locations)}}</td>
           </select>
@@ -43,8 +41,6 @@
             <td>{{Form::text('Other location', "Input Other")}}</td>
             @endif
             <td style="color:red;">{{ $errors->first('location') }}</td>
-
-
         </tr>
         {{Form::hidden('uid', Auth::user()->id)}}
         {{Form::hidden('status', 'Not Delivered')}}

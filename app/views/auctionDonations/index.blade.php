@@ -7,10 +7,10 @@
   {{Form::submit("Select")}}
   {{Form::close()}}
   @if(Session::has('auc_donate_success'))
-  Donation Saved!
+    Donation Saved
   @endif
   @if(Session::has('auc_update_success'))
-  Update Succesful!
+    Update Succesful
   @endif
   @if($table!=="N/A")
   
