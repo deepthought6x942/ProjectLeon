@@ -1,26 +1,37 @@
 @extends('layouts.default')
 
-@section('header')Users
+@section('header') {{$user->first. " ". $user->last}}
 @stop
 @section('content')
 <div class="col-lg-8">
+  <div class="panel-group" id="accordion">
   {{Form::model($user, array('method'=>'PUT', 'route' => array('users.update', $user->id)))}}
-<div class="panel panel-default">
+<div class="panel panel-default" id="panel1">
+    <div class="panel-heading">
+       <h4 class="panel-title">
+    <a data-toggle="collapse" data-target="#collapseOne" href="#collapseOne" class="collapsed">
+      Edit Information:
+    </a>
+  </h4>
+
+</div>
+<div id="collapseOne" class="panel-collapse collapse">
+   <div class="panel-body">
   <div class="table-responsive">
     <table class="table">
       <tbody>
         <tr>
-          <td>{{ Form::label('first', 'First Name(*): ')}}</td>
+          <td>{{ Form::label('first', 'First Name')}}(<span>*</span>): </td>
           <td>{{ Form::text('first')}}</td>
           <td style="color:red;">{{ $errors->first('first') }}</td>
         </tr>
         <tr>
-          <td>{{ Form::label('last', 'Last Name(*): ')}}</td>
+          <td>{{ Form::label('last', 'Last Name')}}(<span>*</span>):</td>
           <td>{{ Form::text('last')}}</td>
           <td style="color:red;">{{ $errors->first('last') }}</td>
         </tr>
         <tr>
-          <td>{{ Form::label('email', 'E-mail(*): ')}}</td>
+          <td>{{ Form::label('email', 'E-mail')}}(<span>*</span>):</td>
           <td>{{ Form::text('email')}}</td>
           <td style="color:red;">{{ $errors->first('email') }}</td>
         </tr>
@@ -81,12 +92,21 @@
       </table>
     </div>
   </div>
+</div>
+</div>
+  </div>
+
   @if($adtable!=='N/A')
-  <div class="panel panel-default">
+  <div class="panel panel-default" id="panel2">
     <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseTwo" href="#collapseTwo" class="collapsed">
       Auction Donations:
+    </a>
+  </h4>
     </div>
     <!-- /.panel-heading -->
+    <div id="collapseTwo" class="panel-collapse collapse">
     <div class="panel-body">
       <div class="table-responsive">
         {{$adtable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
@@ -95,15 +115,21 @@
     </div>
     <!-- /.panel-body -->
   </div>
+</div>
   <!-- /.panel -->
   @endif 
   @if(Auth::user()->type!=='member')
     @if($user->eventAttendance->count()>0)
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="panel3">
       <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-target="#collapseThree" href="#collapseThree" class="collapsed">
         Event Attendance:
+      </a>
+    </h4>
       </div>
       <!-- /.panel-heading -->
+      <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <div class="table-responsive">
           {{$eatable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
@@ -112,21 +138,28 @@
       </div>
       <!-- /.panel-body -->
     </div>
+  </div>
     <!-- /.panel -->
     @endif
     <!-- Remind me to check if they want users to be able to view their own monetary donations-->
     @if($user->monetaryDonations->count()>0 && Auth::user()->type==="treasurer")
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="panel4">
       <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-target="#collapseThree" href="#collapseThree" class="collapsed">
         Monetary Donations: 
+      </a>
+    </h4>
       </div>
       <!-- /.panel-heading -->
+      <div id="collapseThree" class="panel-collapse collapse">
       <div class="panel-body">
         <div class="table-responsive">
           {{$mdtable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
         </div>
         <!-- /.table-responsive -->
       </div>
+    </div>
       <!-- /.panel-body -->
     </div>
     <!-- /.panel --> 
