@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration {
 			$table->date('start_date');
 			$table->date('end_date');
 			$table->string('type', 50);
-			$table->string('description', 100)->nullable();
+			$table->string('description', 1000)->nullable();
 			$table->timestamps();
 			$table->index(['name','start_date'], 'name');
 		});

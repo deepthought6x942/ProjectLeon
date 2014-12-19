@@ -143,7 +143,6 @@
   @if($mdtable!=="N/A")
     {{str_replace("\\/","/",$mdtable->script())}}
   @endif
-  
   @if($eatable!=="N/A")
     {{str_replace("\\/","/",$eatable->script())}}
   @endif

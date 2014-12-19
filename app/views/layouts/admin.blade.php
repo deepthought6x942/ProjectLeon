@@ -118,7 +118,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href={{route('eventAttendances.manage',-1)}}><i class="fa fa-wrench fa-fw"></i> Manage Event Attendance</a>
+                            <a href={{route('eventAttendances.managePortal')}}><i class="fa fa-wrench fa-fw"></i> Manage Event Attendance</a>
                         </li>
                         <li>
                         {{link_to("logout", 'Logout') }}

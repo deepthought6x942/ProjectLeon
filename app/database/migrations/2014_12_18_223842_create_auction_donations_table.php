@@ -21,7 +21,7 @@ class CreateAuctionDonationsTable extends Migration {
 			$table->date('year');
 			$table->string('category', 100);
 			$table->integer('quantity');
-			$table->string('description', 250);
+			$table->string('description', 1000);
 			$table->string('status', 100);
 			$table->string('location', 100);
 			$table->decimal('approximate_value', 10, 0);

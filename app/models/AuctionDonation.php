@@ -34,7 +34,9 @@ class AuctionDonation extends Eloquent{
   public $errors;
   public function isValid(){
     $validation=Validator::make($this->attributes, static::$rules);
-    if ($validation->passes()) return true;
+    if ($validation->passes()){
+      return true;
+    }
      $this->errors =$validation->messages ();
      return false;
   }

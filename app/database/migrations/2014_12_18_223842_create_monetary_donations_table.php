@@ -21,7 +21,7 @@ class CreateMonetaryDonationsTable extends Migration {
 			$table->integer('eid')->index('eid');
 			$table->date('date');
 			$table->decimal('amount', 10, 0);
-			$table->string('notes', 500)->nullable();
+			$table->string('notes', 1000)->nullable();
 			$table->boolean('receipt_sent')->default(0);
 			$table->timestamps();
 			$table->index(['uid','check_number','eid'], 'uid');

@@ -60,10 +60,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   public $messages;
   public $errors;
   public function isValid($type){
-    if($type==='insert') $validation=Validator::make($this->attributes, static::$insertRules);
-    elseif($type==='update') $validation=Validator::make($this->attributes, static::$updateRules);
-    else $validation=Validator::make($this->attributes, static::$temporaryRules);
-    if ($validation->passes()) return true;
+    if($type==='insert'){ 
+      $validation=Validator::make($this->attributes, static::$insertRules);
+    }
+    elseif($type==='update') {
+      $validation=Validator::make($this->attributes, static::$updateRules);
+    }
+    else {
+      $validation=Validator::make($this->attributes, static::$temporaryRules);
+    }
+    if ($validation->passes()){ 
+      return true;
+    }
      $this->errors =$validation->messages ();
      return false;
   }

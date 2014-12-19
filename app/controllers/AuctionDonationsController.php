@@ -78,7 +78,7 @@ class AuctionDonationsController extends \BaseController {
 	}
 	//The following is a list of fields and lables for use in the datatables
 	protected static $fieldsList= ['id', 'uid', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];
-	protected static $columnNames= ['Select', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For', 'Edit'];
+	protected static $columnNames= ['Select', 'Edit', 'User', 'Title', 'Year', 'Category', 'Quantity', 'Description','Location', 'Status', 'Approximate Value','Sold For'];
 	protected static $batchFields= ['category'=>'Category', 'location'=>'Location', 'status'=>'Status'];
 
 	protected static $userFieldsList= ['id', 'title', 'year', 'category', 'quantity', 'description', 'location', 'status', 'approximate_value', 'sold_for'];

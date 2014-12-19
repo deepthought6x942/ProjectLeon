@@ -39,6 +39,8 @@ Route::group(array('before'=>'administrator'), function(){
 	Route::patch('users/{users}', array( 'uses' =>'UsersController@update'));
 	Route::delete('users/{users}', array( 'as' => 'users.destroy' , 'uses' =>'UsersController@destroy'));
 	Route::get('eventAttendances/{eventAttendances}', array( 'as' => 'eventAttendances.manage' , 'uses' =>'EventAttendancesController@manage'));
+	Route::get('eventAttendances/', array( 'as' => 'eventAttendances.managePortal' , 'uses' =>'EventAttendancesController@managePortal'));
+	
 	Route::delete('eventAttendances/destroy', array( 'as' => 'eventAttendances.destroy' , 'uses' =>'EventAttendancesController@destroy'));
 	Route::post('eventAttendances/', array( 'as' => 'eventAttendances.store' , 'uses' =>'EventAttendancesController@store'));
 	Route::post('auctionDonations/changeYear', array( 'as' => 'auctionDonations.changeYear' , 'uses' => 'AuctionDonationsController@changeYear'));
