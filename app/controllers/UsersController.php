@@ -29,14 +29,12 @@ class UsersController extends \BaseController {
 		return View::make('users/index', ['users'=>$users, 'table'=>$table]);
 	}
 
-	public function generateMailTo(){
-		$input=Input::all();
-		$ids=$input['ids'];
+	public static function generateMailTo($ids){
 		$emails=[];
 		foreach ($ids as $i) {
-			$emails->add(User::where('id',$i)->select('email')->first());
+			array_push($emails,User::where('id',$i)->select('email')->first());
 		}
-		return "mailto:".$emails.implode(',',$emails);
+		return "mailto:".implode(',',$emails);
 	}
 	/**
 	 * Show the form for creating a new resource.

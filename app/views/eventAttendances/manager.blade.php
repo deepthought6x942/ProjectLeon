@@ -25,6 +25,7 @@
       {{Form::hidden('eid',$eid)}}
       {{Form::submit('Delete Selected Attendance')}}
       {{Form::close ()}}
+      <p> <a href={{$mailtoURL}}>Mail To Attendees </a> </p>
       @else
         <h1>There are currently no attendees of {{$project->name}}</h1>
         <p> You can create one below </p>

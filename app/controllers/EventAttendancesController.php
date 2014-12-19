@@ -42,6 +42,7 @@ class EventAttendancesController extends \BaseController {
 		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
 			$q->where('eid', $eid);
 		})->lists('id');
+		$mailtoURL=UsersController::generateMailTo($query);
 		if(count($query)>0){	
 			$query2= User::whereNotIn('id', $query)->select(self::$usersFields)->get();
 		}else{
@@ -71,7 +72,7 @@ class EventAttendancesController extends \BaseController {
 		}
 
 		return View::make('eventAttendances.manager', ['roles'=>$roles,'usersTable'=>$usersTable,
-			'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'project'=>$project]);
+			'attendanceTable'=>$attendanceTable, 'eid'=>$eid, 'project'=>$project, 'mailtoURL'=>$mailtoURL]);
 	}
 	public function managePortal()
 	{
