@@ -156,7 +156,7 @@
     <div class="panel panel-default" id="panel4">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-target="#collapseThree" href="#collapseThree" class="collapsed">
+          <a data-toggle="collapse" data-target="#collapseFour" href="#collapseFour" class="collapsed">
         Monetary Donations: 
       </a>
     </h4>
