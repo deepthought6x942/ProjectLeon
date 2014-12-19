@@ -1,4 +1,4 @@
-@extends('layouts.create')
+@extends('layouts.default')
 @section('header') Select Member @stop
 @section('content')
 <div class="col-lg-10">

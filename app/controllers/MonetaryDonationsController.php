@@ -129,13 +129,7 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$raw_input=Input::all();
-		$first=$raw_input["first"];
-		$last=$raw_input["last"];
-		$user=User::where('first','=', $first)->where('last', '=', $last)->first();
-
-		$input=array('uid'=>$user->id, 'check_number'=>$raw_input["check_number"], 'eid'=>$raw_input['eid'], 'date'=>$raw_input["date"], 'amount'=>$raw_input["amount"]);
-
+		$input=Input::all();
 		if(! $this->monetaryDonation->fill($input)->isValid()){
 			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 		}

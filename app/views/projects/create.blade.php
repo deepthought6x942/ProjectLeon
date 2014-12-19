@@ -1,4 +1,4 @@
-@extends('layouts.create')
+@extends('layouts.default')
 
 
 @section('header') Create New Event/Project

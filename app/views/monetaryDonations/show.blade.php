@@ -1,4 +1,4 @@
-@extends('layouts.create')
+@extends('layouts.default')
 @section('header')
 Monetary Donations
 @stop
@@ -39,6 +39,7 @@ Monetary Donations
         
       </table>
     </div>
+    {{Form::hidden('uid',$donation->user->id)}}
     {{Form::submit('Submit')}}
     {{Form::close ()}}
 
