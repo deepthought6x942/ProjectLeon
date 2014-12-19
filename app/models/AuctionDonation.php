@@ -25,7 +25,7 @@ class AuctionDonation extends Eloquent{
     'year'=>'required|digits:4',
     'category'=>'required',
     'description' =>'required',
-    'quantity'=>'required|int|min:0',
+    'quantity'=>'required|integer|min:0',
     'approximate_value'=>"numeric|min:0",
     'sold_for'=>"numeric|min:0",
 
