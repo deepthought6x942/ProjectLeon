@@ -39,7 +39,7 @@ Projects
             <td>{{ Form::label('type', 'Type: ')}} </td>
            <td>{{ Form::select('type', $types)}}</td>
             @if(Auth::user()->type!=='member')
-            <td>{{Form::text('Other', "Input Other")}}</td>
+            <td>{{Form::text('Other', "Input Other",array('id' => 'Other', 'disabled'))}}</td>
             @endif
             <td>{{ $errors->first('type') }}</td>
          </tr>
@@ -122,5 +122,16 @@ Projects
   @if($eatable!=="N/A")
     {{str_replace("\\/","/",$eatable->script())}}
   @endif
-
+  <script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#type').change(function() {
+      if($(this).val() == 'Other') {
+        document.getElementById('Other').disabled=false;
+      }else{
+        document.getElementById('Other').disabled=true;
+      }
+      
+    });
+});
+</script>
   @stop

@@ -8,13 +8,13 @@
       <table class="table">
         {{ Form::open(['route'=>'auctionDonations.store']) }}
         <tr>
-          <td>{{ Form::label('title', 'Donation Title: ')}}</td>
+          <td>{{ Form::label('title', 'Donation Title ')}} (<span>*</span>):</td>
           <td>{{ Form::text('title')}}</td>
           <td style="color:red;">{{ $errors->first('title') }}</td>
         </tr>
         <tr>
 
-            <td>{{ Form::label('category', 'Category: ')}}</td>
+            <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
             <td>{{ Form::select('category', $categories)}}</td>
             <td>{{Form::text('Other category', "Input Other")}}</td>
             <td style="color:red;">{{ $errors->first('category') }}</td>
@@ -35,13 +35,15 @@
           <td style="color:red;">{{ $errors->first('approximate_value') }}</td>
         </tr>
         <tr>
-
-            <td>{{ Form::label('location', 'Location: ')}}</td>
+            
+            <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
             <td>{{ Form::select('location', $locations)}}</td>
+          </select>
             @if(Auth::user()->type!=='member')
             <td>{{Form::text('Other location', "Input Other")}}</td>
             @endif
             <td style="color:red;">{{ $errors->first('location') }}</td>
+
 
         </tr>
         {{Form::hidden('uid', Auth::user()->id)}}

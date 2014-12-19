@@ -21,33 +21,33 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td>{{ Form::label('first', 'First Name(*): ')}}</td>
+                    <td>{{ Form::label('first', 'First Name')}}(<span>*</span>):</td>
                     <td>{{ Form::text('first')}}</td>
                     <td style="color:red;">{{ $errors->first('first') }}</td>
 
                 </tr>
                 <tr>
-                    <td>{{ Form::label('last', 'Last Name(*): ')}}</td>
+                    <td>{{ Form::label('last', 'Last Name')}}(<span>*</span>):</td>
                     <td>{{ Form::text('last')}}</td>
                     <td style="color:red;">{{ $errors->first('last') }}</td>
 
                 </tr>
 
                 <tr>
-                    <td>{{ Form::label('email', 'E-mail(*): ')}}</td>
+                    <td>{{ Form::label('email', 'E-mail')}}(<span>*</span>):</td>
                     <td>{{ Form::text('email')}}</td>
                     <td style="color:red;">{{ $errors->first('email') }}</td>
 
                 </tr>
 
                 <tr>
-                    <td>{{ Form::label('password', 'Password(*):') }}</td>
+                    <td>{{ Form::label('password', 'Password') }}(<span>*</span>):</td>
                     <td>{{ Form::password('password') }}</td>
                     <td style="color:red;">{{ $errors->first('password') }}</td>
                 </tr>
 
                 <tr>
-                    <td>{{ Form::label('password_confirmation', 'Password Confirmation(*):') }}</td>
+                    <td>{{ Form::label('password_confirmation', 'Password Confirmation') }}(<span>*</span>):</td>
                     <td>{{ Form::password('password_confirmation') }}</td>
                     <td style="color:red;">{{ $errors->first('password_confirmation') }}</td>
                 </tr>

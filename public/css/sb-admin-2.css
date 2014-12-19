@@ -359,3 +359,7 @@ table.dataTable thead .sorting:after {
 table span {
     color:red;
 }
+
+form span {
+    color:red;
+}

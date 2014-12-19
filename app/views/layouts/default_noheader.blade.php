@@ -10,6 +10,7 @@
 
 
     <link href={{asset("css/bootstrap.css")}} rel="stylesheet">
+    <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
 
 	 <div class="container">
     

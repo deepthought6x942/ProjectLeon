@@ -24,8 +24,7 @@
           <td>{{ Form::label('first', 'First Name')}}(<span>*</span>): </td>
           <td>{{ Form::text('first')}}</td>
           <td style="color:red;">{{ $errors->first('first') }}</td>
-        </tr>
-        <tr>
+        
           <td>{{ Form::label('last', 'Last Name')}}(<span>*</span>):</td>
           <td>{{ Form::text('last')}}</td>
           <td style="color:red;">{{ $errors->first('last') }}</td>
@@ -34,8 +33,7 @@
           <td>{{ Form::label('email', 'E-mail')}}(<span>*</span>):</td>
           <td>{{ Form::text('email')}}</td>
           <td style="color:red;">{{ $errors->first('email') }}</td>
-        </tr>
-        <tr>
+       
           <td>{{ Form::label('address1', 'Address One: ')}}</td>
           <td>{{ Form::text('address1')}}</td>
           <td >{{ $errors->first('address1') }}</td>
@@ -44,8 +42,7 @@
           <td>{{ Form::label('address2', 'Address Two: ')}}</td>
           <td>{{ Form::text('address2')}}</td>
           <td>{{ $errors->first('address2') }}</td>
-        </tr>
-        <tr>
+      
           <td>{{ Form::label('city', 'City: ')}}</td>
           <td>{{ Form::text('city')}}</td>
           <td>{{ $errors->first('city') }}</td>
@@ -54,40 +51,53 @@
           <td>{{ Form::label('state', 'State: ')}}</td>
           <td>{{ Form::text('state')}}</td>
           <td>{{ $errors->first('state') }}</td>
+       
+          <td>{{ Form::label('country', 'Country: ')}}</td>
+          <td>{{ Form::text('country')}}</td>
+          <td>{{ $errors->first('country') }}</td>
         </tr>
         <tr>
-          <td>{{ Form::label('zip', 'Zipcode: ')}}</td>
-          <td>{{ Form::text('zip')}}</td>
-          <td>{{ $errors->first('zip') }}</td>
+          <td>{{ Form::label('zipcode', 'Zipcode: ')}}</td>
+          <td>{{ Form::text('zipcode')}}</td>
+          <td>{{ $errors->first('zipcode') }}</td>
+
+          <td>{{ Form::label('contact_preference', 'Contact Preference:') }}</td>
+          <td>{{ Form::select('contact_preference', ['E-mail'=>'E-mail', 'Phone'=>'Phone']) }}</td>
         </tr>
+        <tr>
+        <td>{{ Form::label('telephone', 'Phone Number: ')}}</td>
+            <td>{{ Form::text('telephone')}}</td>
+            <td>{{ $errors->first('telephone') }}</td>
+         
+        <center>
         @if(Auth::user()->type!=='member')
           @if(Auth::user()->type==='treasurer')
-            <tr>
+          
               <td>{{Form::label('type', 'Type: ')}}</td>
               <td>{{ Form::select('type', ['administrator'=>'administrator', 'treasurer'=>'treasurer','member'=>'member'])}}</td>
               <td> {{ $errors->first('type') }}</td>
             </tr>
           @else
             @if($user->type==='treasurer')
-              <tr>
-                <td><strong>Type</strong> </td>
+             
+                <td><strong>Type</strong> </td> 
                 <td>{{ $user->type}}</td>
               </tr>
+             
             @else
-              <tr>
+              
                 <td>{{Form::label('type', 'Type: ')}}</td>
                 <td>{{ Form::select('type', ['administrator'=>'administrator','member'=>'member'])}}</td>
                 <td> {{ $errors->first('type') }}</td>
               </tr>
+              
             @endif
           @endif
         @endif
-           <tr>
-            <td>{{ Form::label('telephone', 'Phone Number: ')}}</td>
-            <td>{{ Form::text('telephone')}}</td>
-            <td>{{ $errors->first('telephone') }}</td>
-          </tr>
-          <tr><td></td><td>{{Form::submit('Edit User')}}{{Form::close ()}}</td></tr>
+          
+            
+          <tr> <td> </td> <td> </td><td>{{Form::submit('Edit User')}}{{Form::close ()}}</td></tr>
+        </center>
         </tbody>
       </table>
     </div>

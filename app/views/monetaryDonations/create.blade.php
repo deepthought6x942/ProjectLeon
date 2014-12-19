@@ -76,14 +76,3 @@
   });
   </script>
 @endsection
-
-
-@section('scripts')
-
-<script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
-
-  @stop

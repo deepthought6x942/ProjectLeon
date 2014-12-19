@@ -12,7 +12,7 @@
  		<div class="panel panel-info" >
  			<div class="panel-heading">
  				<center><div class="panel-title">Enter Email Address Below</div></center>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a style = "color:white" href="#"></a></div>
+                       
                     </div>   
    <div style="padding-top:30px" class="panel-body" >
 						
