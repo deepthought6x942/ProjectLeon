@@ -11,7 +11,7 @@
     @endif
 @endsection
 @section('scripts')
-  @if($table!=="N/A")
-    {{str_replace("\\/","/",$table->script())}}
-  @endif
+    @if($table!=="N/A")
+        {{str_replace("\\/","/",$table->script())}}
+    @endif
 @stop
