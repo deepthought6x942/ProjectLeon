@@ -38,8 +38,10 @@
                                 <tr>
                                     <td>{{ Form::label('type', 'Type: ')}} </td>
                                     <td>{{ Form::select('type', $types)}}</td>
-                                    @if(Auth::user()->type!=='member')
+                                    @if(Auth::user()->type!=='member' && count($types) > 1)
                                         <td>{{Form::text('Other', "Input Other",array('id' => 'Other', 'disabled'))}}</td>
+                                    @elseif(Auth::user()->type!=='member')
+                                        <td>{{Form::text('Other', "Input Other")}}</td>
                                     @endif
                                     <td>{{ $errors->first('type') }}</td>
                                 </tr>

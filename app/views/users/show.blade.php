@@ -233,7 +233,6 @@
       <!-- /.panel-body -->
     </div>
     <!-- /.panel --> 
-    @endif 
   @endif
 </div>
  

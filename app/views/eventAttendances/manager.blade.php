@@ -31,7 +31,7 @@
         <p> You can Select one below </p>
       @endif
       {{ Form::open(['route'=>'eventAttendances.store']) }}
-      @if($usersTable!=="N/A")
+
         @if($usersTable!=="N/A")
             <div class="table-responsive">
                 <h2> Attendee Selection </h2>

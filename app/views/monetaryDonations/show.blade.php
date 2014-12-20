@@ -23,7 +23,7 @@
                     </tr>
                     <tr>
                         <td>{{ Form::label('date', 'Date')}} (<span class="form">*</span>):</td>
-                        <td>{{ Form::text('date')}}</td>
+                        <td>{{ Form::text('date',null, array('id' => 'datepicker'))}}</td>
                         <td style="color:red;">{{ $errors->first('date') }}</td>
                     </tr>
                     <tr>
@@ -49,3 +49,10 @@
 
     </div>
 @stop
+@section('scripts')
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+@endsection

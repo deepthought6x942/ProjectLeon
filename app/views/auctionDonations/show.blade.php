@@ -26,8 +26,12 @@
                         <tr>
                             <td>{{ Form::label('category', 'Category: ')}}</td>
                             <td>{{ Form::select('category', $categories)}}</td>
-                            <td>{{Form::text('Other_category', "Input Other", array('id' => 'Other', 'disabled'))}}</td>
+                            @if(Auth::user()->type!=='member' && count($categories) > 1))
+                                <td>{{Form::text('Other_category', "Input Other", array('id' => 'Other', 'disabled'))}}</td>
+                             @elseif(Auth::user()->type!=='member')
+                             <td>{{Form::text('Other_category', "Input Other")}}</td>
                             <td>{{ $errors->first('category') }}</td>
+                            @endif
                         </tr>
                         <tr>
                             <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
@@ -42,13 +46,21 @@
                         <tr>
                             <td>{{Form::label('status', 'Status: ')}}</td>
                             <td>{{ Form::select('status', $statuses)}}</td>
-                            <td>{{Form::text('Other status', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
+                            @if(Auth::user()->type!=='member' && count($statuses) > 1))
+                                <td>{{Form::text('Other status', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
+                            @elseif(Auth::user()->type!=='member')
+                                <td>{{Form::text('Other_category', "Input Other")}}</td>
+                            @endif
                             <td> {{ $errors->first('status') }}</td>
                         </tr>
                         <tr>
                             <td>{{ Form::label('location', 'Location: ')}}</td>
                             <td>{{ Form::select('location', $locations)}}</td>
-                            <td>{{Form::text('Other_location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
+                            @if(Auth::user()->type!=='member' && count($locations) > 1))
+                                <td>{{Form::text('Other_location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
+                            @elseif(Auth::user()->type!=='member')
+                                <td>{{Form::text('Other_category', "Input Other")}}</td>
+                            @endif
                             <td>{{ $errors->first('location') }}</td>
                         </tr>
                         <tr>
