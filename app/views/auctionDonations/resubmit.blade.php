@@ -15,7 +15,9 @@
                     <tr>
                         <td>{{ Form::label('category', 'Category: ')}}</td>
                         <td>{{ Form::select('category', $categories)}}</td>
-                        <td>{{Form::text('Other category', "Input Other")}}</td>
+                        @if(Auth::user()->type!=='member')
+                            <td>{{Form::text('Other category', "Input Other")}}</td>
+                        @endif
                         <td>{{ $errors->first('category') }}</td>
                     </tr>
                     <tr>

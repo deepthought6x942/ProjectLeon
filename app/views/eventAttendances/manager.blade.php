@@ -3,7 +3,6 @@
 @stop
 @section('content')
     @if($eid>=0)
-<<<<<<< HEAD
       @if($attendanceTable!=="N/A")
         <div class="table-responsive">
         <h2> Current Attendees of {{$project->name}}</h2><h4><a href={{$mailtoURL}}>Mail To Attendees </a> </h4>
