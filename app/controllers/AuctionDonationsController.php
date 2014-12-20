@@ -323,8 +323,8 @@ class AuctionDonationsController extends \BaseController {
 	{
 		$input=Input::all();
 		$items=$input['id'];
-		if($input['changeTo']==='Other'&& isset($input['other'])) {
-			$input['changeTo']=$input['other'];
+		if($input['changeTo']==='Other'&& isset($input['Other'])) {
+			$input['changeTo']=$input['Other'];
 		}
 		$changeTo=$input['changeTo'];
 		$field=$input['field'];

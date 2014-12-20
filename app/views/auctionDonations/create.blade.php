@@ -16,7 +16,7 @@
             <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
             <td>{{ Form::select('category', $categories)}}</td>
             @if(Auth::user()->type!=='member')
-            <td>{{Form::text('Other category', "Input Other")}}</td>
+            <td>{{Form::text('Other category', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
             @endif
             <td style="color:red;">{{ $errors->first('category') }}</td>
           </tr>
@@ -39,7 +39,7 @@
             <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
             <td>{{ Form::select('location', $locations)}}</td>
             @if(Auth::user()->type!=='member')
-            <td>{{Form::text('Other location', "Input Other")}}</td>
+            <td>{{Form::text('Other location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
             @endif
             <td style="color:red;">{{ $errors->first('location') }}</td>
         </tr>
@@ -66,4 +66,30 @@
   @if($table!=="N/A")
     {{str_replace("\\/","/",$table->script())}}
   @endif
+  <script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#location').change(function() {
+    if($(this).val() == 'Other') {
+      document.getElementById('Other2').disabled=false;
+    }else{
+      document.getElementById('Other2').disabled=true;
+    }
+    
+  });
+});
+</script>
+
+<script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#category').change(function() {
+    if($(this).val() == 'Other') {
+      document.getElementById('Other1').disabled=false;
+    }else{
+      document.getElementById('Other1').disabled=true;
+    }
+    
+  });
+});
+</script>
+
 @stop

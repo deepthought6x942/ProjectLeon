@@ -26,7 +26,7 @@ Auction Donations
           <tr>
             <td>{{ Form::label('category', 'Category: ')}}</td>
             <td>{{ Form::select('category', $categories)}}</td>
-            <td>{{Form::text('Other_category', "Input Other")}}</td>
+            <td>{{Form::text('Other_category', "Input Other", array('id' => 'Other', 'disabled'))}}</td>
             <td>{{ $errors->first('category') }}</td>
           </tr>
           <tr>
@@ -42,13 +42,13 @@ Auction Donations
           <tr>
             <td>{{Form::label('status', 'Status: ')}}</td>
             <td>{{ Form::select('status', $statuses)}}</td>
-            <td>{{Form::text('other status', "Input other")}}</td>
+            <td>{{Form::text('Other status', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
             <td> {{ $errors->first('status') }}</td>
           </tr>
           <tr>
             <td>{{ Form::label('location', 'Location: ')}}</td>
             <td>{{ Form::select('location', $locations)}}</td>
-            <td>{{Form::text('Other_location', "Input Other")}}</td>
+            <td>{{Form::text('Other_location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
             <td>{{ $errors->first('location') }}</td>
           </tr>
           <tr>
@@ -99,5 +99,47 @@ Auction Donations
       </div>
     </div>
   @endif
-</div>  
+</div> 
+@stop
+@section('scripts')
+
+<script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#category').change(function() {
+    if($(this).val() == 'Other') {
+      document.getElementById('Other').disabled=false;
+    }else{
+      document.getElementById('Other').disabled=true;
+    }
+    
+  });
+});
+</script>
+
+<script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#status').change(function() {
+    if($(this).val() == 'Other') {
+      document.getElementById('Other1').disabled=false;
+    }else{
+      document.getElementById('Other1').disabled=true;
+    }
+    
+  });
+});
+</script>
+
+ <script type=text/javascript>
+jQuery(document).ready(function($){
+  $('#location').change(function() {
+    if($(this).val() == 'Other') {
+      document.getElementById('Other2').disabled=false;
+    }else{
+      document.getElementById('Other2').disabled=true;
+    }
+    
+  });
+});
+</script>
+
 @stop

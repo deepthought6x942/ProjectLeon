@@ -12,10 +12,12 @@
     <title>@yield('header')</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
+
     
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css"
     rel="stylesheet">
+
+    <link href={{asset("css/sb-admin-2.css")}} rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href={{asset("css/plugins/metisMenu/metisMenu.min.css")}} rel="stylesheet">
