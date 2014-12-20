@@ -1,25 +1,25 @@
 @extends('layouts.default_noheader')
 
 @section('header')
-<title>Register</title>
+    <title>Register</title>
 
 @stop
 
 
 @section('content')
 
-{{ Form::open(['route'=>'users.store']) }}
+    {{ Form::open(['route'=>'users.store']) }}
 
-<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-    <div class="panel panel-info" >
-        <div class="panel-heading">
-            <div class="panel-title">Register Users</div>
-          <h5 style="color:red;"> (*) denotes required field </h5>
-        </div>     
+    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Register Users</div>
+                <h5 style="color:red;"> (*) denotes required field </h5>
+            </div>
 
-       
-        <table class="table">
-            <tbody>
+
+            <table class="table">
+                <tbody>
                 <tr>
                     <td>{{ Form::label('first', 'First Name')}}(<span>*</span>):</td>
                     <td>{{ Form::text('first')}}</td>
@@ -55,7 +55,7 @@
                 <tr>
                     <td>{{ Form::label('contact_preference', 'Contact Preference:') }}</td>
                     <td>{{ Form::select('contact_preference', ['E-mail'=>'E-mail', 'Phone'=>'Phone']) }}</td>
-                
+
                 </tr>
 
                 <tr>
@@ -88,21 +88,20 @@
                 </tr>
 
 
-
                 <tr>
-                    <td> </td>
+                    <td></td>
                     <td>{{Form::submit('Create User')}}</td>
 
 
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
+        </div>
     </div>
-</div>
 
 
 
-{{ Form::close() }}
+    {{ Form::close() }}
 
 @stop

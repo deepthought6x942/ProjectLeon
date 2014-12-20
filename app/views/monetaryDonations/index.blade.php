@@ -1,8 +1,7 @@
 @extends('layouts.index')
 @section('header')Monetary Donations
-@stop   
+@stop
 @section('table')
-
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
                           'tableTools' => array(
                                     "sRowSelect" =>"multi",
@@ -22,8 +21,8 @@
 
 @stop
 @section('noneFound')
-  <h1>There are no Monetary Donations</h1>
-  <p> You can create one here: {{link_to_route('monetaryDonations.create')}} </p>
+    <h1>There are no Monetary Donations</h1>
+    <p> You can create one here: {{link_to_route('monetaryDonations.create')}} </p>
 
 
 @endsection

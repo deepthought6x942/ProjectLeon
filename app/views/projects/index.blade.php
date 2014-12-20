@@ -1,6 +1,6 @@
 @extends('layouts.index')
 @section('header')Projects
-@stop	
+@stop
 @section('table')
 
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
@@ -20,8 +20,9 @@
                                     "select_all", "select_none"]
                       )])->render()}}
 
+
 @stop
 @section('noneFound')
-  <h1>There are no Projects or Events</h1>
-  <p> You can create one here: {{link_to_route('projects.create')}} </p>
+    <h1>There are no Projects or Events</h1>
+    <p> You can create one here: {{link_to_route('projects.create')}} </p>
 @endsection
