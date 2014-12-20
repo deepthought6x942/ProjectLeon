@@ -15,12 +15,15 @@
                     <tr>
                         <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
                         <td>{{ Form::select('category', $categories)}}</td>
-                        @if(Auth::user()->type!=='member' && count($categories) > 1)
-                            <td>{{Form::text('Other category', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
-                        @else
-                            <td>{{Form::text('Other category', "Input Other")}}</td>
+                        @if(Auth::user()->type!=='member')
+                            @if(count($categories) > 1)
+                                <td>{{Form::text('Other category', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
+                            @else
+                                <td>{{Form::text('Other category', "Input Other")}}</td>
+                            @endif
                         @endif
                         <td style="color:red;">{{ $errors->first('category') }}</td>
+
                     </tr>
                     <tr>
                         <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
@@ -40,10 +43,12 @@
                     <tr>
                         <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
                         <td>{{ Form::select('location', $locations)}}</td>
-                        @if(Auth::user()->type!=='member' && count($locations) > 1)
-                            <td>{{Form::text('Other location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
-                        @else
-                            <td>{{Form::text('Other category', "Input Other")}}</td>
+                        @if(Auth::user()->type!=='member')
+                            @if(count($locations) > 1)
+                                <td>{{Form::text('Other location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
+                            @else
+                                <td>{{Form::text('Other category', "Input Other")}}</td>
+                            @endif
                         @endif
                         <td style="color:red;">{{ $errors->first('location') }}</td>
                     </tr>
