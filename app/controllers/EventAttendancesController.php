@@ -3,17 +3,18 @@ use Chumper\Datatable\Columns\FunctionColumn;
 class EventAttendancesController extends \BaseController {
 
 	protected $eventAttendance;
-	public function __construct (EventAttendance $eventAttendance){
+	public function __construct (EventAttendance $eventAttendance)
+	{
 		$this->eventAttendance=$eventAttendance;
 	}
 
 
 	protected static $projectsFields=['id','name', 'start_date', 'end_date', 'type', 'description'];
 	protected static $projectsColumns=['Select', 'Name', 'Start Date', 'End Date', 'Type', 'Description'];
-	protected static $usersFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	protected static $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
-	protected static $fieldsList=['uid', "first",'last', 'role','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	protected static $columnsList=['Delete', 'First', 'Last', 'Role', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	protected static $usersFields=["id","first",'last','email','address1', 'address2', 'city','state', 'country','zip','telephone', 'type','contact_preference'];
+	protected static $usersColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State', 'Country', 'Zip','Telephone', 'Type','Contact Preference'];
+	protected static $fieldsList=['uid', "first",'last', 'role','email','address1', 'address2', 'city','state', 'country', 'zip','telephone', 'type','contact_preference'];
+	protected static $columnsList=['Delete', 'First', 'Last', 'Role', 'E-mail','Address 1', 'Address 2', 'City','State', 'Country', 'Zip','Telephone', 'Type','Contact Preference'];
 	public static $usersFieldsList=['eid', 'role'];
 	public static $usersColumnNames=['Event','Role'];
 	public static $projectsFieldsList=['uid', 'role'];
@@ -39,17 +40,20 @@ class EventAttendancesController extends \BaseController {
 	public function manage($eid)
 	{
 		$project=Project::find($eid);
-		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
+		$query = User::whereHas('eventAttendance', function ($q) use ($eid)
+		{ 
 			$q->where('eid', $eid);
 		})->lists('id');
 		$mailtoURL=UsersController::generateMailTo($query);
-		if(count($query)>0){	
+		if(count($query)>0)
+		{	
 			$query2= User::whereNotIn('id', $query)->select(self::$usersFields)->get();
 		}else{
 			$query2= User::select(self::$usersFields)->get();
 		}
 		$nonAttendingUsers=$query2->count();
-		if($nonAttendingUsers>0){
+		if($nonAttendingUsers>0)
+		{
 			$usersTable = Datatable::table()
 			->addColumn(self::$usersColumns)
 			->setUrl(route('api.eventAttendances.usersList',$eid))
@@ -57,7 +61,8 @@ class EventAttendancesController extends \BaseController {
 		}else{
 			$usersTable="N/A";
 		}
-		if(EventAttendance::where('eid',$eid)->get()->count()>0){
+		if(EventAttendance::where('eid',$eid)->get()->count()>0)
+		{
 			$attendanceTable = Datatable::table()
 			->addColumn(self::$columnsList)
 			->setUrl(route('api.eventAttendances',$eid))
@@ -67,7 +72,8 @@ class EventAttendancesController extends \BaseController {
 		}
 		$r=EventAttendance::groupby('role')->lists('role');
 		$roles=['other'=>'Other'];
-		foreach($r as $role){
+		foreach($r as $role)
+		{
 			$roles[$role]=$role;
 		}
 
@@ -81,7 +87,8 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function managePortal()
 	{
-		if(Project::all()->count()>0){
+		if(Project::all()->count()>0)
+		{
 			$projectsTable = Datatable::table()
 			->addColumn(self::$projectsColumns)
 			->setUrl(route('api.eventAttendances.projectsList'))
@@ -103,17 +110,20 @@ class EventAttendancesController extends \BaseController {
 	public function store()
 	{	
 		$input=Input::all();
-		if($input['role']==='other'){
+		if($input['role']==='other')
+		{
 			$input['role']=$input['other'];
 		}
 		
-		if(isset($input['uid'])){
+		if(isset($input['uid']))
+		{
 			$uids=$input['uid'];
 			foreach ($uids as $uid) {
 				$input['uid']=$uid;
 				$nea=new EventAttendance;
 				$nea->fill($input);
-				if(!$nea->isValid()){
+				if(!$nea->isValid())
+				{
 					return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
 				}
 				$nea->save();
@@ -121,16 +131,19 @@ class EventAttendancesController extends \BaseController {
 		}
 		if($input['email']==='') {
 			$user=User::where("email",$input['email'])->first();
-			if (isset($user)){
+			if (isset($user))
+			{
 				$input['uid']=$user->id;
 			}else{
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
-				if($newuser->fill($newuserdata)->isValid('temporary')){
+				if($newuser->fill($newuserdata)->isValid('temporary'))
+				{
 					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
-					if(!$this->eventAttendance->fill($input)->isValid()){
+					if(!$this->eventAttendance->fill($input)->isValid())
+					{
 						return Redirect::back()->withInput()->withErrors($this->eventAttendance->errors);
 					}
 					$this->eventAttendance->fill($input)->save();
@@ -147,7 +160,8 @@ class EventAttendancesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		if(Auth::eventAttendance()->type !='admin' and Auth::eventAttendance()->id ==$id){
+		if(Auth::eventAttendance()->type !='admin' and Auth::eventAttendance()->id ==$id)
+		{
 			return Redirect::to('/');
 		}
 		$eventAttendance=EventAttendance::with('eventAttendance.project')->find($id);
@@ -179,7 +193,8 @@ class EventAttendancesController extends \BaseController {
 		$eventAttendance = EventAttendance::with('eventAttendance.project')->find($id);
 
 		$eventAttendance->fill(Input::all());
-		if(!$eventAttendance->isValid()){
+		if(!$eventAttendance->isValid())
+		{
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
 		$eventAttendance->save();
@@ -204,71 +219,88 @@ class EventAttendancesController extends \BaseController {
 	}
 
 
-	public function getDatatable($eid){
-		if($eid<0){
+	public function getDatatable($eid)
+	{
+		if($eid<0)
+		{
 			return null;
 		}
 
 		foreach (self::$usersFields as $field) {
-			$columns[$field]=new FunctionColumn($field, function($model) use($field){
-			return $model->user->$field;
+			$columns[$field]=new FunctionColumn($field, function($model) use($field)
+			{
+				return $model->user->$field;
 			}); 
 		}
-		$query= EventAttendance::with(['user'=>function($q){ $q->addSelect(self::$usersFields);}])->where('eid',$eid)->get();
+		$query= EventAttendance::with(['user'=>function($q)
+			{ $q->addSelect(self::$usersFields);}])->where('eid',$eid)->get();
 		$table= Datatable::collection($query)
 		->showColumns(self::$fieldsList);
 		foreach ($columns as $column) {
 			$table->addColumn($column);
 		}
-		return $table->addColumn('uid', function($model){
+		return $table->addColumn('uid', function($model)
+		{
 			return Form::checkbox('uid[]', $model->uid);
 		})->make();
 	}
-	public function getAttendanceDatatable($eid){
-		if($eid<0){
+	public function getAttendanceDatatable($eid)
+	{
+		if($eid<0)
+		{
 			return null;
 		}
-		$query = User::whereHas('eventAttendance', function ($q) use ($eid){ 
+		$query = User::whereHas('eventAttendance', function ($q) use ($eid)
+		{ 
 			$q->where('eid', $eid);
 		})->lists('id');		
-		if(count($query)>0){		
+		if(count($query)>0)
+		{		
 			$query2= User::whereNotIn('id', $query)->select(self::$usersFields)->get();
 		}else{
 			$query2= User::select(self::$usersFields)->get();
 		}
-		if($query2->count()>0){
+		if($query2->count()>0)
+		{
 			return Datatable::collection($query2)
 			->showColumns(self::$usersFields)
-			->addColumn('id', function($model){
+			->addColumn('id', function($model)
+			{
 				return Form::checkbox('uid[]', $model->id);
 			})
 			->make();
 		}
 		else return "No other users";
 	}
-	public function getProjectsDatatable(){
+	public function getProjectsDatatable()
+	{
 		$query = Project::select(self::$projectsFields)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$projectsFields)
-		->addColumn('id', function($model){
+		->addColumn('id', function($model)
+		{
 			return link_to_route('eventAttendances.manage',"Select",$model->id);
 		})
 		->make();
 	}
-	public function getUserDatatable($uid){
+	public function getUserDatatable($uid)
+	{
 		$query = EventAttendance::where('uid',$uid)->select(self::$usersFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$usersFieldsList)
-		->addColumn('eid', function($model){
+		->addColumn('eid', function($model)
+		{
 			return link_to('projects/'.$model->project->id,$model->project->name);
 		})
 		->make();
 	}
-	public function getProjectDatatable($eid){
+	public function getProjectDatatable($eid)
+	{
 		$query = EventAttendance::with('user')->where('eid',$eid)->select(self::$projectsFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$projectsFieldsList)
-		->addColumn('uid', function($model){
+		->addColumn('uid', function($model)
+		{
 			return link_to_route('users.show',$model->user->first." ".$model->user->last,$model->user->id);
 		})
 		->make();

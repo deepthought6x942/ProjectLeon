@@ -100,7 +100,22 @@ Projects
       <div id="collapseThree" class="panel-collapse collapse">
         <div class="panel-body">
           <div class="table-responsive">
-            {{$mdtable->setOptions(['pageLength'=> 5, "dom"=>'C<"clear">lfrtip'])->render()}}
+            {{$mdtable->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
+                          'tableTools' => array(
+                                    "sRowSelect" =>"multi",
+                                    "sSwfPath" => asset("/swf/copy_csv_xls.swf"),
+                                    "aButtons" => [[
+                                        "sExtends"=> "csv",
+                                        "sButtonText"=>"Export All Columns",
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6]
+                                    ],
+                                    [
+                                        "sExtends"=>"csv",
+                                        "sButtonText"=>"Export Visible columns",
+                                        "mColumns"=> "visible"
+                                    ],
+                                    "select_all", "select_none"]
+                      )])->render()}}
           </div>
           <!-- /.table-responsive -->
         </div>

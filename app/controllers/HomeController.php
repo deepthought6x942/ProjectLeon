@@ -3,7 +3,8 @@
 	class HomeController extends BaseController {
 
 		protected $user;
-		public function __construct (User $user){
+		public function __construct (User $user)
+		{
 			$this->user=$user;
 		}
 
@@ -82,10 +83,12 @@
 				return Redirect::to('login'); // redirect the user to the login screen
 			}
 
-			public function doReminder(){
+			public function doReminder()
+			{
 				return View::make('reminder');
 			}
-			public function doRegister(){
+			public function doRegister()
+			{
 				return View::make('register');
 			}
 

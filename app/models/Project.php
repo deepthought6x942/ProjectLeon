@@ -16,26 +16,30 @@ class Project extends Eloquent{
 	 *
 	 * @var array
 	 */
-  public function eventAttendance(){
+  public function eventAttendance()
+  {
     return $this->hasMany('EventAttendance', 'eid');
   }
-  public function monetaryDonations(){
+  public function monetaryDonations()
+  {
     return $this->hasMany('MonetaryDonation', 'eid');
   }
   public static $rules = [
-    'name'=> 'required',
-    'start_date'=> 'required|date',
-    'end_date' => 'after:start_date'
+  'name'=> 'required',
+  'start_date'=> 'required|date',
+  'end_date' => 'after:start_date'
   ];
   public $messages;
   public $errors;
-  public function isValid(){
+  public function isValid()
+  {
     $validation=Validator::make($this->attributes, static::$rules);
-    if ($validation->passes()){
+    if ($validation->passes())
+    {
      return true;
     }
-     $this->errors =$validation->messages ();
-     return false;
+    $this->errors =$validation->messages ();
+    return false;
   }
 }
 ?>

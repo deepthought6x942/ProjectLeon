@@ -5,7 +5,7 @@
     @if($eid>=0)
       @if($attendanceTable!=="N/A")
         <div class="table-responsive">
-        <h2> Current Attendees of {{$project->name}}</h2>
+        <h2> Current Attendees of {{$project->name}}</h2><h4><a href={{$mailtoURL}}>Mail To Attendees </a> </h4>
         {{ Form::open(['route'=>'eventAttendances.destroy', 'method'=>'DELETE']) }}
         {{$attendanceTable->setOptions(['pageLength'=> 5, "dom"=>'TC<"clear">lfrtip', 
                                   'tableTools' => array(
@@ -13,7 +13,7 @@
                                     "aButtons" => [[
                                         "sExtends"=> "csv",
                                         "sButtonText"=>"Export All Columns",
-                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                                        "mColumns"=>[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
                                     ],
                                     [
                                         "sExtends"=>"csv",
@@ -25,7 +25,7 @@
       {{Form::hidden('eid',$eid)}}
       {{Form::submit('Delete Selected Attendance')}}
       {{Form::close ()}}
-      <p> <a href={{$mailtoURL}}>Mail To Attendees </a> </p>
+      
       @else
         <h1>There are currently no attendees of {{$project->name}}</h1>
         <p> You can Select one below </p>
@@ -68,7 +68,7 @@
       {{ Form::label('other', 'Role if other selected')}}
       {{ Form::text('other')}}
       {{ $errors->first('other') }}
-      {{Form::submit('Submit')}}
+      <br>{{Form::submit('Add Attendees')}}
     </div>
       {{Form::close ()}}
       <br>

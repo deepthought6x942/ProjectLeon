@@ -3,7 +3,8 @@
 class MonetaryDonationsController extends \BaseController {
 
 	protected $monetaryDonation;
-	public function __construct (MonetaryDonation $monetaryDonation){
+	public function __construct (MonetaryDonation $monetaryDonation)
+	{
 		$this->monetaryDonation=$monetaryDonation;
 	}
 	protected static $fieldsList= ['id', 'uid', 'eid', 'date', 'amount', 'check_number', 'notes'];
@@ -42,18 +43,20 @@ class MonetaryDonationsController extends \BaseController {
 		$p=Project::all();
 		$projects=[];
 		$users=User::all();
-		foreach($p as $project){
+		foreach($p as $project)
+		{
 			$projects[$project->id]=$project->name.", ".$project->start_date;
 		}
-		if(Project::all()->count()>0){
+		if(Project::all()->count()>0)
+		{
 			$projectsTable = Datatable::table()
-						->addColumn(self::$projectsColumns)
-						->setUrl(route('api.projects.radio'))
-						->noScript();
+			->addColumn(self::$projectsColumns)
+			->setUrl(route('api.projects.radio'))
+			->noScript();
 			$usersTable = Datatable::table()
-						->addColumn(self::$usersColumns)
-						->setUrl(route('api.users.radio'))
-						->noScript();
+			->addColumn(self::$usersColumns)
+			->setUrl(route('api.users.radio'))
+			->noScript();
 		}else{
 			$projectsTable=$usersTable="N/A";
 		}
@@ -70,12 +73,14 @@ class MonetaryDonationsController extends \BaseController {
 		$input=Input::all();
 		if (!isset($input['uid']) && isset($input['email'])) {
 			$user=User::where("email",$input['email'])->first();
-			if (isset($user)){
+			if (isset($user))
+			{
 				$input['uid']=$user->id;
 			}else{
 				$newuserdata=['email'=>$input['email'], 'first'=>$input['first'], 'last'=>$input['last']];
 				$newuser=new User;
-				if($newuser->fill($newuserdata)->isValid('temporary')){
+				if($newuser->fill($newuserdata)->isValid('temporary'))
+				{
 					$newuser->fill($newuserdata)->save();
 					$user=User::where("email",$input['email'])->first();
 					$input['uid']=$user->id;
@@ -84,7 +89,8 @@ class MonetaryDonationsController extends \BaseController {
 				}
 			}
 		}
-		if(!$this->monetaryDonation->fill($input)->isValid()){
+		if(!$this->monetaryDonation->fill($input)->isValid())
+		{
 			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 		}
 		$this->monetaryDonation->save();
@@ -100,7 +106,8 @@ class MonetaryDonationsController extends \BaseController {
 	{
 		$p=Project::all();
 		$projects=[];
-		foreach($p as $project){
+		foreach($p as $project)
+		{
 			$projects[$project->id]=$project->name.", ".$project->start_date;
 		}
 		$donation=MonetaryDonation::with('user','project')->find($id);
@@ -130,7 +137,8 @@ class MonetaryDonationsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-		if(! $this->monetaryDonation->fill($input)->isValid()){
+		if(! $this->monetaryDonation->fill($input)->isValid())
+		{
 			return Redirect::back()->withInput()->withErrors($this->monetaryDonation->errors);
 		}
 
@@ -153,46 +161,56 @@ class MonetaryDonationsController extends \BaseController {
 		$monetaryDonation->delete();
 		return Redirect::route('monetaryDonations.index');
 	}
-	public function getDatatable(){
+	public function getDatatable()
+	{
 		
 		$query = monetaryDonation::with('user','project')->select(self::$fieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$fieldsList)
-		->addColumn('id', function($model){
+		->addColumn('id', function($model)
+		{
 			return link_to('monetaryDonations/'.$model->id,'View/Edit');
 		})
-		->addColumn('uid', function($model){
+		->addColumn('uid', function($model)
+		{
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
 		})
-		->addColumn('eid', function($model){
+		->addColumn('eid', function($model)
+		{
 			return link_to('projects/'.$model->eid,$model->project->name);
 		})
 
 		->make();
 	}
-	public function getUserDatatable($uid){
+	public function getUserDatatable($uid)
+	{
 		
 		$query = monetaryDonation::with('user','project')->where('uid',$uid)->select(self::$usersFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$usersFieldsList)
-		->addColumn('id', function($model){
+		->addColumn('id', function($model)
+		{
 			return link_to('monetaryDonations/'.$model->id,'View/Edit');
 		})
-		->addColumn('eid', function($model){
+		->addColumn('eid', function($model)
+		{
 			return link_to('projects/'.$model->eid,$model->project->name);
 		})
 
 		->make();
 	}
-	public function getProjectDatatable($eid){
+	public function getProjectDatatable($eid)
+	{
 		
 		$query = monetaryDonation::with('user','project')->where('eid',$eid)->select(self::$projectsFieldsList)->get();
 		return Datatable::collection($query)
 		->showColumns(self::$projectsFieldsList)
-		->addColumn('id', function($model){
+		->addColumn('id', function($model)
+		{
 			return link_to('monetaryDonations/'.$model->id,'View/Edit');
 		})
-		->addColumn('uid', function($model){
+		->addColumn('uid', function($model)
+		{
 			return link_to('users/'.$model->uid, $model->user->first." ".$model->user->last);
 		})
 		->make();

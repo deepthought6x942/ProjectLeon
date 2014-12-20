@@ -16,29 +16,32 @@ class AuctionDonation extends Eloquent{
 	 *
 	 * @var array
 	 */
-  public function user(){
+  public function user()
+  {
     return $this->belongsTo('User', 'uid');
   }
   public static $rules = [
-    'uid'=> 'required',
-    'title'=>'required',
-    'year'=>'required|digits:4',
-    'category'=>'required',
-    'description' =>'required',
-    'quantity'=>'required|integer|min:0',
-    'approximate_value'=>"numeric|min:0",
-    'sold_for'=>"numeric|min:0",
+  'uid'=> 'required',
+  'title'=>'required',
+  'year'=>'required|digits:4',
+  'category'=>'required',
+  'description' =>'required',
+  'quantity'=>'required|integer|min:0',
+  'approximate_value'=>"numeric|min:0",
+  'sold_for'=>"numeric|min:0",
 
   ];
   public $messages;
   public $errors;
-  public function isValid(){
+  public function isValid()
+  {
     $validation=Validator::make($this->attributes, static::$rules);
-    if ($validation->passes()){
+    if ($validation->passes())
+    {
       return true;
     }
-     $this->errors =$validation->messages ();
-     return false;
+    $this->errors =$validation->messages ();
+    return false;
   }
 }
 ?>

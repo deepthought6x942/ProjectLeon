@@ -3,11 +3,12 @@
 class UsersController extends \BaseController {
 
 	protected $user;
-	public function __construct (User $user){
+	public function __construct (User $user)
+	{
 		$this->user=$user;
 	}
-	public static $allFields=["id","first",'last','email','address1', 'address2', 'city','state','zip','telephone', 'type','contact_preference'];
-	public static $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State','Zip','Telephone', 'Type','Contact Preference'];
+	public static $allFields=["id","first",'last','email','address1', 'address2', 'city','state', 'country', 'zip','telephone', 'type','contact_preference'];
+	public static $allColumns=["Select",'First', 'Last', 'E-mail','Address 1', 'Address 2', 'City','State', 'Country', 'Zip','Telephone', 'Type','Contact Preference'];
 	protected static $reducedFields=["id","first",'last','email','telephone', 'type','contact_preference'];
 	protected static $reducedColumns=["Select",'First', 'Last', 'E-mail','Telephone', 'Type','Contact Preference'];
 	/**
@@ -17,11 +18,12 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(User::all()->count()>0){
+		if(User::all()->count()>0)
+		{
 			$table = Datatable::table()
-				->addColumn(self::$allColumns)
-				->setUrl(route('api.users'))
-				->noScript();
+			->addColumn(self::$allColumns)
+			->setUrl(route('api.users'))
+			->noScript();
 		}else{
 			$table="N/A";
 		}
@@ -29,7 +31,8 @@ class UsersController extends \BaseController {
 		return View::make('users/index', ['users'=>$users, 'table'=>$table]);
 	}
 
-	public static function generateMailTo($ids){
+	public static function generateMailTo($ids)
+	{
 		$emails=[];
 		foreach ($ids as $i) {
 			array_push($emails,User::where('id',$i)->where('contact_preference','E-mail')->select('email')->first());
@@ -57,7 +60,8 @@ class UsersController extends \BaseController {
 
 		$input=Input::all();
 
-		if(! $this->user->fill($input)->isValid('insert')){
+		if(! $this->user->fill($input)->isValid('insert'))
+		{
 
 
 			return Redirect::back()->withInput()->withErrors($this->user->errors);
@@ -76,7 +80,7 @@ class UsersController extends \BaseController {
 		$userdata = array(
 			'email' 	=> Input::get('email'),
 			'password' 	=> Input::get('password')
-		
+
 			);
 
 	// attempt to do the login
@@ -107,45 +111,51 @@ class UsersController extends \BaseController {
 	public function show($id)
 	{
 		$authType=Auth::user()->type;
-		if($authType === 'member' and Auth::user()->id != $id){
+		if($authType === 'member' and Auth::user()->id != $id)
+		{
 			return Redirect::to('/');
 		}
 		$user=User::with('eventAttendance.project')->find($id);
-		if($authType!=='member'){
-			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
+		if($authType!=='member')
+		{
+			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1)
+			{
 				$adtable="N/A";
 			}else{
 				$adtable = Datatable::table()
-					->addColumn(AuctionDonationsController::$userColumnNames)
-					->setUrl(route('api.auctionDonations.userTable',$id))
-					->noScript();
+				->addColumn(AuctionDonationsController::$userColumnNames)
+				->setUrl(route('api.auctionDonations.userTable',$id))
+				->noScript();
 			}
-			if(EventAttendance::with('user')->where('uid',$id)->get()->count()<1){
+			if(EventAttendance::with('user')->where('uid',$id)->get()->count()<1)
+			{
 				$eatable="N/A";
 			}else{
 				$eatable = Datatable::table()
-					->addColumn(EventAttendancesController::$usersColumnNames)
-					->setUrl(route('api.eventAttendances.userTable',$id))
-					->noScript();
+				->addColumn(EventAttendancesController::$usersColumnNames)
+				->setUrl(route('api.eventAttendances.userTable',$id))
+				->noScript();
 			}
-			if(MonetaryDonation::with('user')->where('uid',$id)->get()->count()<1){
+			if(MonetaryDonation::with('user')->where('uid',$id)->get()->count()<1)
+			{
 				$mdtable="N/A";
 			}else{
 				$mdtable = Datatable::table()
-					->addColumn(MonetaryDonationsController::$usersColumnNames)
-					->setUrl(route('api.monetaryDonations.userTable',$id))
-					->noScript();
+				->addColumn(MonetaryDonationsController::$usersColumnNames)
+				->setUrl(route('api.monetaryDonations.userTable',$id))
+				->noScript();
 			}
 
 
 		}else{
-			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1){
+			if(AuctionDonation::with('user')->where('uid',$id)->get()->count()<1)
+			{
 				$adtable="N/A";
 			}else{
 				$adtable = Datatable::table()
-					->addColumn(AuctionDonationsController::$memberColumnNames)
-					->setUrl(route('api.auctionDonations.memberTable',$id))
-					->noScript();
+				->addColumn(AuctionDonationsController::$memberColumnNames)
+				->setUrl(route('api.auctionDonations.memberTable',$id))
+				->noScript();
 			}
 			$eatable="N/A";
 			$mdtable="N/A";
@@ -179,13 +189,16 @@ class UsersController extends \BaseController {
 		$user = User::with('eventAttendance.project')->find($id);
 		$input=Input::all();
 		$newInput=[];
-		foreach(self::$allFields as $field){
-			if(isset($input[$field])){
+		foreach(self::$allFields as $field)
+		{
+			if(isset($input[$field]))
+			{
 				$newInput[$field]=$input[$field];
 			}
 		}
 		$user->fill($newInput);
-		if(!$user->isValid('update')){
+		if(!$user->isValid('update'))
+		{
 			return Redirect::back()->withInput()->withErrors($user->errors);
 		}
 		$user->save();
@@ -207,28 +220,32 @@ class UsersController extends \BaseController {
 		$user->delete();
 		return Redirect::route('users.index');
 	}
-	public function getDatatable(){
+	public function getDatatable()
+	{
 		
 		$query = User::select(self::$allFields)->get();
 		return Datatable::collection($query)
-			->showColumns(self::$allFields)
-			->addColumn('id', function($model){
-				return link_to('users/'.$model->id,'View/Edit');
-			})
-			
-			
-			->make();
+		->showColumns(self::$allFields)
+		->addColumn('id', function($model)
+		{
+			return link_to('users/'.$model->id,'View/Edit');
+		})
+
+
+		->make();
 	}
-	public function getRadioDatatable(){
+	public function getRadioDatatable()
+	{
 		
 		$query = User::select(self::$allFields)->get();
 
 		return Datatable::collection($query)
-			->showColumns(self::$allFields)
-			->addColumn('id', function($model){
-				return Form::radio('uid', $model->id);
-			})
-			->make();
+		->showColumns(self::$allFields)
+		->addColumn('id', function($model)
+		{
+			return Form::radio('uid', $model->id);
+		})
+		->make();
 	}
 
 }

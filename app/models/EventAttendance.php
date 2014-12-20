@@ -11,10 +11,12 @@ class EventAttendance extends Eloquent{
 	 */
 	protected $table = 'event_attendance';
 
-  public function project(){
+  public function project()
+  {
     return $this->belongsTo('Project', 'eid');
   }
-  public function user(){
+  public function user()
+  {
     return $this->belongsTo('User','uid');
   }
 	/**
@@ -24,18 +26,20 @@ class EventAttendance extends Eloquent{
 	 */
 
   public static $rules = [
-    'uid'=> 'required',
-    'eid'=> 'required',
+  'uid'=> 'required',
+  'eid'=> 'required',
   ];
   public $messages;
   public $errors;
-  public function isValid(){
+  public function isValid()
+  {
     $validation=Validator::make($this->attributes, static::$rules);
-    if ($validation->passes()){
+    if ($validation->passes())
+    {
      return true;
-    }
-     $this->errors =$validation->messages ();
-     return false;
-  }
+   }
+   $this->errors =$validation->messages ();
+   return false;
+ }
 }
 ?>

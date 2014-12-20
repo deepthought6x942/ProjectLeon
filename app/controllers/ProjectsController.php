@@ -3,7 +3,8 @@
 class ProjectsController extends \BaseController {
 
 	protected $project;
-	public function __construct (Project $project){
+	public function __construct (Project $project)
+	{
 		$this->project=$project;
 	}
 	protected $fieldsList=['id','name', 'start_date', 'end_date', 'type', 'description'];
@@ -17,9 +18,9 @@ class ProjectsController extends \BaseController {
 	public function index()
 	{
 		$table = Datatable::table()
-			->addColumn($this->columnNames)
-			->setUrl(route('api.projects'))
-			->noScript();
+		->addColumn($this->columnNames)
+		->setUrl(route('api.projects'))
+		->noScript();
 		return View::make('projects/index', ['table'=>$table]);
 	}
 
@@ -33,7 +34,8 @@ class ProjectsController extends \BaseController {
 	{
 		$t=Project::groupby('type')->lists('type');
 		
-		foreach($t as $type){
+		foreach($t as $type)
+		{
 			$types[$type]=$type;
 		}
 		$types['Other']='Other';
@@ -49,13 +51,16 @@ class ProjectsController extends \BaseController {
 	public function store()
 	{
 		$input=Input::all();
-		if($input['type']==='Other'){
+		if($input['type']==='Other')
+		{
 			$input['type']=$input['Other'];
 		}
-		if(!isset($input['end_date'])){
+		if(!isset($input['end_date']))
+		{
 			$input['end_date']=$input['start_date'];
 		}
-		if(! $this->project->fill($input)->isValid()){
+		if(! $this->project->fill($input)->isValid())
+		{
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
 		$this->project->save();
@@ -71,25 +76,28 @@ class ProjectsController extends \BaseController {
 	{
 		$t=Project::groupby('type')->lists('type');
 		$types=['Other'=>'Other'];
-		foreach($t as $type){
+		foreach($t as $type)
+		{
 			$types[$type]=$type;
 		}
-		if(EventAttendance::with('project')->where('eid',$id)->get()->count()<1){
-				$eatable="N/A";
-			}else{
-				$eatable = Datatable::table()
-					->addColumn(EventAttendancesController::$projectsColumnNames)
-					->setUrl(route('api.eventAttendances.projectTable',$id))
-					->noScript();
-			}
-			if(MonetaryDonation::with('project')->where('eid',$id)->get()->count()<1){
-				$mdtable="N/A";
-			}else{
-				$mdtable = Datatable::table()
-					->addColumn(MonetaryDonationsController::$projectsColumnNames)
-					->setUrl(route('api.monetaryDonations.projectTable',$id))
-					->noScript();
-			}
+		if(EventAttendance::with('project')->where('eid',$id)->get()->count()<1)
+		{
+			$eatable="N/A";
+		}else{
+			$eatable = Datatable::table()
+			->addColumn(EventAttendancesController::$projectsColumnNames)
+			->setUrl(route('api.eventAttendances.projectTable',$id))
+			->noScript();
+		}
+		if(MonetaryDonation::with('project')->where('eid',$id)->get()->count()<1)
+		{
+			$mdtable="N/A";
+		}else{
+			$mdtable = Datatable::table()
+			->addColumn(MonetaryDonationsController::$projectsColumnNames)
+			->setUrl(route('api.monetaryDonations.projectTable',$id))
+			->noScript();
+		}
 		$project=Project::with('eventAttendance.user')->find($id);
 		return View::make('projects/show', ['project'=>$project, 'types'=>$types, 'eatable'=>$eatable, 'mdtable'=>$mdtable]);
 	}
@@ -117,10 +125,12 @@ class ProjectsController extends \BaseController {
 	public function update($id)
 	{
 		$input=Input::all();
-		if($input['type']==='Other'){
+		if($input['type']==='Other')
+		{
 			$input['type']=$input['Other'];
 		}
-		if(! $this->project->fill($input)->isValid()){
+		if(! $this->project->fill($input)->isValid())
+		{
 			return Redirect::back()->withInput()->withErrors($this->project->errors);
 		}
 		$project =$this->project->find($id)->fill($input);
@@ -141,26 +151,30 @@ class ProjectsController extends \BaseController {
 		$project->delete();
 		return Redirect::route('projects.index');
 	}
-	public function getDatatable(){
+	public function getDatatable()
+	{
 		
 		$query = Project::select($this->fieldsList)->get();
 
 		return Datatable::collection($query)
-			->showColumns($this->fieldsList)
-			->addColumn('id', function($model){
-				return link_to('projects/'.$model->id,'View/Edit');
-			})
-			->make();
+		->showColumns($this->fieldsList)
+		->addColumn('id', function($model)
+		{
+			return link_to('projects/'.$model->id,'View/Edit');
+		})
+		->make();
 	}
-	public function getRadioDatatable(){
+	public function getRadioDatatable()
+	{
 		
 		$query = Project::select($this->fieldsList)->get();
 
 		return Datatable::collection($query)
-			->showColumns($this->fieldsList)
-			->addColumn('id', function($model){
-				return Form::radio('eid', $model->id);
-			})
-			->make();
+		->showColumns($this->fieldsList)
+		->addColumn('id', function($model)
+		{
+			return Form::radio('eid', $model->id);
+		})
+		->make();
 	}
 }
