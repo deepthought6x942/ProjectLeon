@@ -13,7 +13,6 @@
         Update Succesful
     @endif
     @if($table!=="N/A")
-
         <h2> Donations </h2>
         <div class="table-responsive">
             {{ Form::open(['route'=>'auctionDonations.updateBatch']) }}

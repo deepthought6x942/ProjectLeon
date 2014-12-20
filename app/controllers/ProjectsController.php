@@ -17,10 +17,17 @@ class ProjectsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$table = Datatable::table()
-		->addColumn($this->columnNames)
-		->setUrl(route('api.projects'))
-		->noScript();
+		if(Project::all()->count()>0)
+		{
+			$table = Datatable::table()
+			->addColumn($this->columnNames)
+			->setUrl(route('api.projects'))
+			->noScript();
+		}
+		else
+		{
+			$table="N/A";
+		}
 		return View::make('projects/index', ['table'=>$table]);
 	}
 

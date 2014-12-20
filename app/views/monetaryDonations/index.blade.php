@@ -2,6 +2,7 @@
 @section('header')Monetary Donations
 @stop
 @section('table')
+@if($table!=="N/A")
   {{$table->setOptions(['pageLength'=> 50, "dom"=>'TC<"clear">lfrtip', 
                           'tableTools' => array(
                                     "sRowSelect" =>"multi",
@@ -18,7 +19,7 @@
                                     ],
                                     "select_all", "select_none"]
                       )])->render()}}
-
+@endif
 @stop
 @section('noneFound')
     <h1>There are no Monetary Donations</h1>

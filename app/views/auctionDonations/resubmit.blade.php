@@ -8,40 +8,44 @@
                 <table class="table">
                     {{Form::model($donation, ['route' => array('auctionDonations.store')])}}
                     <tr>
-                        <td>{{ Form::label('title', 'Donation Title: ')}}</td>
+                        <td>{{ Form::label('title', 'Donation Title ')}} (<span>*</span>):</td>
                         <td>{{ Form::text('title')}}</td>
-                        <td>{{ $errors->first('title') }}</td>
+                        <td style="color:red;">{{ $errors->first('title') }}</td>
                     </tr>
                     <tr>
-                        <td>{{ Form::label('category', 'Category: ')}}</td>
+                        <td>{{ Form::label('category', 'Category')}} (<span>*</span>):</td>
                         <td>{{ Form::select('category', $categories)}}</td>
-                        @if(Auth::user()->type!=='member')
+                        @if(Auth::user()->type!=='member' && count($categories) > 1)
+                            <td>{{Form::text('Other category', "Input Other", array('id' => 'Other1', 'disabled'))}}</td>
+                        @else
                             <td>{{Form::text('Other category', "Input Other")}}</td>
                         @endif
-                        <td>{{ $errors->first('category') }}</td>
+                        <td style="color:red;">{{ $errors->first('category') }}</td>
                     </tr>
                     <tr>
                         <td>{{ Form::label('quantity', 'Quantity: ')}}</td>
                         <td>{{ Form::text('quantity', '1')}}</td>
-                        <td>{{ $errors->first('quantity') }}</td>
+                        <td style="color:red;">{{ $errors->first('quantity') }}</td>
                     </tr>
                     <tr>
                         <td>{{ Form::label('description', 'Description: ')}}</td>
                         <td>{{ Form::textarea('description')}}</td>
-                        <td>{{ $errors->first('description') }}</td>
+                        <td style="color:red;">{{ $errors->first('description') }}</td>
                     </tr>
                     <tr>
                         <td>{{ Form::label('approximate_value', 'Approximate Value: $')}}</td>
                         <td>{{ Form::text('approximate_value')}}</td>
-                        <td>{{ $errors->first('approximate_value') }}</td>
+                        <td style="color:red;">{{ $errors->first('approximate_value') }}</td>
                     </tr>
                     <tr>
-                        <td>{{ Form::label('location', 'Location: ')}}</td>
+                        <td>{{ Form::label('location', 'Location')}}(<span>*</span>):</td>
                         <td>{{ Form::select('location', $locations)}}</td>
-                        @if(Auth::user()->type!=='member')
-                            <td>{{Form::text('Other location', "Input Other")}}</td>
+                        @if(Auth::user()->type!=='member' && count($locations) > 1)
+                            <td>{{Form::text('Other location', "Input Other", array('id' => 'Other2', 'disabled'))}}</td>
+                        @else
+                            <td>{{Form::text('Other category', "Input Other")}}</td>
                         @endif
-                        <td>{{ $errors->first('location') }}</td>
+                        <td style="color:red;">{{ $errors->first('location') }}</td>
                     </tr>
                     {{Form::hidden('uid', Auth::user()->id)}}
                     {{Form::hidden('status', 'Not Delivered')}}
@@ -66,4 +70,30 @@
     @if($table!=="N/A")
         {{str_replace("\\/","/",$table->script())}}
     @endif
+    <script type=text/javascript>
+        jQuery(document).ready(function ($) {
+            $('#location').change(function () {
+                if ($(this).val() == 'Other') {
+                    document.getElementById('Other2').disabled = false;
+                } else {
+                    document.getElementById('Other2').disabled = true;
+                }
+
+            });
+        });
+    </script>
+
+    <script type=text/javascript>
+        jQuery(document).ready(function ($) {
+            $('#category').change(function () {
+                if ($(this).val() == 'Other') {
+                    document.getElementById('Other1').disabled = false;
+                } else {
+                    document.getElementById('Other1').disabled = true;
+                }
+
+            });
+        });
+    </script>
+
 @stop

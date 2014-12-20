@@ -25,10 +25,17 @@ class MonetaryDonationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$table = Datatable::table()
-		->addColumn(self::$columnNames)
-		->setUrl(route('api.monetaryDonations'))
-		->noScript();
+		if(MonetaryDonation::all()->count()>0)
+		{
+			$table = Datatable::table()
+			->addColumn(self::$columnNames)
+			->setUrl(route('api.monetaryDonations'))
+			->noScript();
+		}
+		else
+		{
+			$table="N/A";
+		}
 		return View::make('monetaryDonations/index', ['table'=>$table]);
 	}
 

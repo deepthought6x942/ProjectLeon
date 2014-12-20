@@ -22,7 +22,7 @@
         </div>
     @else
         <h1>There are no Projects or Events</h1>
-        <p> You can create one here: {{link_to_route('projects.create')}} </p>
+        <p> You can create one  {{link_to_route('projects.create','here')}} </p>
     @endif
 @endsection
 

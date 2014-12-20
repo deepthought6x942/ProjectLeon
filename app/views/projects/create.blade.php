@@ -22,7 +22,7 @@
                         <td style="color:red;">{{$errors->first('start_date') }}</td>
                     </tr>
                     <tr>
-                        <td>{{ Form::label('end_date', 'End Date: ')}} (<span class="form">*</span>)</td>
+                        <td>{{ Form::label('end_date', 'End Date: ')}}</td>
                         <td>{{ Form::text('end_date', null, array('id' => 'datepicker2'))}}</td>
                         <td style="color:red;">{{ $errors->first('end_date') }}</td>
                     </tr>
